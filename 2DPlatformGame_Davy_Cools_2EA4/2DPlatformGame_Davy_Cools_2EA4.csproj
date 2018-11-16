@@ -41,7 +41,18 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Animations\Animation.cs" />
+    <Compile Include="Animations\AnimationFrame.cs" />
+    <Compile Include="Camera2d.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Hero.cs" />
+    <Compile Include="Animations\HeroAttackAnimation.cs" />
+    <Compile Include="Animations\HeroDieAnimation.cs" />
+    <Compile Include="Animations\HeroIdleAnimation.cs" />
+    <Compile Include="Animations\HeroJumpAnimation.cs" />
+    <Compile Include="Animations\HeroRunAnimation.cs" />
+    <Compile Include="Movement\Movement.cs" />
+    <Compile Include="Movement\MovementArrowKeys.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -11,6 +11,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Hero hero;
+        Camera2d camera;
+
+        public static int ScreenHeight;
+        public static int ScreenWidth;
 
         public Game1()
         {
@@ -27,7 +32,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            ScreenHeight = graphics.PreferredBackBufferHeight;
+            ScreenWidth = graphics.PreferredBackBufferWidth;
+            hero = new Hero(Content);
             base.Initialize();
         }
 
@@ -38,8 +45,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+            hero = new Hero(Content);
+            hero._Movement = new MovementArrowKeys();
+            camera = new Camera2d();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -63,7 +73,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 Exit();
 
             // TODO: Add your update logic here
-
+            hero.Update(gameTime);
+            camera.Follow(hero);
             base.Update(gameTime);
         }
 
@@ -76,7 +87,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin(transformMatrix: camera.Transform);
+            hero.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
