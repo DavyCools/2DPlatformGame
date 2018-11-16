@@ -7,26 +7,25 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class Level
+    abstract class Level
     {
-        public Texture2D Texture;
-        public byte[,] Level1 = new byte[,]
+        public Level()
         {
-            { 0,0,0,0,0,0,0,0,0,0 },
-            { 0,0,0,0,0,0,0,0,0,0 },
-            { 0,0,0,0,0,0,0,0,0,0 },
-            { 0,0,0,0,0,0,0,0,0,0 },
-            { 1,0,1,0,1,0,0,0,0,1 },
-            { 0,1,0,1,0,1,1,1,1,1 },
-        };
-        public Block[,] BlockArray = new Block[6,10];
+            CreateLevelArray();
+            BlockArray = new Block[LevelArray.GetLength(0), LevelArray.GetLength(1)];
+            CreateWorld();
+        }
+        protected abstract void CreateLevelArray();
+        public Texture2D Texture;
+        public byte[,] LevelArray;
+        public Block[,] BlockArray;
         public void CreateWorld()
         {
             for (int x = 0; x < BlockArray.GetLength(0); x++)
             {
                 for (int y = 0; y < BlockArray.GetLength(1); y++)
                 {
-                    if (Level1[x, y] == 1)
+                    if (LevelArray[x, y] == 1)
                     {
                         BlockArray[x, y] = new Block(Texture, new Microsoft.Xna.Framework.Vector2(y * 128, x * 64));
                     }

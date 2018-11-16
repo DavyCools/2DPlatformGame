@@ -58,7 +58,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             spriteBatch = new SpriteBatch(GraphicsDevice);
             background = Content.Load<Texture2D>("IceWizard");
             blockTexture = Content.Load<Texture2D>("blok");
-            level1 = new Level();
+            level1 = new Level1();
             level1.Texture = blockTexture;
             level1.CreateWorld();
             // TODO: use this.Content to load your game content here

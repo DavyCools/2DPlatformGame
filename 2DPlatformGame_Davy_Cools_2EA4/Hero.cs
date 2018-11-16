@@ -26,7 +26,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Hero(ContentManager content)
         {
             texture = content.Load<Texture2D>("IceWizard");
-            position = new Vector2(100, 100);
+            position = new Vector2(50, 140);
             CollisionDetection = new Rectangle((int)position.X,(int)position.Y,300,220);
             Velocity = new Vector2(2, 0);
             heroAttackAnimation = new HeroAttackAnimation();
@@ -40,7 +40,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             Velocity = _Movement.Update(Velocity);
             position += Velocity;
-            if (position.Y >= 100)
+            if (position.Y >= 140)
             {
                 Velocity.Y = 0f;
             }
@@ -66,11 +66,17 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 animation = heroIdleAnimation;
             }
+            CollisionDetection.X = (int)position.X;
+            CollisionDetection.Y = (int)position.Y;
             animation.Update(gameTime);      
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.CurrentFrame.scale,flipAnimation?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f); 
+        }
+        public Rectangle GetCollisionRectangle()
+        {
+            return CollisionDetection;
         }
     }
 }
