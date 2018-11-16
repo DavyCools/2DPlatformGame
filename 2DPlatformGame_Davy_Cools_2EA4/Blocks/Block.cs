@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public class Block
+    public abstract class Block
     {
         private Texture2D texture;
         public Vector2 Position { get; set; }
