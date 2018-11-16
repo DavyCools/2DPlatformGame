@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class Hero
+    public class Hero : Collide
     {
         Texture2D texture;
         public Vector2 position;
-        public Rectangle CollisionDetection;
         Animation animation;
         Animation heroAttackAnimation;
         Animation heroRunAnimation;
@@ -27,7 +26,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             texture = content.Load<Texture2D>("IceWizard");
             position = new Vector2(50, 140);
-            CollisionDetection = new Rectangle((int)position.X,(int)position.Y,300,220);
+            CollisionRectangle = new Rectangle((int)position.X,(int)position.Y,300,220); 
             Velocity = new Vector2(2, 0);
             heroAttackAnimation = new HeroAttackAnimation();
             heroRunAnimation = new HeroRunAnimation();
@@ -36,6 +35,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             heroIdleAnimation = new HeroIdleAnimation();
             animation = heroIdleAnimation; 
         }
+
         public void Update(GameTime gameTime)
         {
             Velocity = _Movement.Update(Velocity);
@@ -66,17 +66,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 animation = heroIdleAnimation;
             }
-            CollisionDetection.X = (int)position.X;
-            CollisionDetection.Y = (int)position.Y;
+            CollisionRectangle.X = (int)position.X;
+            CollisionRectangle.Y = (int)position.Y;
             animation.Update(gameTime);      
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.CurrentFrame.scale,flipAnimation?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f); 
-        }
-        public Rectangle GetCollisionRectangle()
-        {
-            return CollisionDetection;
         }
     }
 }

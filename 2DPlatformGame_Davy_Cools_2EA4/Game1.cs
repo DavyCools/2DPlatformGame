@@ -22,6 +22,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         Texture2D blockTexture;
         Level level1;
 
+        CollitionChecker collider;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -55,6 +57,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             hero = new Hero(Content);
             hero._Movement = new MovementArrowKeys();
             camera = new Camera2d();
+            collider = new CollitionChecker();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             background = Content.Load<Texture2D>("IceWizard");
             blockTexture = Content.Load<Texture2D>("blok");
@@ -85,6 +88,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
             // TODO: Add your update logic here
             hero.Update(gameTime);
+            if (collider.CheckCollition(hero,hero))
+            {
+
+            }
             camera.Follow(hero);
             base.Update(gameTime);
         }
