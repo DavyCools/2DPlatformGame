@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\AbstractLevelFactory.cs" />
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationFrame.cs" />
     <Compile Include="Blocks\Block.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Animations\HeroIdleAnimation.cs" />
     <Compile Include="Animations\HeroJumpAnimation.cs" />
     <Compile Include="Animations\HeroRunAnimation.cs" />
+    <Compile Include="Blocks\LevelFactory.cs" />
     <Compile Include="Levels\Level1.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Movement\Movement.cs" />

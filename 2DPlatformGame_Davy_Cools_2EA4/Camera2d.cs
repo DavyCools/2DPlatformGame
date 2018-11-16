@@ -14,8 +14,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public void Follow(Hero hero)
         {
             var position = Matrix.CreateTranslation(
-                -hero.position.X - (hero.CollisionDetection.Width / 2),
-                -hero.position.Y - (hero.CollisionDetection.Height / 2),
+                -hero.position.X - (hero.CollisionRectangle.Width / 2),
+                -hero.position.Y - (hero.CollisionRectangle.Height / 2),
                 0);
             var offset = Matrix.CreateTranslation(
                 Game1.ScreenWidth/2,
