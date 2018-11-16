@@ -20,13 +20,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         Animation heroDieAnimation;
         Animation heroJumpAnimation;
         Animation heroIdleAnimation;
+        bool flipAnimation = false;
         public Movement _Movement { get; set; }
         public Vector2 Velocity;
-        bool flipAnimation = false;
         public Hero(ContentManager content)
         {
             texture = content.Load<Texture2D>("IceWizard");
-            position = new Vector2(100, 250);
+            position = new Vector2(100, 100);
             CollisionDetection = new Rectangle((int)position.X,(int)position.Y,300,220);
             Velocity = new Vector2(2, 0);
             heroAttackAnimation = new HeroAttackAnimation();
@@ -40,7 +40,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             Velocity = _Movement.Update(Velocity);
             position += Velocity;
-            if (position.Y >= 250)
+            if (position.Y >= 100)
             {
                 Velocity.Y = 0f;
             }

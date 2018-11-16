@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationFrame.cs" />
+    <Compile Include="Blocks\Block.cs" />
     <Compile Include="Camera2d.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Hero.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Animations\HeroIdleAnimation.cs" />
     <Compile Include="Animations\HeroJumpAnimation.cs" />
     <Compile Include="Animations\HeroRunAnimation.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Movement\Movement.cs" />
     <Compile Include="Movement\MovementArrowKeys.cs" />
     <Compile Include="Program.cs" />

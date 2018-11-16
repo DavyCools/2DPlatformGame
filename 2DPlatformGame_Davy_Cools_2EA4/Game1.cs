@@ -13,13 +13,21 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         SpriteBatch spriteBatch;
         Hero hero;
         Camera2d camera;
-
+        
+        Texture2D background;
+        Vector2 backgroundPosition = Vector2.Zero;
         public static int ScreenHeight;
         public static int ScreenWidth;
+
+        Texture2D blockTexture;
+        Level level1;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            this.graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            this.graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            //this.graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -34,7 +42,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             // TODO: Add your initialization logic here
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
-            hero = new Hero(Content);
             base.Initialize();
         }
 
@@ -49,7 +56,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             hero._Movement = new MovementArrowKeys();
             camera = new Camera2d();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            background = Content.Load<Texture2D>("IceWizard");
+            blockTexture = Content.Load<Texture2D>("blok");
+            level1 = new Level();
+            level1.Texture = blockTexture;
+            level1.CreateWorld();
             // TODO: use this.Content to load your game content here
         }
 
@@ -88,6 +99,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
             // TODO: Add your drawing code here
             spriteBatch.Begin(transformMatrix: camera.Transform);
+            //spriteBatch.Draw(background, backgroundPosition, Color.White);
+            level1.DrawLevel(spriteBatch);
             hero.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
