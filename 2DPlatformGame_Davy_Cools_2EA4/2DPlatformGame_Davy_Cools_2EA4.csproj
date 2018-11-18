@@ -48,7 +48,7 @@
     <Compile Include="Camera2d.cs" />
     <Compile Include="CollisionDetection\CollitionChecker.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Hero.cs" />
+    <Compile Include="Characters\Hero.cs" />
     <Compile Include="Animations\HeroAttackAnimation.cs" />
     <Compile Include="Animations\HeroDieAnimation.cs" />
     <Compile Include="Animations\HeroIdleAnimation.cs" />

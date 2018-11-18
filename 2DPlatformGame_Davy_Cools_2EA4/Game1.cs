@@ -85,13 +85,16 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            
             // TODO: Add your update logic here
             hero.Update(gameTime);
-            if (collider.CheckCollition(hero,hero))
+            /*foreach (Block tempBlock in )
             {
-
-            }
+                bool Bottom = collider.IsTouchingBottom(hero, tempBlock);
+                bool Top = collider.IsTouchingTop(hero, tempBlock);
+                bool Left = collider.IsTouchingLeft(hero, tempBlock);
+                bool Right = collider.IsTouchingRight(hero, tempBlock);
+            }*/
             camera.Follow(hero);
             base.Update(gameTime);
         }
