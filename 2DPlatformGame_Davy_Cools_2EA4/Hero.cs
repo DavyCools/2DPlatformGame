@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public class Hero : Collide
+    public class Hero : ICollide
     {
         Texture2D texture;
         public Vector2 position;
@@ -21,12 +21,18 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         Animation heroIdleAnimation;
         bool flipAnimation = false;
         public Movement _Movement { get; set; }
+
+        public Rectangle CollisionRectangle
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, 300, 220); }
+        }
+
         public Vector2 Velocity;
         public Hero(ContentManager content)
         {
             texture = content.Load<Texture2D>("IceWizard");
             position = new Vector2(50, 140);
-            CollisionRectangle = new Rectangle((int)position.X,(int)position.Y,300,220); 
+            //CollisionRectangle = new Rectangle((int)position.X,(int)position.Y,300,220); 
             Velocity = new Vector2(2, 0);
             heroAttackAnimation = new HeroAttackAnimation();
             heroRunAnimation = new HeroRunAnimation();
@@ -44,30 +50,32 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 Velocity.Y = 0f;
             }
-            if (_Movement.Left)
+            if (_Movement.Jump)
             {
-                animation = heroRunAnimation;
+                animation = heroJumpAnimation;
+            }
+            else if (_Movement.Left)
+            {
+                if (Velocity.Y == 0)
+                    animation = heroRunAnimation;
                 flipAnimation = true;
             }               
             else if (_Movement.Right)
             {
-                animation = heroRunAnimation;
+                if (Velocity.Y == 0)
+                    animation = heroRunAnimation;
                 flipAnimation = false;
-            }
-            else if (_Movement.Jump)
-            {
-                animation = heroJumpAnimation;
             }
             else if (_Movement.Shoot)
             {
-                animation = heroAttackAnimation;
+                if (Velocity.Y == 0)
+                    animation = heroAttackAnimation;
             }
             else
             {
-                animation = heroIdleAnimation;
+                if (Velocity.Y == 0)
+                    animation = heroIdleAnimation;
             }
-            CollisionRectangle.X = (int)position.X;
-            CollisionRectangle.Y = (int)position.Y;
             animation.Update(gameTime);      
         }
         public void Draw(SpriteBatch spriteBatch)

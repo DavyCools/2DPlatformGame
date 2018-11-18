@@ -46,7 +46,6 @@
     <Compile Include="Animations\AnimationFrame.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Camera2d.cs" />
-    <Compile Include="CollisionDetection\Collide.cs" />
     <Compile Include="CollisionDetection\CollitionChecker.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Hero.cs" />
@@ -56,6 +55,7 @@
     <Compile Include="Animations\HeroJumpAnimation.cs" />
     <Compile Include="Animations\HeroRunAnimation.cs" />
     <Compile Include="Blocks\LevelFactory.cs" />
+    <Compile Include="CollisionDetection\ICollide.cs" />
     <Compile Include="Levels\Level1.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Movement\Movement.cs" />

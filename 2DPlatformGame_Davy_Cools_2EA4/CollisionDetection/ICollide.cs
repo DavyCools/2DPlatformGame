@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public abstract class Collide
+    public interface ICollide
     {
-        public Rectangle CollisionRectangle;
+        Rectangle CollisionRectangle { get;}
+
     }
 }
