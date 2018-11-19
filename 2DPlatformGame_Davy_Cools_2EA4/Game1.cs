@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
@@ -13,9 +14,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         SpriteBatch spriteBatch;
         Hero hero;
         Camera2d camera;
-        
+        public List<ICollide> CollisionItemList;
+        Rectangle backgroundPosition;
         Texture2D background;
-        Vector2 backgroundPosition = Vector2.Zero;
         public static int ScreenHeight;
         public static int ScreenWidth;
 
@@ -27,8 +28,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            this.graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            this.graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            this.graphics.PreferredBackBufferWidth = 1280;
+            this.graphics.PreferredBackBufferHeight = 720;
             //this.graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
@@ -44,6 +45,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             // TODO: Add your initialization logic here
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
+            backgroundPosition = new Rectangle(-ScreenWidth/2,-ScreenHeight/2,ScreenWidth,ScreenHeight);
+            hero = new Hero(Content);
+            hero._Movement = new MovementArrowKeys();
+            camera = new Camera2d();
+            collider = new CollitionChecker();
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            CollisionItemList = new List<ICollide>();
+            level1 = new Level1(Content);
             base.Initialize();
         }
 
@@ -54,16 +63,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            hero = new Hero(Content);
-            hero._Movement = new MovementArrowKeys();
-            camera = new Camera2d();
-            collider = new CollitionChecker();
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            background = Content.Load<Texture2D>("IceWizard");
+            
+            background = Content.Load<Texture2D>("AchtergrondLevel1");
             blockTexture = Content.Load<Texture2D>("blok");
-            level1 = new Level1(Content);
             level1.Texture = blockTexture;
-            level1.CreateLevel();
+            level1.CreateLevel(CollisionItemList);
             // TODO: use this.Content to load your game content here
         }
 
@@ -85,16 +89,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            
+
             // TODO: Add your update logic here
+            collider.CheckCollition(hero, CollisionItemList);
             hero.Update(gameTime);
-            /*foreach (Block tempBlock in )
-            {
-                bool Bottom = collider.IsTouchingBottom(hero, tempBlock);
-                bool Top = collider.IsTouchingTop(hero, tempBlock);
-                bool Left = collider.IsTouchingLeft(hero, tempBlock);
-                bool Right = collider.IsTouchingRight(hero, tempBlock);
-            }*/
             camera.Follow(hero);
             base.Update(gameTime);
         }
@@ -109,7 +107,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
             // TODO: Add your drawing code here
             spriteBatch.Begin(transformMatrix: camera.Transform);
-            //spriteBatch.Draw(background, backgroundPosition, Color.White);
+            spriteBatch.Draw(background, backgroundPosition, Color.White);
             level1.DrawLevel(spriteBatch);
             hero.Draw(spriteBatch);
             spriteBatch.End();

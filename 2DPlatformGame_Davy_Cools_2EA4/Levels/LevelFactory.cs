@@ -18,9 +18,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             Block b = null;
             if (id == 1)
-                b = new TestBlock(content, _position, "blok");
+                b = new TestBlock(content, _position, "GroundBlock");
             else if (id == 2)
-                b = new TestBlock(content, _position, "blok");
+                b = new TestBlock(content, _position, "GroundBlock");
             return b;
         }
     }

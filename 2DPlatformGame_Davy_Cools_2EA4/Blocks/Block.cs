@@ -15,7 +15,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Vector2 Position { get; set; }
         public Rectangle CollisionRectangle
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, 300, 220); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, 70, 70); }
         }
 
         public Block(ContentManager content, Vector2 _position, string name)
@@ -23,10 +23,16 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             texture = content.Load<Texture2D>(name);
             Position = _position;
         }
-        
-        public void Draw(SpriteBatch spritebatch)
+        public void Initialise(float x, float y)
         {
-            spritebatch.Draw(texture, Position, Color.AliceBlue);
+            
+        }
+        
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, Position, Color.AliceBlue);
+            //spriteBatch.Draw(texture, CollisionRectangle.Location.ToVector2(), new Rectangle(0, 0, 70, 70), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //spriteBatch.Draw(texture, Position, new Rectangle(0,0,70,70), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }

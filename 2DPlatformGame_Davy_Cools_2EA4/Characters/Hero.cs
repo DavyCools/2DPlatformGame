@@ -21,18 +21,20 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         Animation heroIdleAnimation;
         bool flipAnimation = false;
         public Movement _Movement { get; set; }
-
+        public bool TouchingGround = false;
+        public bool TouchingLeft = false;
+        public bool TouchingRight = false;
+        public bool TouchingTop = false;
         public Rectangle CollisionRectangle
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, 300, 220); }
+            get { return new Rectangle((int)position.X, (int)position.Y, 44, 58); }   //Standaard 44,62 => 4 pixels correctie in de hoogte voor een mooi beeld
         }
 
         public Vector2 Velocity;
         public Hero(ContentManager content)
         {
             texture = content.Load<Texture2D>("IceWizard");
-            position = new Vector2(50, 140);
-            //CollisionRectangle = new Rectangle((int)position.X,(int)position.Y,300,220); 
+            position = new Vector2(50, 0);
             Velocity = new Vector2(2, 0);
             heroAttackAnimation = new HeroAttackAnimation();
             heroRunAnimation = new HeroRunAnimation();
@@ -44,14 +46,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
         public void Update(GameTime gameTime)
         {
-            Velocity = _Movement.Update(Velocity);
-            position += Velocity;
-            if (position.Y >= 140)
-            {
-                Velocity.Y = 0f;
-            }
+            //Velocity = _Movement.Update(Velocity);
+            
             if (_Movement.Jump)
             {
+
                 animation = heroJumpAnimation;
             }
             else if (_Movement.Left)
@@ -76,6 +75,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 if (Velocity.Y == 0)
                     animation = heroIdleAnimation;
             }
+            //if (!TouchingGround && Velocity.Y == 0)
+            //{
+            //    Velocity.Y = 0.2f;
+            //}
+            _Movement.Update(this);
             animation.Update(gameTime);      
         }
         public void Draw(SpriteBatch spriteBatch)

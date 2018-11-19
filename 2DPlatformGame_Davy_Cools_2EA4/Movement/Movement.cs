@@ -14,6 +14,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public bool Right { get; set; }
         public bool Jump { get; set; }
         public bool Shoot { get; set; }
-        public abstract Vector2 Update(Vector2 velocity);
+        public abstract void Update(Hero hero);
     }
 }
