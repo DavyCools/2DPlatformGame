@@ -61,7 +61,7 @@
 /processorParam:TextureFormat=Color
 /build:GroundBlock.png
 
-#begin AchtergrondLevel1.jpg
+#begin BackgroundLevel1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,5 +71,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:AchtergrondLevel1.jpg
+/build:BackgroundLevel1.png
 
