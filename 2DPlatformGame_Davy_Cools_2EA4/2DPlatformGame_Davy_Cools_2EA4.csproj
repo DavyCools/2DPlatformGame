@@ -42,6 +42,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Background.cs" />
+    <Compile Include="Blocks\GroundBlock.cs" />
+    <Compile Include="Blocks\GroundBlockLeft.cs" />
+    <Compile Include="Blocks\GroundBlockLeftCorner.cs" />
+    <Compile Include="Blocks\GroundBlockRight.cs" />
+    <Compile Include="Blocks\GroundBlockRightCorner.cs" />
+    <Compile Include="Blocks\GroundBlockFiller.cs" />
+    <Compile Include="Blocks\Lava.cs" />
+    <Compile Include="Blocks\LavaFiller.cs" />
+    <Compile Include="Blocks\LavaRounded.cs" />
+    <Compile Include="Blocks\GroundBlockAlone.cs" />
     <Compile Include="Levels\AbstractLevelFactory.cs" />
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationFrame.cs" />
@@ -63,7 +73,10 @@
     <Compile Include="Movement\MovementArrowKeys.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Blocks\TestBlock.cs" />
+    <Compile Include="WallBlockLeft.cs" />
+    <Compile Include="WallBlockLeftTop.cs" />
+    <Compile Include="WallBlockRight.cs" />
+    <Compile Include="WallBlockRightTop.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

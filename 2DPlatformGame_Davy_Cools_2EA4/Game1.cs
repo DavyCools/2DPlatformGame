@@ -20,7 +20,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public static int ScreenHeight;
         public static int ScreenWidth;
 
-        Texture2D blockTexture;
         Level level1;
 
         CollitionChecker collider;
@@ -67,8 +66,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             // Create a new SpriteBatch, which can be used to draw textures.
             
             background = Content.Load<Texture2D>("BackgroundLevel1");
-            blockTexture = Content.Load<Texture2D>("blok");
-            level1.Texture = blockTexture;
             level1.CreateLevel(CollisionItemList);
             test.Initialize(backgroundPosition, new Rectangle(ScreenWidth * 2 - ScreenWidth/2, -ScreenHeight, ScreenWidth * 2, ScreenHeight * 2));
             // TODO: use this.Content to load your game content here

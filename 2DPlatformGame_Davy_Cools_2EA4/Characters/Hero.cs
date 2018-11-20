@@ -34,7 +34,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Hero(ContentManager content)
         {
             texture = content.Load<Texture2D>("IceWizard");
-            position = new Vector2(50, 0);
+            position = new Vector2(70, 0);
             Velocity = new Vector2(2, 0);
             heroAttackAnimation = new HeroAttackAnimation();
             heroRunAnimation = new HeroRunAnimation();

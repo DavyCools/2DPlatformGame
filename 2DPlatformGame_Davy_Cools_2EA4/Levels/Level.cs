@@ -21,7 +21,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             levelFactory = new LevelFactory();
         }
         protected abstract void CreateLevelArray();
-        public Texture2D Texture;
         public byte[,] LevelArray;
         public Block[,] BlockArray;
         public void CreateLevel(List<ICollide> CollisionList)
@@ -30,9 +29,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 for (int y = 0; y < BlockArray.GetLength(1); y++)
                 {
-                    if (LevelArray[x, y] == 1)
+                    if (LevelArray[x, y] != 0)
                     {
-                        BlockArray[x, y] = levelFactory.GetExactBlock((int)LevelArray[x, y],content,Texture, new Vector2(y * 70, x * 70),CollisionList);
+                        BlockArray[x, y] = levelFactory.GetExactBlock((int)LevelArray[x, y],content, new Vector2(y * 70, x * 70),CollisionList);
                         //BlockArray[x, y] = new Block(content, new Microsoft.Xna.Framework.Vector2(y * 128, x * 64));
                     }
                 }

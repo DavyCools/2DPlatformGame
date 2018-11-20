@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class TestBlock : Block
+    class WallBlockLeft : Block
     {
-        public TestBlock(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
+        public WallBlockLeft(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {
         }
     }

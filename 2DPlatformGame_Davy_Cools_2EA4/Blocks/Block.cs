@@ -23,11 +23,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             texture = content.Load<Texture2D>(name);
             Position = _position;
         }
-        public void Initialise(float x, float y)
-        {
-            
-        }
-        
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, Color.AliceBlue);

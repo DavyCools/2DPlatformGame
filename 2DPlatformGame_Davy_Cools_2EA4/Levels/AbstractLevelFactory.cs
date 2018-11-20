@@ -11,12 +11,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     public abstract class AbstractLevelFactory
     {
-        public Block GetExactBlock(int id, ContentManager content, Texture2D _texture, Vector2 _position, List<ICollide> CollisionList)
+        public Block GetExactBlock(int id, ContentManager content, Vector2 _position, List<ICollide> CollisionList)
         {
-            Block block = CreateBlok(id,content,_texture,_position);
+            Block block = CreateBlok(id,content,_position);
             CollisionList.Add(block);
             return block;
         }
-        protected abstract Block CreateBlok(int id,ContentManager content, Texture2D _texture, Vector2 _position);
+        protected abstract Block CreateBlok(int id,ContentManager content, Vector2 _position);
     }
 }
