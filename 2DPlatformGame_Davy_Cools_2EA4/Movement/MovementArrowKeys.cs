@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// De klasse MovementArrowsKeys is verantwoordelijk voor de bewgiging van de hero als er op 1 van de knoppen die de hero bestuurd geklikt wordt
+    /// </summary>
     class MovementArrowKeys : Movement
     {
         public override void Update(Hero hero)
@@ -39,7 +42,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 Jump = true;
                 if(!hero.TouchingTop)
-                hero.Velocity.Y = -8;
+                hero.Velocity.Y = -7.8f;
             }
             if (stateKey.IsKeyUp(Keys.Up))
             {

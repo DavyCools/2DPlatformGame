@@ -50,30 +50,28 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             
             if (_Movement.Jump)
             {
-
                 animation = heroJumpAnimation;
             }
-            else if (_Movement.Left)
+            if (_Movement.Left)
             {
                 if (Velocity.Y == 0)
                     animation = heroRunAnimation;
                 flipAnimation = true;
             }               
-            else if (_Movement.Right)
+            if (_Movement.Right)
             {
                 if (Velocity.Y == 0)
                     animation = heroRunAnimation;
                 flipAnimation = false;
             }
-            else if (_Movement.Shoot)
+            if (_Movement.Shoot)
             {
                 if (Velocity.Y == 0)
                     animation = heroAttackAnimation;
             }
-            else
+            if (Velocity.X == 0 && Velocity.Y == 0)
             {
-                if (Velocity.Y == 0)
-                    animation = heroIdleAnimation;
+                animation = heroIdleAnimation;
             }
             //if (!TouchingGround && Velocity.Y == 0)
             //{

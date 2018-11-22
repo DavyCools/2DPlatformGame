@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze abstracte klasse definieert de klassen die nodig zijn om te bewegen
+    /// </summary>
     public abstract class Movement
     {
         protected float movementSpeed = 3;

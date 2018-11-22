@@ -36,21 +36,15 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             else if (id == 9)
                 b = new WallBlockRight(content, _position, "WallBlockRight");
             else if (id == 10)
-                b = new WallBlockLeftTop(content, _position, "WallBlockLeftTop");
+                b = new GroundBlockFillerLeft(content, _position, "GroundBlockFillerLeft");
             else if (id == 11)
-                b = new WallBlockRightTop(content, _position, "WallBlockRightTop");
+                b = new GroundBlockFillerRight(content, _position, "GroundBlockFillerRight");
             else if (id == 12)
-                b = new WallBlockRightTop(content, _position, "WallBlockRightTop");
-            //FillerBlockRight
-            else if (id == 13)
-                b = new WallBlockRightTop(content, _position, "WallBlockRightTop");
-            //FillerBlockLeft
-            else if (id == 14)
                 b = new Lava(content, _position, "Lava");
-            else if (id == 15)
-                b = new LavaRounded(content, _position, "LavaRounded");
-            else if (id == 16)
+            else if (id == 13)
                 b = new LavaFiller(content, _position, "LavaFiller");
+            else if (id == 14)
+                b = new GroundBlockFillerBoth(content, _position, "GroundBlockFillerBoth");
             return b;
         }
     }

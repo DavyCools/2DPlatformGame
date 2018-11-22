@@ -13,7 +13,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     {
         private Texture2D texture;
         public Vector2 Position { get; set; }
-        public Rectangle CollisionRectangle
+        public virtual Rectangle CollisionRectangle
         {
             get { return new Rectangle((int)Position.X, (int)Position.Y, 70, 70); }
         }

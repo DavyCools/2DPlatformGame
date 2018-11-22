@@ -15,8 +15,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         Hero hero;
         Camera2d camera;
         public List<ICollide> CollisionItemList;
-        Rectangle backgroundPosition;
-        Texture2D background;
         public static int ScreenHeight;
         public static int ScreenWidth;
 
@@ -24,12 +22,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
         CollitionChecker collider;
 
-        Background test;
+        Background backGroundLevel1;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            this.graphics.PreferredBackBufferWidth = 1280;
-            this.graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             //this.graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
@@ -45,15 +43,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             // TODO: Add your initialization logic here
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
-            backgroundPosition = new Rectangle(-ScreenWidth/2,-ScreenHeight,ScreenWidth*2,ScreenHeight*2);
             hero = new Hero(Content);
             hero._Movement = new MovementArrowKeys();
-            camera = new Camera2d();
+            camera = new Camera2d() {Zoom = 1.5f };
             collider = new CollitionChecker();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             CollisionItemList = new List<ICollide>();
             level1 = new Level1(Content);
-            test = new Background(Content);
+            backGroundLevel1 = new Background(Content);
             base.Initialize();
         }
 
@@ -65,9 +62,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             
-            background = Content.Load<Texture2D>("BackgroundLevel1");
             level1.CreateLevel(CollisionItemList);
-            test.Initialize(backgroundPosition, new Rectangle(ScreenWidth * 2 - ScreenWidth/2, -ScreenHeight, ScreenWidth * 2, ScreenHeight * 2));
+            backGroundLevel1.Initialize(new Rectangle(-ScreenWidth / 2, -ScreenHeight, ScreenWidth * 2, ScreenHeight * 2), new Rectangle(ScreenWidth * 2 - ScreenWidth/2, -ScreenHeight, ScreenWidth * 2, ScreenHeight * 2));
             // TODO: use this.Content to load your game content here
         }
 
@@ -94,7 +90,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             collider.CheckCollition(hero, CollisionItemList);
             hero.Update(gameTime);
             camera.Follow(hero);
-            test.Update(graphics);
+            backGroundLevel1.Update(graphics);
             base.Update(gameTime);
         }
 
@@ -109,7 +105,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             // TODO: Add your drawing code here
             spriteBatch.Begin(transformMatrix: camera.Transform);
             //spriteBatch.Draw(background, backgroundPosition, Color.White);
-            test.Draw(spriteBatch);
+            backGroundLevel1.Draw(spriteBatch);
             level1.DrawLevel(spriteBatch);
             hero.Draw(spriteBatch);
             spriteBatch.End();

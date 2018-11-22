@@ -8,11 +8,10 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class Lava : Block
+    class GroundBlockFillerLeft : Block
     {
-        public Lava(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
+        public GroundBlockFillerLeft(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {
         }
-        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y+40, 70,30);
     }
 }

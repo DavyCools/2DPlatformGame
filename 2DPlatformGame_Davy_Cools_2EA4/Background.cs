@@ -12,17 +12,23 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     class Background
     {
         Texture2D BackgroundTexture;
+        public Rectangle StartPosition;
+        public Rectangle SecondPosition;
+        public Rectangle ThirdPosition;
+        public Rectangle FourthPosition;
 
         public Background(ContentManager content)
         {
             BackgroundTexture = content.Load <Texture2D>("BackgroundLevel1");
         }
-        public Rectangle StartPosition;
-        public Rectangle SecondPosition;
         public void Initialize(Rectangle _BeginPosition, Rectangle _DrawPosition)
         {
             StartPosition = _BeginPosition;
             SecondPosition = _DrawPosition;
+            ThirdPosition = SecondPosition;
+            ThirdPosition.X = 4480;  //2560 verder dan Second
+            FourthPosition = ThirdPosition;
+            FourthPosition.X = 7040;
         }
         public void Update(GraphicsDeviceManager graphics)
         {
@@ -37,6 +43,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             spriteBatch.Draw(BackgroundTexture, StartPosition,Color.White);
             spriteBatch.Draw(BackgroundTexture, SecondPosition, Color.White);
+            spriteBatch.Draw(BackgroundTexture, ThirdPosition, Color.White);
+            spriteBatch.Draw(BackgroundTexture, FourthPosition, Color.White);
         }
     }
 }
