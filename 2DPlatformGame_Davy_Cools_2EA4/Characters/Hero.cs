@@ -13,6 +13,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     {
         Texture2D texture;
         public Vector2 position;
+        public Vector2 Velocity;
         Animation animation;
         Animation heroAttackAnimation;
         Animation heroRunAnimation;
@@ -28,9 +29,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Rectangle CollisionRectangle
         {
             get { return new Rectangle((int)position.X, (int)position.Y, 44, 58); }   //Standaard 44,62 => 4 pixels correctie in de hoogte voor een mooi beeld
-        }
-
-        public Vector2 Velocity;
+        }   
         public Hero(ContentManager content)
         {
             texture = content.Load<Texture2D>("IceWizard");

@@ -56,32 +56,32 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         private bool isTouchingLeft(Hero source, ICollide target)
         {
-            return source.CollisionRectangle.Right  > target.CollisionRectangle.Left &&
+            return source.CollisionRectangle.Right + source.Velocity.X > target.CollisionRectangle.Left &&
                    source.CollisionRectangle.Left < target.CollisionRectangle.Left &&
-                   source.CollisionRectangle.Bottom > target.CollisionRectangle.Top + target.CollisionRectangle.Width / 10 &&
-                   source.CollisionRectangle.Top < target.CollisionRectangle.Bottom - target.CollisionRectangle.Width / 10;
+                   source.CollisionRectangle.Bottom > target.CollisionRectangle.Top &&
+                   source.CollisionRectangle.Top < target.CollisionRectangle.Bottom;
             
         }
         private bool isTouchingRight(Hero source, ICollide target)
         {
-            return source.CollisionRectangle.Left < target.CollisionRectangle.Right &&
+            return source.CollisionRectangle.Left + source.Velocity.X < target.CollisionRectangle.Right &&
                    source.CollisionRectangle.Right > target.CollisionRectangle.Right &&
-                   source.CollisionRectangle.Bottom > target.CollisionRectangle.Top + target.CollisionRectangle.Width / 10 &&
-                   source.CollisionRectangle.Top < target.CollisionRectangle.Bottom - target.CollisionRectangle.Width / 10;
+                   source.CollisionRectangle.Bottom > target.CollisionRectangle.Top &&
+                   source.CollisionRectangle.Top < target.CollisionRectangle.Bottom;
         }
         private bool isTouchingTop(Hero source, ICollide target)
         {
             return source.CollisionRectangle.Bottom + source.Velocity.Y > target.CollisionRectangle.Top &&
                    source.CollisionRectangle.Top < target.CollisionRectangle.Top &&
-                   source.CollisionRectangle.Right > target.CollisionRectangle.Left + target.CollisionRectangle.Width / 10 &&
-                   source.CollisionRectangle.Left < target.CollisionRectangle.Right - target.CollisionRectangle.Width / 10;
+                   source.CollisionRectangle.Right > target.CollisionRectangle.Left &&
+                   source.CollisionRectangle.Left < target.CollisionRectangle.Right;
         }
         private bool isTouchingBottom(Hero source, ICollide target)
         {
             return source.CollisionRectangle.Top + source.Velocity.Y < target.CollisionRectangle.Bottom &&
                    source.CollisionRectangle.Bottom > target.CollisionRectangle.Bottom &&
-                   source.CollisionRectangle.Right > target.CollisionRectangle.Left + target.CollisionRectangle.Width / 10 &&
-                   source.CollisionRectangle.Left < target.CollisionRectangle.Right - target.CollisionRectangle.Width / 10;
+                   source.CollisionRectangle.Right > target.CollisionRectangle.Left &&
+                   source.CollisionRectangle.Left < target.CollisionRectangle.Right;
         }
     }
 }

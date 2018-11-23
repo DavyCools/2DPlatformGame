@@ -55,6 +55,8 @@
     <Compile Include="Blocks\GroundBlockFillerRight.cs" />
     <Compile Include="Blocks\GroundBlockFillerLeft.cs" />
     <Compile Include="Blocks\GroundBlockFillerBoth.cs" />
+    <Compile Include="Bullet.cs" />
+    <Compile Include="IMoveableObject.cs" />
     <Compile Include="Levels\AbstractLevelFactory.cs" />
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationFrame.cs" />
