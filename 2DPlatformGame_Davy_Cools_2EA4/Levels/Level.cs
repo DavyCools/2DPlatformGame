@@ -16,13 +16,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Level(ContentManager _content)
         {
             CreateLevelArray();
-            BlockArray = new Block[LevelArray.GetLength(0), LevelArray.GetLength(1)];
+            BlockArray = new StaticBlock[LevelArray.GetLength(0), LevelArray.GetLength(1)];
             content = _content;
             levelFactory = new LevelFactory();
         }
         protected abstract void CreateLevelArray();
         public byte[,] LevelArray;
-        public Block[,] BlockArray;
+        public StaticBlock[,] BlockArray;
         public void CreateLevel(List<ICollide> CollisionList)
         {
             for (int x = 0; x < BlockArray.GetLength(0); x++)
@@ -32,7 +32,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     if (LevelArray[x, y] != 0)
                     {
                         BlockArray[x, y] = levelFactory.GetExactBlock((int)LevelArray[x, y],content, new Vector2(y * 70, x * 70),CollisionList);
-                        //BlockArray[x, y] = new Block(content, new Microsoft.Xna.Framework.Vector2(y * 128, x * 64));
+                        //BlockArray[x, y] = new Block(content, new Microsoft.Xna.Framework.Vector2(y * 70, x * 70));
                     }
                 }
             }

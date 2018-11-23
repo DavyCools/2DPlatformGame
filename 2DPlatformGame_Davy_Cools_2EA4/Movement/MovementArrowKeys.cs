@@ -13,7 +13,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     class MovementArrowKeys : Movement
     {
-        public override void Update(Hero hero)
+        public override void Update(IMoveableObject hero)
         {
             KeyboardState stateKey = Keyboard.GetState();
 
@@ -21,28 +21,35 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 Left = true;
                 if (!hero.TouchingLeft)
-                    hero.Velocity.X = -movementSpeed;
+                    hero.ChangeVelocity(-movementSpeed, null);
+                    //hero.Velocity.X = -movementSpeed;
             }
             if (stateKey.IsKeyUp(Keys.Left) && Right == false)
             {
                 Left = false;
-                hero.Velocity.X = 0;
+                hero.ChangeVelocity(0, null);
+                //hero.Velocity.X = 0;
             }
             if (stateKey.IsKeyDown(Keys.Right) && Left == false)
             {
                 Right = true;
-                    hero.Velocity.X = movementSpeed;
+                hero.ChangeVelocity(movementSpeed, null);
+                //hero.Velocity.X = movementSpeed;
             }
             if (stateKey.IsKeyUp(Keys.Right) && Left == false)
             {
                 Right = false;
-                hero.Velocity.X = 0;
+                hero.ChangeVelocity(0, null);
+                //hero.Velocity.X = 0;
             }
             if (stateKey.IsKeyDown(Keys.Up) && hero.Velocity.Y == 0)
             {
                 Jump = true;
-                if(!hero.TouchingTop)
-                hero.Velocity.Y = -7.8f;
+                if (!hero.TouchingTop)
+                {
+                    hero.ChangeVelocity(null, -7.8f);
+                    //hero.Velocity.Y = -7.8f;
+                }
             }
             if (stateKey.IsKeyUp(Keys.Up))
             {
@@ -58,12 +65,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             }
             if (hero.Velocity.Y != 0)
             {
-                hero.Velocity.Y += 0.2f;
+                hero.ChangeVelocity(null, hero.Velocity.Y + 0.2f);
+                //hero.Velocity.Y += 0.2f;
             }
-            hero.position += hero.Velocity;
+            hero.Position += hero.Velocity;
             if (!hero.TouchingGround && hero.Velocity.Y == 0)
             {
-                hero.Velocity.Y = 0.2f;
+                hero.ChangeVelocity(null, 0.2f);
+                //hero.Velocity.Y = 0.2f;
             }
         }
     }

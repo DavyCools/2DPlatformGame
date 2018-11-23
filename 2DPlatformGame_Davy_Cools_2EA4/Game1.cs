@@ -63,7 +63,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             // Create a new SpriteBatch, which can be used to draw textures.
             
             level1.CreateLevel(CollisionItemList);
-            backGroundLevel1.Initialize(new Rectangle(-ScreenWidth / 2, -ScreenHeight, ScreenWidth * 2, ScreenHeight * 2), new Rectangle(ScreenWidth * 2 - ScreenWidth/2, -ScreenHeight, ScreenWidth * 2, ScreenHeight * 2));
             // TODO: use this.Content to load your game content here
         }
 
@@ -90,7 +89,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             collider.CheckCollition(hero, CollisionItemList);
             hero.Update(gameTime);
             camera.Follow(hero);
-            backGroundLevel1.Update(graphics);
+            backGroundLevel1.Update(hero.Position.X);
             base.Update(gameTime);
         }
 

@@ -14,9 +14,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     public class LevelFactory : AbstractLevelFactory
     {
-        protected override Block CreateBlok(int id,ContentManager content, Vector2 _position)
+        protected override StaticBlock CreateBlok(int id,ContentManager content, Vector2 _position)
         {
-            Block b = null;
+            StaticBlock b = null;
             if (id == 1)
                 b = new GroundBlock(content, _position, "GroundBlock");
             else if (id == 2)

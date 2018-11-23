@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public abstract class Block : ICollide
+    public abstract class StaticBlock : ICollide
     {
         private Texture2D texture;
         public Vector2 Position { get; set; }
@@ -18,7 +18,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             get { return new Rectangle((int)Position.X, (int)Position.Y, 70, 70); }
         }
 
-        public Block(ContentManager content, Vector2 _position, string name)
+        public StaticBlock(ContentManager content, Vector2 _position, string name)
         {
             texture = content.Load<Texture2D>(name);
             Position = _position;

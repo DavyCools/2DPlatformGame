@@ -16,8 +16,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             Matrix scale = Matrix.CreateScale(Zoom, Zoom, 1);
             var position = Matrix.CreateTranslation(
-                -hero.position.X - (hero.CollisionRectangle.Width / 2),
-                -hero.position.Y - (hero.CollisionRectangle.Height / 2),
+                -hero.Position.X - (hero.CollisionRectangle.Width / 2),
+                -hero.Position.Y - (hero.CollisionRectangle.Height / 2),
                 0);
             var offset = Matrix.CreateTranslation(
                 Game1.ScreenWidth/2 / Zoom,

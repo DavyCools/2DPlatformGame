@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    interface IMoveableObject : ICollide
+    public interface IMoveableObject : ICollide
     {
-        Vector2 Velocity { get; set; }
+        Vector2 Velocity { get; set;}
+        void ChangeVelocity(float? x, float? y);
         Vector2 Position { get; set; }
+        void ChangePosition(float? x, float? y);
         bool TouchingGround { get; set; }
         bool TouchingLeft { get; set; }
         bool TouchingRight { get; set; }
         bool TouchingTop { get; set; }
+        float MovementSpeed { get; }
     }
 }

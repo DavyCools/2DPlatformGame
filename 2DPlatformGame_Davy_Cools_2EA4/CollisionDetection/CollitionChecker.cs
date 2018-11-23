@@ -9,31 +9,31 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     public class CollitionChecker
     {
-        public void CheckCollition(Hero hero, List<ICollide> CollisionList)
+        public void CheckCollition(IMoveableObject hero, List<ICollide> CollisionList)
         {
             foreach (ICollide tempBlock in CollisionList)
             {
                 reset(hero);
                 if (hero.Velocity.Y >= 0 && isTouchingTop(hero,tempBlock))
                 {
-                    hero.Velocity.Y = 0;
+                    hero.ChangeVelocity(null, 0);
                     hero.TouchingGround = true;
                 }
                 if (hero.Velocity.Y <= 0 && isTouchingBottom(hero, tempBlock))
                 {
-                    hero.Velocity.Y = 0.2f;
+                    hero.ChangeVelocity(null, 0.2f);
                     hero.TouchingTop = true;
                 }
                 if (hero.Velocity.X < 0 && isTouchingRight(hero, tempBlock))
                 {
-                    hero.Velocity.X = 0;
-                    hero.position.X += 3;
+                    hero.ChangeVelocity(0, null);
+                    hero.ChangePosition(hero.Position.X + hero.MovementSpeed,null);
                     hero.TouchingLeft = true;
                 }
                 if (hero.Velocity.X > 0 && isTouchingLeft(hero,tempBlock))
                 {
-                    hero.Velocity.X = 0;
-                    hero.position.X -= 3;
+                    hero.ChangeVelocity(0, null);
+                    hero.ChangePosition(hero.Position.X - hero.MovementSpeed, null);
                     hero.TouchingRight = true;
                 }
 
@@ -47,14 +47,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 }*/
             }       
         }
-        private void reset(Hero hero)
+        private void reset(IMoveableObject hero)
         {
             hero.TouchingGround = false;
             hero.TouchingLeft = false;
             hero.TouchingRight = false;
             hero.TouchingTop = false;
         }
-        private bool isTouchingLeft(Hero source, ICollide target)
+        private bool isTouchingLeft(IMoveableObject source, ICollide target)
         {
             return source.CollisionRectangle.Right + source.Velocity.X > target.CollisionRectangle.Left &&
                    source.CollisionRectangle.Left < target.CollisionRectangle.Left &&
@@ -62,21 +62,21 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                    source.CollisionRectangle.Top < target.CollisionRectangle.Bottom;
             
         }
-        private bool isTouchingRight(Hero source, ICollide target)
+        private bool isTouchingRight(IMoveableObject source, ICollide target)
         {
             return source.CollisionRectangle.Left + source.Velocity.X < target.CollisionRectangle.Right &&
                    source.CollisionRectangle.Right > target.CollisionRectangle.Right &&
                    source.CollisionRectangle.Bottom > target.CollisionRectangle.Top &&
                    source.CollisionRectangle.Top < target.CollisionRectangle.Bottom;
         }
-        private bool isTouchingTop(Hero source, ICollide target)
+        private bool isTouchingTop(IMoveableObject source, ICollide target)
         {
             return source.CollisionRectangle.Bottom + source.Velocity.Y > target.CollisionRectangle.Top &&
                    source.CollisionRectangle.Top < target.CollisionRectangle.Top &&
                    source.CollisionRectangle.Right > target.CollisionRectangle.Left &&
                    source.CollisionRectangle.Left < target.CollisionRectangle.Right;
         }
-        private bool isTouchingBottom(Hero source, ICollide target)
+        private bool isTouchingBottom(IMoveableObject source, ICollide target)
         {
             return source.CollisionRectangle.Top + source.Velocity.Y < target.CollisionRectangle.Bottom &&
                    source.CollisionRectangle.Bottom > target.CollisionRectangle.Bottom &&

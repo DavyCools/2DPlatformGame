@@ -60,7 +60,7 @@
     <Compile Include="Levels\AbstractLevelFactory.cs" />
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationFrame.cs" />
-    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\StaticBlock.cs" />
     <Compile Include="Camera2d.cs" />
     <Compile Include="CollisionDetection\CollitionChecker.cs" />
     <Compile Include="Game1.cs" />

@@ -12,39 +12,46 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     class Background
     {
         Texture2D BackgroundTexture;
-        public Rectangle StartPosition;
-        public Rectangle SecondPosition;
-        public Rectangle ThirdPosition;
-        public Rectangle FourthPosition;
-
+        private Rectangle[] backgroundArray;
+        private int positionX;
+        private int positionY;
+        private int screenWidth;
+        private int screenHeight;
+        private int backgroundWidth = 2560;
         public Background(ContentManager content)
         {
+            positionX = -(Game1.ScreenWidth / 2);
+            positionY = -Game1.ScreenHeight;
+            screenWidth = Game1.ScreenWidth * 2;
+            screenHeight = Game1.ScreenHeight * 2;
             BackgroundTexture = content.Load <Texture2D>("BackgroundLevel1");
+            backgroundArray = new Rectangle[] { new Rectangle(positionX,positionY,screenWidth, screenHeight),
+                              new Rectangle(positionX + backgroundWidth,positionY,screenWidth,screenHeight),
+                              new Rectangle(positionX + backgroundWidth*2,positionY,screenWidth,screenHeight),
+                              new Rectangle(positionX + backgroundWidth*3,positionY,screenWidth,screenHeight)
+            };
         }
-        public void Initialize(Rectangle _BeginPosition, Rectangle _DrawPosition)
+        public void Update(float position)
         {
-            StartPosition = _BeginPosition;
-            SecondPosition = _DrawPosition;
-            ThirdPosition = SecondPosition;
-            ThirdPosition.X = 4480;  //2560 verder dan Second
-            FourthPosition = ThirdPosition;
-            FourthPosition.X = 7040;
-        }
-        public void Update(GraphicsDeviceManager graphics)
-        {
-            //BeginPosition.X -= 1;
-            //DrawPosition.X -= 1;
-            //if (BeginPosition.X < -(graphics.PreferredBackBufferWidth - graphics.PreferredBackBufferWidth)){
-            //BeginPosition.X = -graphics.PreferredBackBufferWidth/2;
-            //DrawPosition.X = graphics.PreferredBackBufferWidth * 2 - graphics.PreferredBackBufferWidth / 2;
-            //}
+            /*if (position > positionX + backgroundWidth)
+            {
+                positionX += backgroundWidth;
+                backgroundArray[index].X += backgroundWidth;
+                index++;
+            }
+            else if (position < positionX - backgroundWidth)
+            {
+                positionX -= backgroundWidth/2;
+                backgroundArray[0].X -= backgroundWidth;
+                index--;
+            }*/
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(BackgroundTexture, StartPosition,Color.White);
-            spriteBatch.Draw(BackgroundTexture, SecondPosition, Color.White);
-            spriteBatch.Draw(BackgroundTexture, ThirdPosition, Color.White);
-            spriteBatch.Draw(BackgroundTexture, FourthPosition, Color.White);
+            spriteBatch.Draw(BackgroundTexture, backgroundArray[0],Color.White);
+            spriteBatch.Draw(BackgroundTexture, backgroundArray[1], Color.White);
+            spriteBatch.Draw(BackgroundTexture, backgroundArray[2], Color.White);
+            spriteBatch.Draw(BackgroundTexture, backgroundArray[3], Color.White);
         }
     }
 }

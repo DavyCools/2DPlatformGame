@@ -17,6 +17,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public bool Right { get; set; }
         public bool Jump { get; set; }
         public bool Shoot { get; set; }
-        public abstract void Update(Hero hero);
+        public abstract void Update(IMoveableObject hero);
     }
 }
