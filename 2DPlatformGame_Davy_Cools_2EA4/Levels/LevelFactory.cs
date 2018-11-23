@@ -47,6 +47,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 b = new GroundBlockFillerBoth(content, _position, "GroundBlockFillerBoth");
             else if (id == 15)
                 b = new ArrowTileRight(content, _position, "ArrowTileRight");
+            else if (id == 16)
+                b = new SignTileHaveFun(content, _position, "SignTileHaveFun");
+            else if (id == 17)
+                b = new SignTileLevel1(content, _position, "SignTileLevel1");
+            else if (id == 18)
+                b = new SignTileLava(content, _position, "SignTileLava");
             return b;
         }
     }

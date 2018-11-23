@@ -10,26 +10,28 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     class Bullet
     {
-        public Texture2D Texture { get; set; }
-        public Vector2 Position { get; set; }
-        public Vector2 Direction { get; set; }
-        public float Speed { get; set; }
-        public int ActiveTime { get; set; }
-        public int TotalActiveTime { get; set; }
-        public Bullet(Texture2D texture, Vector2 position, Vector2 direction,float speed, int activeTime)
+        Texture2D Texture;
+        Vector2 Position;
+        bool Direction = false;
+        float Speed { get; set; }
+        int ActiveTime { get; set; }
+        int TotalActiveTime { get; set; }
+        public Bullet(Texture2D texture, Vector2 position, bool direction, int activeTime)
         {
+            Speed = 2;
             Texture = texture;
             Position = position;
             Direction = direction;
-            Speed = speed;
             ActiveTime = activeTime;
             TotalActiveTime = 0;
         }
-        public void Update(GameTime gameTime)
+        //public void Update(GameTime gameTime)
+        public int Update(int test)
         {
-            
-            Position = Direction * Speed;
-            TotalActiveTime += gameTime.ElapsedGameTime.Milliseconds;
+            test++;
+            Position.X += Speed;
+            return test;
+            //TotalActiveTime += gameTime.ElapsedGameTime.Milliseconds;
         }
         public void Draw(SpriteBatch spriteBatch)
         {

@@ -11,6 +11,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     public class Hero : IMoveableObject
     {
+        List<Bullet> BulletList;
+        Texture2D bulletTexture;
+        int BulletCounter = 0;
         Texture2D texture;
         //public Vector2 Position;
         //public Vector2 Velocity;
@@ -61,6 +64,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
         public Hero(ContentManager content)
         {
+            BulletList = new List<Bullet>();
+            bulletTexture = content.Load<Texture2D>("Bullet");
             texture = content.Load<Texture2D>("IceWizard");
             Position = new Vector2(70, 0);
             Velocity = new Vector2(2, 0);
@@ -101,18 +106,34 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             else if (_Movement.Shoot)
             {
                 if (Velocity.Y == 0)
+                {
                     animation = heroAttackAnimation;
+                }
             }
             else
             {
                 animation = heroIdleAnimation;
             }
             _Movement.Update(this);
-            animation.Update(gameTime);      
+            animation.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.CurrentFrame.scale,flipAnimation?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f); 
+            spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.CurrentFrame.scale,flipAnimation?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f);
         }
+        /* void addBullet()
+        {
+            BulletList.Add(new Bullet(bulletTexture,position,false,0));
+        }
+        private void UpdateBullet()
+        {
+            foreach (Bullet _bullet in BulletList)
+            {
+                BulletCounter = _bullet.Update(BulletCounter);
+                if (BulletCounter > 500)
+                {
+                    BulletList.Remove(_bullet);
+                }
+        }*/
     }
 }

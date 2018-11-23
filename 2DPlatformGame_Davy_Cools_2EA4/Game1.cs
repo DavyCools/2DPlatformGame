@@ -25,9 +25,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         Background backGroundLevel1;
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = 1280,
+                PreferredBackBufferHeight = 720
+            };
             //this.graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }

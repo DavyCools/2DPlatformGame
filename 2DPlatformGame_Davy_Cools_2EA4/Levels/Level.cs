@@ -16,7 +16,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Level(ContentManager _content)
         {
             CreateLevelArray();
-            BlockArray = new StaticTiles[LevelArray.GetLength(0), LevelArray.GetLength(1)];
+            BlockArray = new Tiles[LevelArray.GetLength(0), LevelArray.GetLength(1)];
             content = _content;
             levelFactory = new LevelFactory();
         }
