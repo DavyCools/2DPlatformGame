@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class WallBlockLeftTop : StaticBlock
+    class WallBlockLeftTop : StaticTiles
     {
         public WallBlockLeftTop(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {

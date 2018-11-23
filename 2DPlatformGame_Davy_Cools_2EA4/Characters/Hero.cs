@@ -77,7 +77,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             if (_Movement.Jump)
             {
                 animation = heroJumpAnimation;
-                if (Velocity.X >= 0)
+                if (Velocity.X >= 0 && !_Movement.Left)
                 {
                     flipAnimation = false;
                 }

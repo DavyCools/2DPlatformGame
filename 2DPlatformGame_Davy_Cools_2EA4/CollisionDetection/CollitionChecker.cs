@@ -9,32 +9,32 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     public class CollitionChecker
     {
-        public void CheckCollition(IMoveableObject hero, List<ICollide> CollisionList)
+        public void CheckCollition(IMoveableObject movingObject, List<ICollide> CollisionList)
         {
             foreach (ICollide tempBlock in CollisionList)
             {
-                reset(hero);
-                if (hero.Velocity.Y >= 0 && isTouchingTop(hero,tempBlock))
+                reset(movingObject);
+                if (movingObject.Velocity.Y >= 0 && isTouchingTop(movingObject,tempBlock))
                 {
-                    hero.ChangeVelocity(null, 0);
-                    hero.TouchingGround = true;
+                    movingObject.ChangeVelocity(null, 0);
+                    movingObject.TouchingGround = true;
                 }
-                if (hero.Velocity.Y <= 0 && isTouchingBottom(hero, tempBlock))
+                if (movingObject.Velocity.Y <= 0 && isTouchingBottom(movingObject, tempBlock))
                 {
-                    hero.ChangeVelocity(null, 0.2f);
-                    hero.TouchingTop = true;
+                    movingObject.ChangeVelocity(null, 0.2f);
+                    movingObject.TouchingTop = true;
                 }
-                if (hero.Velocity.X < 0 && isTouchingRight(hero, tempBlock))
+                if (movingObject.Velocity.X < 0 && isTouchingRight(movingObject, tempBlock))
                 {
-                    hero.ChangeVelocity(0, null);
-                    hero.ChangePosition(hero.Position.X + hero.MovementSpeed,null);
-                    hero.TouchingLeft = true;
+                    movingObject.ChangeVelocity(0, null);
+                    movingObject.ChangePosition(movingObject.Position.X + movingObject.MovementSpeed,null);
+                    movingObject.TouchingLeft = true;
                 }
-                if (hero.Velocity.X > 0 && isTouchingLeft(hero,tempBlock))
+                if (movingObject.Velocity.X > 0 && isTouchingLeft(movingObject,tempBlock))
                 {
-                    hero.ChangeVelocity(0, null);
-                    hero.ChangePosition(hero.Position.X - hero.MovementSpeed, null);
-                    hero.TouchingRight = true;
+                    movingObject.ChangeVelocity(0, null);
+                    movingObject.ChangePosition(movingObject.Position.X - movingObject.MovementSpeed, null);
+                    movingObject.TouchingRight = true;
                 }
 
                 /*if (hero.CollisionRectangle.Intersects(tempBlock.CollisionRectangle))
@@ -47,12 +47,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 }*/
             }       
         }
-        private void reset(IMoveableObject hero)
+        private void reset(IMoveableObject movingObject)
         {
-            hero.TouchingGround = false;
-            hero.TouchingLeft = false;
-            hero.TouchingRight = false;
-            hero.TouchingTop = false;
+            movingObject.TouchingGround = false;
+            movingObject.TouchingLeft = false;
+            movingObject.TouchingRight = false;
+            movingObject.TouchingTop = false;
         }
         private bool isTouchingLeft(IMoveableObject source, ICollide target)
         {

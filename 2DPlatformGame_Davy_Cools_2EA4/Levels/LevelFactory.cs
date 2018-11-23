@@ -14,9 +14,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     public class LevelFactory : AbstractLevelFactory
     {
-        protected override StaticBlock CreateBlok(int id,ContentManager content, Vector2 _position)
+        protected override Tiles CreateBlok(int id,ContentManager content, Vector2 _position)
         {
-            StaticBlock b = null;
+            Tiles b = null;
             if (id == 1)
                 b = new GroundBlock(content, _position, "GroundBlock");
             else if (id == 2)
@@ -45,6 +45,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 b = new LavaFiller(content, _position, "LavaFiller");
             else if (id == 14)
                 b = new GroundBlockFillerBoth(content, _position, "GroundBlockFillerBoth");
+            else if (id == 15)
+                b = new ArrowTileRight(content, _position, "ArrowTileRight");
             return b;
         }
     }

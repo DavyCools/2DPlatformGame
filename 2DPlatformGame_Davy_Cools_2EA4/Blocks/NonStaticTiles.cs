@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class WallBlockLeft : StaticTiles
+    class NonStaticTiles : Tiles
     {
-        public WallBlockLeft(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
+        public NonStaticTiles(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {
         }
     }
