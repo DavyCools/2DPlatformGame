@@ -9,7 +9,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     public class CollitionChecker
     {
-        public void CheckCollition(IMoveableObject movingObject, List<ICollide> CollisionList)
+        public void CheckCollision(IMoveableObject movingObject, List<ICollide> CollisionList)
         {
             foreach (ICollide tempBlock in CollisionList)
             {
@@ -46,6 +46,17 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     return false;
                 }*/
             }       
+        }
+        public void CheckCollitionIntersect(Hero movingObject,List<ICollide> CollisionIntersectList)
+        {
+            foreach (ICollide tempObject in CollisionIntersectList.ToList())
+            {
+                if (movingObject.CollisionRectangle.Intersects(tempObject.CollisionRectangle))
+                {
+                    movingObject.TotalCoins++;
+                    CollisionIntersectList.Remove(tempObject);
+                }
+            }
         }
         private void reset(IMoveableObject movingObject)
         {

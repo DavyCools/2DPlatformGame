@@ -43,7 +43,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 for (int y = 0; y < BlockArray.GetLength(1); y++)
                 {
-                    if (BlockArray[x, y] != null)
+                    if (BlockArray[x, y] != null && !(BlockArray[x, y] is IUpdate))
                     {
                         BlockArray[x, y].Draw(spritebatch);
                     }

@@ -9,21 +9,16 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public class Hero : IMoveableObject
+    public class Hero : IMoveableObject, IUpdate
     {
-        List<Bullet> BulletList;
+        List<FireBall> FireBallList;
         Texture2D bulletTexture;
-        int BulletCounter = 0;
+        int FireBallCounter = 0;
+        public int TotalCoins = 0;
         Texture2D texture;
-        //public Vector2 Position;
-        //public Vector2 Velocity;
         Animation animation, heroAttackAnimation, heroRunAnimation, heroDieAnimation, heroJumpAnimation, heroIdleAnimation;
         bool flipAnimation = false;
         public Movement _Movement { get; set; }
-        //public bool TouchingGround = false;
-        //public bool TouchingLeft = false;
-        //public bool TouchingRight = false;
-        //public bool TouchingTop = false;
         public Rectangle CollisionRectangle
         {
             get { return new Rectangle((int)Position.X, (int)Position.Y, 44, 58); }   //Standaard 44,62 => 4 pixels correctie in de hoogte voor een mooi beeld
@@ -64,7 +59,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
         public Hero(ContentManager content)
         {
-            BulletList = new List<Bullet>();
+            FireBallList = new List<FireBall>();
             bulletTexture = content.Load<Texture2D>("Bullet");
             texture = content.Load<Texture2D>("IceWizard");
             Position = new Vector2(70, 0);
@@ -74,11 +69,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             heroDieAnimation = new HeroDieAnimation();
             heroJumpAnimation = new HeroJumpAnimation();
             heroIdleAnimation = new HeroIdleAnimation();
-            animation = heroIdleAnimation; 
+            animation = heroIdleAnimation;
         }
 
         public void Update(GameTime gameTime)
-        {   
+        {
             if (_Movement.Jump)
             {
                 animation = heroJumpAnimation;
@@ -96,7 +91,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 if (Velocity.Y == 0)
                     animation = heroRunAnimation;
                 flipAnimation = true;
-            }               
+            }
             else if (_Movement.Right)
             {
                 if (Velocity.Y == 0)
@@ -108,32 +103,47 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 if (Velocity.Y == 0)
                 {
                     animation = heroAttackAnimation;
+                    shoot();
                 }
             }
             else
             {
                 animation = heroIdleAnimation;
             }
+            if (!_Movement.Shoot)
+                FireBallCounter = 0;
+            if (FireBallList != null)
+                UpdateBullet();
             _Movement.Update(this);
             animation.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.CurrentFrame.scale,flipAnimation?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.CurrentFrame.scale, flipAnimation ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            foreach (FireBall _bullet in FireBallList)
+            {
+                _bullet.Draw(spriteBatch);
+            }
         }
-        /* void addBullet()
+        void shoot()
         {
-            BulletList.Add(new Bullet(bulletTexture,position,false,0));
+            FireBallCounter++;
+            if(FireBallCounter > 50 && animation.CurrentFrame == animation.frames[9])
+            {
+                addFireBall();
+                FireBallCounter = 0;
+            }
+        }
+        void addFireBall()
+        {
+            FireBallList.Add(new FireBall(bulletTexture, position, false));
         }
         private void UpdateBullet()
         {
-            foreach (Bullet _bullet in BulletList)
+            foreach (FireBall _bullet in FireBallList)
             {
-                BulletCounter = _bullet.Update(BulletCounter);
-                if (BulletCounter > 500)
-                {
-                    BulletList.Remove(_bullet);
-                }
-        }*/
+                _bullet.Update();
+            }
+        }
     }
 }

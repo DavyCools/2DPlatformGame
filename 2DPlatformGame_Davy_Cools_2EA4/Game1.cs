@@ -10,6 +10,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     public class Game1 : Game
     {
+        List<ICollide> collecteAbles = new List<ICollide>();
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Hero hero;
@@ -23,6 +24,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         CollitionChecker collider;
 
         Background backGroundLevel1;
+        SpriteFont scoreFont;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -65,6 +67,18 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             // Create a new SpriteBatch, which can be used to draw textures.
             
             level1.CreateLevel(CollisionItemList);
+            foreach (ICollide temp in CollisionItemList)
+            {
+                if (temp is IUpdate)
+                {
+                    collecteAbles.Add(temp);
+                }
+            }
+            foreach(ICollide temp in collecteAbles)
+            {
+                CollisionItemList.Remove(temp);
+            }
+            scoreFont = Content.Load<SpriteFont>("ScoreFont");
             // TODO: use this.Content to load your game content here
         }
 
@@ -86,9 +100,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
             // TODO: Add your update logic here
-            collider.CheckCollition(hero, CollisionItemList);
+            foreach(IUpdate temp2 in collecteAbles)
+            {
+                temp2.Update(gameTime);
+            }
+            collider.CheckCollision(hero, CollisionItemList);
+            collider.CheckCollitionIntersect(hero, collecteAbles);
             hero.Update(gameTime);
             camera.Follow(hero);
             backGroundLevel1.Update(hero.Position.X);
@@ -102,12 +120,15 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // TODO: Add your drawing code here
             spriteBatch.Begin(transformMatrix: camera.Transform);
-            //spriteBatch.Draw(background, backgroundPosition, Color.White);
             backGroundLevel1.Draw(spriteBatch);
             level1.DrawLevel(spriteBatch);
+            foreach (IUpdate temp2 in collecteAbles)
+            {
+                temp2.Draw(spriteBatch);
+            }
+            spriteBatch.DrawString(scoreFont, "Coins: " + hero.TotalCoins.ToString(), (hero.Position - new Vector2(400,205)), Color.White);
             hero.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);

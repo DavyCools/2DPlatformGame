@@ -11,14 +11,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     public abstract class Tiles
     {
-        private Texture2D texture;
+        protected Texture2D texture;
         public Vector2 Position { get; set; }
         public Tiles(ContentManager content, Vector2 _position, string name)
         {
             texture = content.Load<Texture2D>(name);
             Position = _position;
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, Color.AliceBlue);
             //spriteBatch.Draw(texture, CollisionRectangle.Location.ToVector2(), new Rectangle(0, 0, 70, 70), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);

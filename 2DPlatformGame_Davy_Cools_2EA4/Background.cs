@@ -21,7 +21,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Background(ContentManager content)
         {
             positionX = -(Game1.ScreenWidth / 2);
-            positionY = -Game1.ScreenHeight;
+            positionY = -Game1.ScreenHeight + 100;
             screenWidth = Game1.ScreenWidth * 2;
             screenHeight = Game1.ScreenHeight * 2;
             BackgroundTexture = content.Load <Texture2D>("BackgroundLevel1");

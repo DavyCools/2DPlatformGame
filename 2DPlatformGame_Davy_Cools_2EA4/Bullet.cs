@@ -8,34 +8,28 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class Bullet
+    class FireBall
     {
         Texture2D Texture;
         Vector2 Position;
-        bool Direction = false;
-        float Speed { get; set; }
-        int ActiveTime { get; set; }
-        int TotalActiveTime { get; set; }
-        public Bullet(Texture2D texture, Vector2 position, bool direction, int activeTime)
+        bool Direction;
+        float Speed;
+        public FireBall(Texture2D texture, Vector2 position, bool direction)
         {
-            Speed = 2;
+            Speed = 5;
             Texture = texture;
             Position = position;
+            Position.X += 50;
+            Position.Y += 25;
             Direction = direction;
-            ActiveTime = activeTime;
-            TotalActiveTime = 0;
         }
-        //public void Update(GameTime gameTime)
-        public int Update(int test)
+        public void Update()
         {
-            test++;
             Position.X += Speed;
-            return test;
-            //TotalActiveTime += gameTime.ElapsedGameTime.Milliseconds;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture,Position,null,Color.White,0f,new Vector2(Texture.Width/2,Texture.Height/2),1f,SpriteEffects.None,1f);
+            spriteBatch.Draw(Texture,Position,null,Color.White,0f,new Vector2(Texture.Width/2,Texture.Height/2),0.6f,SpriteEffects.None,1f);
         }
     }
 }

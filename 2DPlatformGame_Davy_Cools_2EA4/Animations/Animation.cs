@@ -9,7 +9,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     abstract class Animation
     {
-        private List<AnimationFrame> frames;
+        public List<AnimationFrame> frames;
         double x = 0;
         int index = 0;
         public int Speed { get; set; }
