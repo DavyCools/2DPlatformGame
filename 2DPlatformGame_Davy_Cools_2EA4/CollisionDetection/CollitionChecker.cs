@@ -13,50 +13,44 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             foreach (ICollide tempBlock in CollisionList)
             {
-                reset(movingObject);
-                if (movingObject.Velocity.Y >= 0 && isTouchingTop(movingObject,tempBlock))
-                {
-                    movingObject.ChangeVelocity(null, 0);
-                    movingObject.TouchingGround = true;
-                }
-                if (movingObject.Velocity.Y <= 0 && isTouchingBottom(movingObject, tempBlock))
-                {
-                    movingObject.ChangeVelocity(null, 0.2f);
-                    movingObject.TouchingTop = true;
-                }
-                if (movingObject.Velocity.X < 0 && isTouchingRight(movingObject, tempBlock))
-                {
-                    movingObject.ChangeVelocity(0, null);
-                    movingObject.ChangePosition(movingObject.Position.X + movingObject.MovementSpeed,null);
-                    movingObject.TouchingLeft = true;
-                }
-                if (movingObject.Velocity.X > 0 && isTouchingLeft(movingObject,tempBlock))
-                {
-                    movingObject.ChangeVelocity(0, null);
-                    movingObject.ChangePosition(movingObject.Position.X - movingObject.MovementSpeed, null);
-                    movingObject.TouchingRight = true;
-                }
-
-                /*if (hero.CollisionRectangle.Intersects(tempBlock.CollisionRectangle))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }*/
+                    reset(movingObject);
+                    if (movingObject.Velocity.Y >= 0 && isTouchingTop(movingObject, tempBlock))
+                    {
+                        movingObject.ChangeVelocity(null, 0);
+                        movingObject.TouchingGround = true;
+                    }
+                    if (movingObject.Velocity.Y <= 0 && isTouchingBottom(movingObject, tempBlock))
+                    {
+                        movingObject.ChangeVelocity(null, 0.2f);
+                        movingObject.TouchingTop = true;
+                    }
+                    if (movingObject.Velocity.X < 0 && isTouchingRight(movingObject, tempBlock))
+                    {
+                        movingObject.ChangeVelocity(0, null);
+                        movingObject.ChangePosition(movingObject.Position.X + movingObject.MovementSpeed, null);
+                        movingObject.TouchingLeft = true;
+                    }
+                    if (movingObject.Velocity.X > 0 && isTouchingLeft(movingObject, tempBlock))
+                    {
+                        movingObject.ChangeVelocity(0, null);
+                        movingObject.ChangePosition(movingObject.Position.X - movingObject.MovementSpeed, null);
+                        movingObject.TouchingRight = true;
+                    }
             }       
         }
-        public void CheckCollitionIntersect(Hero movingObject,List<ICollide> CollisionIntersectList)
+        public List<Tiles> CheckCollitionIntersect(Hero hero,List<ICollide> CollisionIntersectList)
         {
+            List<Tiles> _returnTiles = new List<Tiles>();
             foreach (ICollide tempObject in CollisionIntersectList.ToList())
             {
-                if (movingObject.CollisionRectangle.Intersects(tempObject.CollisionRectangle))
+                if (hero.CollisionRectangle.Intersects(tempObject.CollisionRectangle) && !(tempObject is IMoveableObject))
                 {
-                    movingObject.TotalCoins++;
+                    hero.TotalCoins++;
                     CollisionIntersectList.Remove(tempObject);
+                    _returnTiles.Add((Tiles)tempObject);
                 }
             }
+            return _returnTiles;
         }
         private void reset(IMoveableObject movingObject)
         {

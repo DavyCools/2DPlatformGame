@@ -10,7 +10,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     public class Game1 : Game
     {
-        List<ICollide> collecteAbles = new List<ICollide>();
+        List<ICollide> collectAblesList = new List<ICollide>();
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Hero hero;
@@ -25,6 +25,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
         Background backGroundLevel1;
         SpriteFont scoreFont;
+
+        List<Tiles> removeTiles = new List<Tiles>();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -71,12 +73,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 if (temp is IUpdate)
                 {
-                    collecteAbles.Add(temp);
+                    collectAblesList.Add(temp);
                 }
             }
-            foreach(ICollide temp in collecteAbles)
+            foreach(ICollide temp in collectAblesList)
             {
-                CollisionItemList.Remove(temp);
+                if (!(temp is IMoveableObject))
+                    CollisionItemList.Remove(temp);
             }
             scoreFont = Content.Load<SpriteFont>("ScoreFont");
             // TODO: use this.Content to load your game content here
@@ -101,12 +104,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             // TODO: Add your update logic here
-            foreach(IUpdate temp2 in collecteAbles)
+            foreach(IUpdate temp2 in collectAblesList)
             {
                 temp2.Update(gameTime);
             }
             collider.CheckCollision(hero, CollisionItemList);
-            collider.CheckCollitionIntersect(hero, collecteAbles);
+            removeTiles = collider.CheckCollitionIntersect(hero, collectAblesList);
+            level1.RemoveTile(removeTiles);
             hero.Update(gameTime);
             camera.Follow(hero);
             backGroundLevel1.Update(hero.Position.X);
@@ -124,10 +128,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             spriteBatch.Begin(transformMatrix: camera.Transform);
             backGroundLevel1.Draw(spriteBatch);
             level1.DrawLevel(spriteBatch);
-            foreach (IUpdate temp2 in collecteAbles)
+            /*foreach (IUpdate temp2 in collectAblesList)
             {
                 temp2.Draw(spriteBatch);
-            }
+            }*/
             spriteBatch.DrawString(scoreFont, "Coins: " + hero.TotalCoins.ToString(), (hero.Position - new Vector2(400,205)), Color.White);
             hero.Draw(spriteBatch);
             spriteBatch.End();

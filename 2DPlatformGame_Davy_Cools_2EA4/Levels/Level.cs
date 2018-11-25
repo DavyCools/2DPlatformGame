@@ -16,38 +16,51 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Level(ContentManager _content)
         {
             CreateLevelArray();
-            BlockArray = new Tiles[LevelArray.GetLength(0), LevelArray.GetLength(1)];
+            //TilesArray = new Tiles[LevelArray.GetLength(0), LevelArray.GetLength(1)];
+            TilesList = new List<Tiles>();
             content = _content;
             levelFactory = new LevelFactory();
         }
         protected abstract void CreateLevelArray();
         public byte[,] LevelArray;
-        public Tiles[,] BlockArray;
+        //public Tiles[,] TilesArray;
+        public List<Tiles> TilesList;
         public void CreateLevel(List<ICollide> CollisionList)
         {
-            for (int x = 0; x < BlockArray.GetLength(0); x++)
+            for (int x = 0; x < LevelArray.GetLength(0); x++) //Er stond TilesArray in plaats van LevelArray
             {
-                for (int y = 0; y < BlockArray.GetLength(1); y++)
+                for (int y = 0; y < LevelArray.GetLength(1); y++)  //Er stond TilesArray in plaats van LevelArray
                 {
                     if (LevelArray[x, y] != 0)
                     {
-                        BlockArray[x, y] = levelFactory.GetExactBlock((int)LevelArray[x, y],content, new Vector2(y * 70, x * 70),CollisionList);
-                        //BlockArray[x, y] = new Block(content, new Microsoft.Xna.Framework.Vector2(y * 70, x * 70));
+                        //TilesArray[x, y] = levelFactory.GetExactBlock((int)LevelArray[x, y],content, new Vector2(y * 70, x * 70),CollisionList);
+                        TilesList.Add(levelFactory.GetExactBlock((int)LevelArray[x, y], content, new Vector2(y * 70, x * 70), CollisionList));
                     }
                 }
             }
         }
         public void DrawLevel(SpriteBatch spritebatch)
         {
-            for (int x = 0; x < BlockArray.GetLength(0); x++)
+            foreach (Tiles tempTile in TilesList)
             {
-                for (int y = 0; y < BlockArray.GetLength(1); y++)
+                tempTile.Draw(spritebatch);
+            }
+            /*for (int x = 0; x < TilesArray.GetLength(0); x++)
+            {
+                for (int y = 0; y < TilesArray.GetLength(1); y++)
                 {
-                    if (BlockArray[x, y] != null && !(BlockArray[x, y] is IUpdate))
+                    if (TilesArray[x, y] != null && !(TilesArray[x, y] is IUpdate))
                     {
-                        BlockArray[x, y].Draw(spritebatch);
+                        TilesArray[x, y].Draw(spritebatch);
                     }
                 }
+            }*/
+        }
+        public void RemoveTile(List<Tiles> _tiles)
+        {
+            foreach (Tiles _tile in _tiles)
+            {
+                TilesList.Remove(_tile);
             }
         }
     }

@@ -55,6 +55,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 b = new SignTileLava(content, _position, "SignTileLava");
             else if (id == 19)
                 b = new Coin(content, _position, "CoinSprite");
+            else if (id == 20)
+                b = new GroundBlockHalf(content, _position, "GroundBlockHalf");
             return b;
         }
     }
