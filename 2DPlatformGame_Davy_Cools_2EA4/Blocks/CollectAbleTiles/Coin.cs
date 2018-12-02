@@ -9,15 +9,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class Coin : CollectAbleTiles
+    class Coin : CollectableTiles
     {
         bool one = true;
         bool two = false;
         public Coin(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {
             animation = new CoinAnimation();
+            animation.scale = 0.1f;
             Position += new Vector2(21, 20);
         }
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, 25, 25);
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (animation.CurrentFrame == animation.frames[0] && one)
@@ -56,8 +58,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 one = true;
                 two = false;
             }    
-            spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 0.1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.scale, SpriteEffects.None, 0f);
         }
-        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, 25, 25);
     }
 }

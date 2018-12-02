@@ -9,7 +9,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     class AnimationFrame
     {
-        public float scale = 0.2f;
+        //public float scale = 0.2f;
         public Rectangle FrameSelector { get; set; }
     }
 }

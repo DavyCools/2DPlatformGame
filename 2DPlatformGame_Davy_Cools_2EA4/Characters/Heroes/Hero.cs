@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public class Hero : IMoveableObject, IUpdate
+    public class Hero : IMoveableObject, IUpdate, IDrawObject
     {
         List<FireBall> FireBallList;
         Texture2D bulletTexture;
-        int FireBallCounter = 0;
+        bool CanShootFireBall = true;
         public int TotalCoins = 0;
         Texture2D texture;
         Animation animation, heroAttackAnimation, heroRunAnimation, heroDieAnimation, heroJumpAnimation, heroIdleAnimation;
@@ -110,39 +110,50 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 animation = heroIdleAnimation;
             }
-            if (!_Movement.Shoot)
-                FireBallCounter = 0;
             if (FireBallList != null)
                 UpdateBullet();
             _Movement.Update(this);
             animation.Update(gameTime);
+            TouchingGround = false;
+            TouchingLeft = false;
+            TouchingRight = false;
+            TouchingTop = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.CurrentFrame.scale, flipAnimation ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.scale, flipAnimation ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
             foreach (FireBall _bullet in FireBallList)
             {
                 _bullet.Draw(spriteBatch);
             }
         }
-        void shoot()
+        public List<FireBall> GetFireBalls()
         {
-            FireBallCounter++;
-            if(FireBallCounter > 50 && animation.CurrentFrame == animation.frames[9])
+            return FireBallList;
+        }
+        private void shoot()
+        {
+            if(CanShootFireBall && animation.CurrentFrame == animation.frames[6])
             {
                 addFireBall();
-                FireBallCounter = 0;
+                CanShootFireBall = false;
             }
+            if (animation.CurrentFrame != animation.frames[6])
+                CanShootFireBall = true;
         }
-        void addFireBall()
+        private void addFireBall()
         {
-            FireBallList.Add(new FireBall(bulletTexture, position, false));
+            FireBallList.Add(new FireBall(bulletTexture, position, flipAnimation));
         }
         private void UpdateBullet()
         {
-            foreach (FireBall _bullet in FireBallList)
+            foreach (FireBall _bullet in FireBallList.ToList())
             {
-                _bullet.Update();
+                   bool remove = _bullet.Update();
+                if (remove)
+                {
+                    FireBallList.Remove(_bullet);
+                }
             }
         }
     }

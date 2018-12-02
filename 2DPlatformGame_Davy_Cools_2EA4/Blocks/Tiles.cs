@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public abstract class Tiles
+    public abstract class Tiles : IDrawObject
     {
         protected Texture2D texture;
         public Vector2 Position { get; set; }

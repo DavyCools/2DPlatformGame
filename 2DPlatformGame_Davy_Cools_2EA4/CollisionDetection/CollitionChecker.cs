@@ -9,34 +9,38 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     public class CollitionChecker
     {
-        public void CheckCollision(IMoveableObject movingObject, List<ICollide> CollisionList)
+        public void CheckCollision(List<IMoveableObject> movingObjectList, List<ICollide> CollisionList)
         {
-            foreach (ICollide tempBlock in CollisionList)
+            foreach(IMoveableObject movingObject in movingObjectList)
             {
-                    reset(movingObject);
-                    if (movingObject.Velocity.Y >= 0 && isTouchingTop(movingObject, tempBlock))
+                foreach (ICollide collisionObject in CollisionList)
+                {
+                    //reset(movingObject);
+                    if (movingObject.Velocity.Y >= 0 && isTouchingTop(movingObject, collisionObject))
                     {
                         movingObject.ChangeVelocity(null, 0);
                         movingObject.TouchingGround = true;
                     }
-                    if (movingObject.Velocity.Y <= 0 && isTouchingBottom(movingObject, tempBlock))
+                    if (movingObject.Velocity.Y <= 0 && isTouchingBottom(movingObject, collisionObject))
                     {
                         movingObject.ChangeVelocity(null, 0.2f);
                         movingObject.TouchingTop = true;
                     }
-                    if (movingObject.Velocity.X < 0 && isTouchingRight(movingObject, tempBlock))
+                    if (movingObject.Velocity.X < 0 && isTouchingRight(movingObject, collisionObject))
                     {
                         movingObject.ChangeVelocity(0, null);
                         movingObject.ChangePosition(movingObject.Position.X + movingObject.MovementSpeed, null);
                         movingObject.TouchingLeft = true;
                     }
-                    if (movingObject.Velocity.X > 0 && isTouchingLeft(movingObject, tempBlock))
+                    if (movingObject.Velocity.X > 0 && isTouchingLeft(movingObject, collisionObject))
                     {
                         movingObject.ChangeVelocity(0, null);
                         movingObject.ChangePosition(movingObject.Position.X - movingObject.MovementSpeed, null);
                         movingObject.TouchingRight = true;
                     }
-            }       
+                }
+            }
+                  
         }
         public List<Tiles> CheckCollitionIntersect(Hero hero,List<ICollide> CollisionIntersectList)
         {

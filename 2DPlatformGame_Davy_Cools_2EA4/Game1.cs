@@ -10,12 +10,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     public class Game1 : Game
     {
-        List<ICollide> collectAblesList = new List<ICollide>();
+        List<ICollide> CollisionItemList;
+        List<ICollide> MovingObjectsList;
+        List<IMoveableObject> charactersList;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Hero hero;
         Camera2d camera;
-        public List<ICollide> CollisionItemList;
+        
         public static int ScreenHeight;
         public static int ScreenWidth;
 
@@ -26,7 +28,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         Background backGroundLevel1;
         SpriteFont scoreFont;
 
-        List<Tiles> removeTiles = new List<Tiles>();
+        List<Tiles> removeObjects = new List<Tiles>();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -47,16 +49,25 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
+
+            CollisionItemList = new List<ICollide>();
+            MovingObjectsList = new List<ICollide>();
+            charactersList = new List<IMoveableObject>();
+
             hero = new Hero(Content);
             hero._Movement = new MovementArrowKeys();
+
             camera = new Camera2d() {Zoom = 1.5f };
+
             collider = new CollitionChecker();
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            CollisionItemList = new List<ICollide>();
+
             level1 = new Level1(Content);
             backGroundLevel1 = new Background(Content);
+
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             base.Initialize();
         }
 
@@ -69,18 +80,28 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             // Create a new SpriteBatch, which can be used to draw textures.
             
             level1.CreateLevel(CollisionItemList);
+            charactersList.Add(hero);
+            //De lijst die teruggegeven wordt van een level filteren in verschillende lijsten
             foreach (ICollide temp in CollisionItemList)
             {
-                if (temp is IUpdate)
+                if (temp is Enemy)
+                    charactersList.Add((IMoveableObject)temp);
+                else if (temp is IUpdate)
                 {
-                    collectAblesList.Add(temp);
+                        MovingObjectsList.Add(temp);
                 }
             }
-            foreach(ICollide temp in collectAblesList)
+            //Deze foreach verwijdert alle objecten uit de lijst van collisionItemList die niet beweegbaar zijn omdat deze later alleen gaan gecontroleerd worden of ze algemeen geraakt worden
+            foreach(ICollide temp in MovingObjectsList)
             {
                 if (!(temp is IMoveableObject))
                     CollisionItemList.Remove(temp);
             }
+            foreach (ICollide temp in charactersList)
+            {
+                CollisionItemList.Remove(temp);
+            }
+
             scoreFont = Content.Load<SpriteFont>("ScoreFont");
             // TODO: use this.Content to load your game content here
         }
@@ -104,13 +125,18 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             // TODO: Add your update logic here
-            foreach(IUpdate temp2 in collectAblesList)
+            foreach(IUpdate temp2 in MovingObjectsList)
             {
                 temp2.Update(gameTime);
             }
-            collider.CheckCollision(hero, CollisionItemList);
-            removeTiles = collider.CheckCollitionIntersect(hero, collectAblesList);
-            level1.RemoveTile(removeTiles);
+            foreach (IUpdate temp3 in charactersList)
+            {
+                if(!(temp3 is Hero))
+                temp3.Update(gameTime);
+            }
+            collider.CheckCollision(charactersList, CollisionItemList);
+            removeObjects = collider.CheckCollitionIntersect(hero, MovingObjectsList);
+            level1.RemoveTile(removeObjects);
             hero.Update(gameTime);
             camera.Follow(hero);
             backGroundLevel1.Update(hero.Position.X);

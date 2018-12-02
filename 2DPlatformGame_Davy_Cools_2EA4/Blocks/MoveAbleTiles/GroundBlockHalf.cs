@@ -8,47 +8,14 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class GroundBlockHalf : StaticTiles, IMoveableObject, IUpdate
+    class GroundBlockHalf : MoveableTile
     {
         public GroundBlockHalf(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {
-            ChangeVelocity(MovementSpeed, 0);
             TouchingLeft = false;
             TouchingRight = true;
-            position = Position;
         }
-        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, 70, 35);
-
-        public bool TouchingGround { get; set; }
-        public bool TouchingLeft { get; set; }
-        public bool TouchingRight { get; set; }
-        public bool TouchingTop { get; set; }
-
-        public float MovementSpeed => 1f;
-
-        private Vector2 velocity;
-        public Vector2 Velocity
-        {
-            get { return velocity; }
-            set { velocity = value; }
-        }
-        public void ChangeVelocity(float? x, float? y)
-        {
-            if (x != null)
-                velocity.X = (float)x;
-            if (y != null)
-                velocity.Y = (float)y;
-        }
-        private Vector2 position;
-        public void ChangePosition(float? x, float? y)
-        {
-            if (x != null)
-                position.X = (float)x;
-            if (y != null)
-                position.Y = (float)y;
-        }
-
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (Position.X <= position.X - 140)
             {

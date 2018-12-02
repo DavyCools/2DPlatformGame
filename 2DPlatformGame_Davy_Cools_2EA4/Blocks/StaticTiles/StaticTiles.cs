@@ -16,7 +16,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         public virtual Rectangle CollisionRectangle
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, 70, 70); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, texture.Width, texture.Height); }
         }
     }
 }

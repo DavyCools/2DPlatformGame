@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    abstract class CollectAbleTiles : StaticTiles, IUpdate
+    abstract class CollectableTiles : StaticTiles, IUpdate
     {
         protected Animation animation;
-        public CollectAbleTiles(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
+        public CollectableTiles(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {
         }
 

@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public interface IUpdate
+    public interface IDrawObject
     {
-        void Update(GameTime gameTime);
+        Vector2 Position { get; set; }
+        void Draw(SpriteBatch spriteBatch);
     }
 }

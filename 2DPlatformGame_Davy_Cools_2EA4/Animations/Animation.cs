@@ -14,6 +14,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         int index = 0;
         public int Speed { get; set; }
         public AnimationFrame CurrentFrame { get; set; }
+        public float scale = 0.2f;
         public Animation()
         {
             frames = new List<AnimationFrame>();

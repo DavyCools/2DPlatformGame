@@ -16,11 +16,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public override void Update(IMoveableObject hero)
         {
             KeyboardState stateKey = Keyboard.GetState();
-
             if (stateKey.IsKeyDown(Keys.Left) && Right == false)
             {
                 Left = true;
-                if (!hero.TouchingLeft)
+                //if (!hero.TouchingLeft)
                     hero.ChangeVelocity(-movementSpeed, null);
                     //hero.Velocity.X = -movementSpeed;
             }
@@ -45,11 +44,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             if (stateKey.IsKeyDown(Keys.Up) && hero.Velocity.Y == 0)
             {
                 Jump = true;
-                if (!hero.TouchingTop)
-                {
+                //if (!hero.TouchingTop)
                     hero.ChangeVelocity(null, -7.8f);
                     //hero.Velocity.Y = -7.8f;
-                }
             }
             if (stateKey.IsKeyUp(Keys.Up))
             {

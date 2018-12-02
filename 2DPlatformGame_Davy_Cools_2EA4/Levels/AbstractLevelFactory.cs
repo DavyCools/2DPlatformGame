@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public abstract class AbstractLevelFactory
+    abstract class AbstractLevelFactory
     {
-        public Tiles GetExactBlock(int id, ContentManager content, Vector2 _position, List<ICollide> CollisionList)
+        public IDrawObject GetExactBlock(int id, ContentManager content, Vector2 _position, List<ICollide> CollisionList)
         {
-            Tiles block = CreateBlok(id,content,_position);
-            if(block is ICollide)
+            IDrawObject tempObject = CreateBlok(id, content, _position);           
+            if(tempObject is ICollide)
             {
-                CollisionList.Add((ICollide)block);
+                CollisionList.Add((ICollide)tempObject);
             }
-            return block;
+            return tempObject;
         }
-        protected abstract Tiles CreateBlok(int id,ContentManager content, Vector2 _position);
+        protected abstract IDrawObject CreateBlok(int id,ContentManager content, Vector2 _position);
     }
 }

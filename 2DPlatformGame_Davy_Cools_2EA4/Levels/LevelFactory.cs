@@ -12,11 +12,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// <summary>
     /// Verantwoordelijk voor het aanmaken van de juist blok
     /// </summary>
-    public class LevelFactory : AbstractLevelFactory
+    class LevelFactory : AbstractLevelFactory
     {
-        protected override Tiles CreateBlok(int id,ContentManager content, Vector2 _position)
+        protected override IDrawObject CreateBlok(int id,ContentManager content, Vector2 _position)
         {
-            Tiles b = null;
+            IDrawObject b = null;
             if (id == 1)
                 b = new GroundBlock(content, _position, "GroundBlock");
             else if (id == 2)
@@ -56,7 +56,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             else if (id == 19)
                 b = new Coin(content, _position, "CoinSprite");
             else if (id == 20)
-                b = new GroundBlockHalf(content, _position, "GroundBlockHalf");
+                b = new GroundBlockHalf(content, _position, "GroundBlockHalf") { TouchingLeft = true, TouchingRight = false };
+            else if (id == 21)
+                b = new GroundBlockHalf(content, _position, "GroundBlockHalf") { TouchingLeft = false, TouchingRight = true };
+            else if (id == 50)
+                b = new Gremlin(content, _position, "GremlinSheet");
             return b;
         }
     }

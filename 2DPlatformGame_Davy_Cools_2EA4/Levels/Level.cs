@@ -17,14 +17,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             CreateLevelArray();
             //TilesArray = new Tiles[LevelArray.GetLength(0), LevelArray.GetLength(1)];
-            TilesList = new List<Tiles>();
+            TilesList = new List<IDrawObject>();
             content = _content;
             levelFactory = new LevelFactory();
         }
         protected abstract void CreateLevelArray();
         public byte[,] LevelArray;
         //public Tiles[,] TilesArray;
-        public List<Tiles> TilesList;
+        public List<IDrawObject> TilesList;
         public void CreateLevel(List<ICollide> CollisionList)
         {
             for (int x = 0; x < LevelArray.GetLength(0); x++) //Er stond TilesArray in plaats van LevelArray
@@ -41,7 +41,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         public void DrawLevel(SpriteBatch spritebatch)
         {
-            foreach (Tiles tempTile in TilesList)
+            foreach (IDrawObject tempTile in TilesList)
             {
                 tempTile.Draw(spritebatch);
             }
