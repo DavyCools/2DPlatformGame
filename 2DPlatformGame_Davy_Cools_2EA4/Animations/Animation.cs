@@ -41,6 +41,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 x = 0;
             }
         }
+        public void Reset()
+        {
+            CurrentFrame = frames[0];
+        }
         abstract public void AnimationFrames();
     }
 }

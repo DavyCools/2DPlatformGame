@@ -11,7 +11,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     {
         public HeroDieAnimation()
         {
-            Speed = 5;
+            Speed = 10;
         }
         public override void AnimationFrames()
         {

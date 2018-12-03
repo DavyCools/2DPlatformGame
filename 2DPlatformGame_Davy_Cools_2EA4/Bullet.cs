@@ -56,9 +56,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             Position = _position;
             flipAnimation = _direction;
             if(flipAnimation)
-                Position += new Vector2(0,25);
+                Position += new Vector2(0,30);
             if(!flipAnimation)
-                Position += new Vector2(35, 25);
+                Position += new Vector2(35, 30);
             spawnPosition = Position;
             
         }

@@ -13,6 +13,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         List<ICollide> CollisionItemList;
         List<ICollide> MovingObjectsList;
         List<IMoveableObject> charactersList;
+        List<ICollide> deathlyObjects;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Hero hero;
@@ -56,6 +57,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             CollisionItemList = new List<ICollide>();
             MovingObjectsList = new List<ICollide>();
             charactersList = new List<IMoveableObject>();
+            deathlyObjects = new List<ICollide>();
 
             hero = new Hero(Content);
             hero._Movement = new MovementArrowKeys();
@@ -84,8 +86,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             //De lijst die teruggegeven wordt van een level filteren in verschillende lijsten
             foreach (ICollide temp in CollisionItemList)
             {
+                if(temp is IDeathly)
+                    deathlyObjects.Add(temp);
                 if (temp is Enemy)
+                {
                     charactersList.Add((IMoveableObject)temp);
+                }
                 else if (temp is IUpdate)
                 {
                         MovingObjectsList.Add(temp);
@@ -98,6 +104,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     CollisionItemList.Remove(temp);
             }
             foreach (ICollide temp in charactersList)
+            {
+                CollisionItemList.Remove(temp);
+            }
+            foreach(ICollide temp in deathlyObjects)
             {
                 CollisionItemList.Remove(temp);
             }
@@ -134,6 +144,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 if(!(temp3 is Hero))
                 temp3.Update(gameTime);
             }
+            collider.CheckCollitionIntersect(hero, deathlyObjects);
             collider.CheckCollision(charactersList, CollisionItemList);
             removeObjects = collider.CheckCollitionIntersect(hero, MovingObjectsList);
             level1.RemoveTile(removeObjects);
@@ -158,7 +169,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 temp2.Draw(spriteBatch);
             }*/
-            spriteBatch.DrawString(scoreFont, "Coins: " + hero.TotalCoins.ToString(), (hero.Position - new Vector2(400,205)), Color.White);
+            spriteBatch.DrawString(scoreFont, "Lives: " + hero.TotalLives.ToString(), (hero.Position - new Vector2(400,205)), Color.White);
+            spriteBatch.DrawString(scoreFont, "Coins: " + hero.TotalCoins.ToString(), (hero.Position - new Vector2(400,185)), Color.White);
             hero.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);

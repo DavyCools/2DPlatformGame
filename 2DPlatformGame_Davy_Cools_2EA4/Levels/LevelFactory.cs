@@ -61,6 +61,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 b = new GroundBlockHalf(content, _position, "GroundBlockHalf") { TouchingLeft = false, TouchingRight = true };
             else if (id == 50)
                 b = new Gremlin(content, _position, "GremlinSheet");
+            else if (id == 51)
+                b = new Plant(content, _position, "PlantSheet");
+            else if (id == 52)
+                b = new FloatEye(content, _position, "FloatEyeSheet");
             return b;
         }
     }

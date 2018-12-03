@@ -9,16 +9,17 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    abstract class Enemy : IMoveableObject, IUpdate, IDrawObject
+    abstract class Enemy : IMoveableObject, IUpdate, IDrawObject, IDeathly
     {
         protected Animation animation;
         Texture2D texture;
-        private bool flipAnimation = false;
+        protected bool flipAnimation = false;
         public bool TouchingGround { get; set; }
         public bool TouchingLeft { get; set; }
         public bool TouchingRight { get; set; }
         public bool TouchingTop { get; set; }
         public float MovementSpeed => 1.5f;
+        public bool IsHit { get; set; }
         public Enemy(ContentManager content,Vector2 position, String name)
         {
             texture = content.Load<Texture2D>(name);
@@ -28,7 +29,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
         public Rectangle CollisionRectangle
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(48 * animation.scale), (int)(48 * animation.scale) - 4); } //4px correctie voor voeten mooi op de grond te zetten
+            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(48 * animation.scale) + 4, (int)(48 * animation.scale) - 4); } //4px correctie voor voeten mooi op de grond te zetten
         }
 
         private Vector2 position;
@@ -63,7 +64,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             //spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 0.7f, flipAnimation ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             animation.Update(gameTime);
             if (Velocity.Y == 0 && Velocity.X == 0)

@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
-    /// De klasse MovementArrowsKeys is verantwoordelijk voor de bewgiging van de hero als er op 1 van de knoppen die de hero bestuurd geklikt wordt
+    /// Deze klasse (MovementArrowsKeys) is verantwoordelijk voor de bewgeging van een meegegeven IMoveableObject als er op 1 van de knoppen gedefinieerde knoppen wordt gedrukt.
+    /// Erft over van: Movement
     /// </summary>
     class MovementArrowKeys : Movement
     {

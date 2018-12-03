@@ -9,9 +9,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     public class CollitionChecker
     {
-        public void CheckCollision(List<IMoveableObject> movingObjectList, List<ICollide> CollisionList)
+        public void CheckCollision(List<IMoveableObject> movingCharacterList, List<ICollide> CollisionList)
         {
-            foreach(IMoveableObject movingObject in movingObjectList)
+            foreach(IMoveableObject movingObject in movingCharacterList)
             {
                 foreach (ICollide collisionObject in CollisionList)
                 {
@@ -42,16 +42,23 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             }
                   
         }
-        public List<Tiles> CheckCollitionIntersect(Hero hero,List<ICollide> CollisionIntersectList)
+        public List<Tiles> CheckCollitionIntersect(Hero hero,List<ICollide> MovingObjectList)
         {
             List<Tiles> _returnTiles = new List<Tiles>();
-            foreach (ICollide tempObject in CollisionIntersectList.ToList())
+            foreach (ICollide tempObject in MovingObjectList.ToList())
             {
-                if (hero.CollisionRectangle.Intersects(tempObject.CollisionRectangle) && !(tempObject is IMoveableObject))
+                if (hero.CollisionRectangle.Intersects(tempObject.CollisionRectangle))
                 {
-                    hero.TotalCoins++;
-                    CollisionIntersectList.Remove(tempObject);
-                    _returnTiles.Add((Tiles)tempObject);
+                    if(tempObject is Coin)
+                    {
+                        hero.TotalCoins++;
+                        MovingObjectList.Remove(tempObject);
+                        _returnTiles.Add((Tiles)tempObject);
+                    }
+                    if(tempObject is IDeathly)
+                    {
+                        hero.IsHit = true;
+                    }
                 }
             }
             return _returnTiles;

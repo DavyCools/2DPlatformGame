@@ -9,14 +9,16 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public class Hero : IMoveableObject, IUpdate, IDrawObject
+    public class Hero : IMoveableObject, IUpdate, IDrawObject, IDeathly
     {
-        List<FireBall> FireBallList;
+        List<IMoveableObject> FireBallList;
         Texture2D bulletTexture;
         bool CanShootFireBall = true;
         public int TotalCoins = 0;
+        public int TotalLives = 3;
+        public bool IsHit { get; set; }
         Texture2D texture;
-        Animation animation, heroAttackAnimation, heroRunAnimation, heroDieAnimation, heroJumpAnimation, heroIdleAnimation;
+        Animation animation, heroAttackAnimation, heroRunAnimation, heroDieAnimation, heroJumpAnimation, heroIdleAnimation, heroHitAnimation;
         bool flipAnimation = false;
         public Movement _Movement { get; set; }
         public Rectangle CollisionRectangle
@@ -48,7 +50,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             set { position = value; }
         }
 
-        public float MovementSpeed => 3f;
+        public float MovementSpeed => 3f; 
+
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -59,65 +62,83 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
         public Hero(ContentManager content)
         {
-            FireBallList = new List<FireBall>();
+            FireBallList = new List<IMoveableObject>();
             bulletTexture = content.Load<Texture2D>("Bullet");
             texture = content.Load<Texture2D>("IceWizard");
-            Position = new Vector2(70, 0);
+            Position = new Vector2(70, 150);
             Velocity = new Vector2(2, 0);
             heroAttackAnimation = new HeroAttackAnimation();
             heroRunAnimation = new HeroRunAnimation();
             heroDieAnimation = new HeroDieAnimation();
             heroJumpAnimation = new HeroJumpAnimation();
             heroIdleAnimation = new HeroIdleAnimation();
+            heroHitAnimation = new HeroHitAnimation();
             animation = heroIdleAnimation;
         }
 
         public void Update(GameTime gameTime)
         {
-            if (_Movement.Jump)
+            if (FireBallList != null)
+                UpdateBullet();
+            if (IsHit && TotalLives != 0)
             {
-                animation = heroJumpAnimation;
-                if (Velocity.X >= 0 && !_Movement.Left)
-                {
-                    flipAnimation = false;
-                }
-                else
-                {
-                    flipAnimation = true;
-                }
+                TotalLives--;
+                if(TotalLives != 0)
+                    Position = new Vector2(70, 450);
+                IsHit = false;
             }
-            else if (_Movement.Left)
+            if (TotalLives == 0)
             {
-                if (Velocity.Y == 0)
-                    animation = heroRunAnimation;
-                flipAnimation = true;
-            }
-            else if (_Movement.Right)
-            {
-                if (Velocity.Y == 0)
-                    animation = heroRunAnimation;
-                flipAnimation = false;
-            }
-            else if (_Movement.Shoot)
-            {
-                if (Velocity.Y == 0)
-                {
-                    animation = heroAttackAnimation;
-                    shoot();
-                }
+                animation = heroDieAnimation;
+                if(animation.CurrentFrame != animation.frames[animation.frames.Count - 1])
+                    animation.Update(gameTime);
             }
             else
             {
-                animation = heroIdleAnimation;
-            }
-            if (FireBallList != null)
-                UpdateBullet();
-            _Movement.Update(this);
-            animation.Update(gameTime);
-            TouchingGround = false;
-            TouchingLeft = false;
-            TouchingRight = false;
-            TouchingTop = false;
+                if (_Movement.Jump)
+                {
+                    animation = heroJumpAnimation;
+                    if (Velocity.X >= 0 && !_Movement.Left)
+                    {
+                        flipAnimation = false;
+                    }
+                    else
+                    {
+                        flipAnimation = true;
+                    }
+                }
+                else if (_Movement.Left)
+                {
+                    if (Velocity.Y == 0)
+                        animation = heroRunAnimation;
+                    flipAnimation = true;
+                }
+                else if (_Movement.Right)
+                {
+                    if (Velocity.Y == 0)
+                        animation = heroRunAnimation;
+                    flipAnimation = false;
+                }
+                else if (_Movement.Shoot)
+                {
+                    if (Velocity.Y == 0)
+                    {
+                        animation = heroAttackAnimation;
+                        shoot();
+                    }
+                }
+                else
+                {
+                    animation = heroIdleAnimation;
+                }
+                _Movement.Update(this);
+                animation.Update(gameTime);
+                TouchingGround = false;
+                TouchingLeft = false;
+                TouchingRight = false;
+                TouchingTop = false;
+            }   
+            
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -127,7 +148,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 _bullet.Draw(spriteBatch);
             }
         }
-        public List<FireBall> GetFireBalls()
+        public List<IMoveableObject> GetFireBalls()
         {
             return FireBallList;
         }
