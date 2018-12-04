@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze interface (IDrawObject) moet gegeven worden aan
+    /// alle objecten die getekend moeten worden
+    /// </summary>
     public interface IDrawObject
     {
         Vector2 Position { get; set; }

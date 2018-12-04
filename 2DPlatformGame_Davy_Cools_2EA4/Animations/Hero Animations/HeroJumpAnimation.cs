@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (HeroJumpAnimation) is verantwoordelijk voor
+    /// de JumpAnimatie van de hero
+    /// Erft over van: Animation
+    /// </summary>
     class HeroJumpAnimation : Animation
     {
         public HeroJumpAnimation()
         {
             Speed = 15;
         }
+        /// <summary>
+        /// Voegt frames toe aan de lijst voor de HeroJumpAnimation
+        /// </summary>
         public override void AnimationFrames()
         {
             AddFrame(new AnimationFrame() { FrameSelector = new Rectangle(308, 2035, 205, 295) });

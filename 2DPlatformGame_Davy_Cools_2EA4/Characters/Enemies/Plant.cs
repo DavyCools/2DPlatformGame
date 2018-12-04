@@ -8,12 +8,20 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (Plant) is verantwoordelijk
+    /// voor het juist gedrag van de plant
+    /// Erft over van: Enemy
+    /// </summary>
     class Plant : Enemy
     {
         public Plant(ContentManager content, Vector2 position, string name) : base(content, position, name)
         {
-            animation = new PlantAnimation();
-            animation.scale = 1.3f;    
+            animation = new PlantAnimation() {scale = 1.3f};   
+        }
+        public override Rectangle CollisionRectangle
+        {
+            get { return new Rectangle((int)Position.X + 15, (int)Position.Y + 10, (int)(48 * animation.scale) - 20, (int)(48 * animation.scale) - 14); } 
         }
         public override void Update(GameTime gameTime)
         {

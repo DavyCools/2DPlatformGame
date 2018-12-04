@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse is verantwoordelijk voor
+    /// het aanmaken van de achergrond
+    /// </summary>
     class Background
     {
-        Texture2D BackgroundTexture;
+        private Texture2D backgroundTexture;
         private Rectangle[] backgroundArray;
         private int positionX;
         private int positionY;
@@ -24,7 +28,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             positionY = -Game1.ScreenHeight + 100;
             screenWidth = Game1.ScreenWidth * 2;
             screenHeight = Game1.ScreenHeight * 2;
-            BackgroundTexture = content.Load <Texture2D>("BackgroundLevel1");
+            backgroundTexture = content.Load <Texture2D>("BackgroundLevel1");
             backgroundArray = new Rectangle[] { new Rectangle(positionX,positionY,screenWidth, screenHeight),
                               new Rectangle(positionX + backgroundWidth,positionY,screenWidth,screenHeight),
                               new Rectangle(positionX + backgroundWidth*2,positionY,screenWidth,screenHeight),
@@ -48,10 +52,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(BackgroundTexture, backgroundArray[0],Color.White);
-            spriteBatch.Draw(BackgroundTexture, backgroundArray[1], Color.White);
-            spriteBatch.Draw(BackgroundTexture, backgroundArray[2], Color.White);
-            spriteBatch.Draw(BackgroundTexture, backgroundArray[3], Color.White);
+            spriteBatch.Draw(backgroundTexture, backgroundArray[0],Color.White);
+            spriteBatch.Draw(backgroundTexture, backgroundArray[1], Color.White);
+            spriteBatch.Draw(backgroundTexture, backgroundArray[2], Color.White);
+            spriteBatch.Draw(backgroundTexture, backgroundArray[3], Color.White);
         }
     }
 }

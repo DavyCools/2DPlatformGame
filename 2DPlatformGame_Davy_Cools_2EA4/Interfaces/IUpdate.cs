@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public interface IUpdate
+    /// <summary>
+    /// Deze interface (IUpdate) moet gegeven worden aan
+    /// alle objecten die worden geupdate
+    /// </summary>
+    interface IUpdate
     {
         void Update(GameTime gameTime);
     }

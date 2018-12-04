@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (HeroIdleAnimation) is verantwoordelijk voor
+    /// de DileAnimatie van de hero
+    /// Erft over van: Animation
+    /// </summary>
     class HeroIdleAnimation : Animation
     {
         public HeroIdleAnimation(){
             Speed = 9;
         }
+        /// <summary>
+        /// Voegt frames toe aan de lijst voor de HeroIdleAnimation
+        /// </summary>
         public override void AnimationFrames()
         {
             AddFrame(new AnimationFrame() { FrameSelector = new Rectangle(306, 175, 207, 302) });

@@ -9,12 +9,16 @@ using Microsoft.Xna.Framework;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class Gremlin : Enemy
+    /// <summary>
+    /// Deze klasse (Gremlin) is verantwoordelijk
+    /// voor het juist gedrag van de gremlin
+    /// Erft over van: Enemy, IKillable
+    /// </summary>
+    class Gremlin : Enemy, IKillable
     {
         public Gremlin(ContentManager content,Vector2 position, string name) : base(content,position, name)
         {
-            animation = new GremlinAnimation();
-            animation.scale = 0.7f;
+            animation = new GremlinAnimation() {scale = 0.7f};
         }
     }
 }

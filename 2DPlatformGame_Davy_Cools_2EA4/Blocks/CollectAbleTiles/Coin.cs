@@ -11,52 +11,51 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     class Coin : CollectableTiles
     {
-        bool one = true;
-        bool two = false;
+        private bool firstFrame = true;
+        private bool SecondFrame = false;
         public Coin(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {
-            animation = new CoinAnimation();
-            animation.scale = 0.1f;
+            animation = new CoinAnimation() {scale = 0.1f};
             Position += new Vector2(21, 20);
         }
         public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, 25, 25);
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (animation.CurrentFrame == animation.frames[0] && one)
+            if (animation.CurrentFrame == animation.frames[0] && firstFrame)
             {
                 Position -= new Vector2(1, 0);
-                one = false;
-                two = true;
+                firstFrame = false;
+                SecondFrame = true;
             }
-            if (animation.CurrentFrame == animation.frames[1] && two)
+            if (animation.CurrentFrame == animation.frames[1] && SecondFrame)
             {
                 Position += new Vector2(1, 0);
-                one = true;
-                two = false;
+                firstFrame = true;
+                SecondFrame = false;
             }
-            if (animation.CurrentFrame == animation.frames[2] && one)
+            if (animation.CurrentFrame == animation.frames[2] && firstFrame)
             {
                 Position += new Vector2(6, 0);
-                one = false;
-                two = true;
+                firstFrame = false;
+                SecondFrame = true;
             }
-            if (animation.CurrentFrame == animation.frames[3] && two)
+            if (animation.CurrentFrame == animation.frames[3] && SecondFrame)
             {
                 Position += new Vector2(4, 0);
-                one = true;
-                two = false;
+                firstFrame = true;
+                SecondFrame = false;
             }
-            if (animation.CurrentFrame == animation.frames[4] && one)
+            if (animation.CurrentFrame == animation.frames[4] && firstFrame)
             {
                 Position -= new Vector2(4, 0);
-                one = false;
-                two = true;
+                firstFrame = false;
+                SecondFrame = true;
             } 
-            if (animation.CurrentFrame == animation.frames[5] && two)
+            if (animation.CurrentFrame == animation.frames[5] && SecondFrame)
             {
                 Position -= new Vector2(6, 0);
-                one = true;
-                two = false;
+                firstFrame = true;
+                SecondFrame = false;
             }    
             spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.scale, SpriteEffects.None, 0f);
         }

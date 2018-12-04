@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
-    /// Deze interface (IMoveableObject) definieert de properties/methodes die nodig zijn voor alle objecten die kunnen bewegen.
+    /// Deze interface (IMoveableObject) definieert 
+    /// de properties/methodes die nodig zijn voor alle objecten die kunnen bewegen.
     /// Erft over van: ICollide, IDrawObject
     /// </summary>
     public interface IMoveableObject : ICollide, IDrawObject

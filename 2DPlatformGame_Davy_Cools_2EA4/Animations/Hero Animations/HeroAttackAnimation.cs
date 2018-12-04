@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (HeroAttackAnimation) is verantwoordelijk voor
+    /// de AttackAnimatie van de hero
+    /// Erft over van: Animation
+    /// </summary>
     class HeroAttackAnimation : Animation
     {
         public HeroAttackAnimation()
         {
             Speed = 10;
         }
+        /// <summary>
+        /// Voegt frames toe aan de lijst voor de HeroAttackAnimation
+        /// </summary>
         public override void AnimationFrames()
         {
             AddFrame(new AnimationFrame() { FrameSelector = new Rectangle(309, 855, 207, 302) });

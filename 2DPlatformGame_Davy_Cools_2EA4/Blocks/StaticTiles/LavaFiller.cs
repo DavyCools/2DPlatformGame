@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class LavaFiller : StaticTiles, IDeathly
+    class LavaFiller : StaticTiles
     {
         public bool IsHit { get; set; }
         public LavaFiller(ContentManager content, Vector2 _position, string name) : base(content, _position, name)

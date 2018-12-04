@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
-    /// Deze abstracte klasse (Movement) definieert de properties/methodes die nodig zijn om te bewegen.
+    /// Deze abstracte klasse (Movement) definieert 
+    /// de properties/methodes die nodig zijn om te bewegen
     /// </summary>
     public abstract class Movement
     {

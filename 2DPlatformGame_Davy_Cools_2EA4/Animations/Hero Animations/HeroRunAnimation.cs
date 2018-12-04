@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (HeroRunAnimation) is verantwoordelijk voor
+    /// de RunAnimatie van de hero
+    /// Erft over van: Animation
+    /// </summary>
     class HeroRunAnimation : Animation
     {
         public HeroRunAnimation()
         {
             Speed = 22;
         }
+        /// <summary>
+        /// Voegt frames toe aan de lijst voor de HeroRunAnimation
+        /// </summary>
         public override void AnimationFrames()
         {
             AddFrame(new AnimationFrame() { FrameSelector = new Rectangle(314, 1576, 217, 285) });

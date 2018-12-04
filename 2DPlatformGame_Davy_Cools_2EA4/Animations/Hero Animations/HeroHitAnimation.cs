@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (HeroHitAnimation) is verantwoordelijk voor
+    /// de HitAnimatie van de hero
+    /// Erft over van: Animation
+    /// </summary>
     class HeroHitAnimation : Animation
     {
         public HeroHitAnimation()
         {
             Speed = 20;
         }
+        /// <summary>
+        /// Voegt frames toe aan de lijst voor de HeroHitAnimation
+        /// </summary>
         public override void AnimationFrames()
         {
             AddFrame(new AnimationFrame() { FrameSelector = new Rectangle(307, 2355, 203, 294) });

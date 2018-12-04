@@ -9,7 +9,12 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public abstract class Tiles : IDrawObject
+    /// <summary>
+    /// Deze abstracte klasse Tiles is verantwoordelijk
+    /// voor de algeme functies van een Tile
+    /// Erft over van IDrawObject
+    /// </summary>
+    abstract class Tiles : IDrawObject
     {
         protected Texture2D texture;
         public Vector2 Position { get; set; }

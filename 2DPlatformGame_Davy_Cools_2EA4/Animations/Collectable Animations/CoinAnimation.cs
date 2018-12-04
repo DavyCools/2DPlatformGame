@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (CoinAnimation) is verantwoordelijk voor
+    /// de coin animatie
+    /// Erft over van: Animation
+    /// </summary>
     class CoinAnimation : Animation
     {
         public CoinAnimation()
         {
             Speed = 6;
         }
+        /// <summary>
+        /// Voegt frames toe aan de lijst voor de CoinAnimation
+        /// </summary>
         public override void AnimationFrames()
         {
             AddFrame(new AnimationFrame() { FrameSelector = new Rectangle(0, 0, 250, 250) });

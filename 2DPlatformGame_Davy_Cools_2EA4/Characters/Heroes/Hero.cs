@@ -9,13 +9,19 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (hero) is verantwoordelijk voor 
+    /// het gedrag van de held
+    /// Erft over van: IMoveableObject, IUpdate, IDrawObject, IDeathly
+    /// </summary>
     public class Hero : IMoveableObject, IUpdate, IDrawObject, IDeathly
     {
         List<IMoveableObject> FireBallList;
         Texture2D bulletTexture;
         bool CanShootFireBall = true;
         public int TotalCoins = 0;
-        public int TotalLives = 3;
+        private int totalLives = 3;
+        public int GetLives { get { return totalLives; }}
         public bool IsHit { get; set; }
         Texture2D texture;
         Animation animation, heroAttackAnimation, heroRunAnimation, heroDieAnimation, heroJumpAnimation, heroIdleAnimation, heroHitAnimation;
@@ -25,7 +31,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             get { return new Rectangle((int)Position.X, (int)Position.Y, 44, 58); }   //Standaard 44,62 => 4 pixels correctie in de hoogte voor een mooi beeld
         }
-        //public Vector2 Position { get; set; }
         public bool TouchingGround { get; set; }
         public bool TouchingLeft { get; set; }
         public bool TouchingRight { get; set; }
@@ -65,7 +70,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             FireBallList = new List<IMoveableObject>();
             bulletTexture = content.Load<Texture2D>("Bullet");
             texture = content.Load<Texture2D>("IceWizard");
-            Position = new Vector2(70, 150);
+            Position = new Vector2(70, 350);
             Velocity = new Vector2(2, 0);
             heroAttackAnimation = new HeroAttackAnimation();
             heroRunAnimation = new HeroRunAnimation();
@@ -80,14 +85,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             if (FireBallList != null)
                 UpdateBullet();
-            if (IsHit && TotalLives != 0)
+            if (IsHit && totalLives != 0)
             {
-                TotalLives--;
-                if(TotalLives != 0)
+                totalLives--;
+                if (totalLives != 0)
                     Position = new Vector2(70, 450);
                 IsHit = false;
             }
-            if (TotalLives == 0)
+            if (totalLives == 0)
             {
                 animation = heroDieAnimation;
                 if(animation.CurrentFrame != animation.frames[animation.frames.Count - 1])
@@ -124,7 +129,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     if (Velocity.Y == 0)
                     {
                         animation = heroAttackAnimation;
-                        shoot();
+                        Shoot();
                     }
                 }
                 else
@@ -152,17 +157,17 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             return FireBallList;
         }
-        private void shoot()
+        private void Shoot()
         {
             if(CanShootFireBall && animation.CurrentFrame == animation.frames[6])
             {
-                addFireBall();
+                AddFireBall();
                 CanShootFireBall = false;
             }
             if (animation.CurrentFrame != animation.frames[6])
                 CanShootFireBall = true;
         }
-        private void addFireBall()
+        private void AddFireBall()
         {
             FireBallList.Add(new FireBall(bulletTexture, position, flipAnimation));
         }
@@ -170,8 +175,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             foreach (FireBall _bullet in FireBallList.ToList())
             {
-                   bool remove = _bullet.Update();
-                if (remove)
+                bool remove = _bullet.Update();
+                if (remove || _bullet.IsHit)
                 {
                     FireBallList.Remove(_bullet);
                 }

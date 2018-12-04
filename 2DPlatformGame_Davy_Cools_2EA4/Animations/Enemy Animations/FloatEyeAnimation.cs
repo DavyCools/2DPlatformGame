@@ -9,10 +9,18 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     class FloatEyeAnimation : Animation
     {
+        /// <summary>
+        /// Deze klasse (FloatEyeAnimation) is verantwoordelijk voor
+        /// de FloatEye animatie
+        /// Erft over van: Animation
+        /// </summary>
         public FloatEyeAnimation()
         {
             Speed = 5;
         }
+        /// <summary>
+        /// Voegt frames toe aan de lijst voor de FloatEyeAnimation
+        /// </summary>
         public override void AnimationFrames()
         {
             AddFrame(new AnimationFrame() { FrameSelector = new Rectangle(0, 96, 48, 48) });

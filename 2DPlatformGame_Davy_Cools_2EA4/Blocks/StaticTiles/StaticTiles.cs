@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public abstract class StaticTiles : Tiles, ICollide
+    abstract class StaticTiles : Tiles, ICollide
     {
         public StaticTiles(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {

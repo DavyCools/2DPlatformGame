@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (Camera2d) is verantwoordelijk voor
+    /// het volgen van een beweegbaar object
+    /// </summary>
     class Camera2d
     {
         public Matrix Transform { get; private set; }
         public float Zoom { get; set; }
-        public void Follow(Hero hero)
+        public void Follow(IMoveableObject hero)
         {
             Matrix scale = Matrix.CreateScale(Zoom, Zoom, 1);
             var position = Matrix.CreateTranslation(

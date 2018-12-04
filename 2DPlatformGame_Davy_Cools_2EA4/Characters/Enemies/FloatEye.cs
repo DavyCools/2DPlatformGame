@@ -9,12 +9,16 @@ using Microsoft.Xna.Framework;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class FloatEye : Enemy
+    /// <summary>
+    /// Deze klasse (FloatEye) is verantwoordelijk
+    /// vvoor het juist gedrag van de FloatEye
+    /// Erft over van: Enemy, IKillable
+    /// </summary>
+    class FloatEye : Enemy, IKillable
     {
         public FloatEye(ContentManager content, Vector2 position, string name) : base(content, position, name)
         {
-            animation = new FloatEyeAnimation();
-            animation.scale = 1f;
+            animation = new FloatEyeAnimation() {scale = 1f};
         }
     }
 }

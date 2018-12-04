@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
-    /// Deze klasse (GremlinAnimation) is verantwoordelijk voor
-    /// de Gremlin animatie
+    /// Deze klasse (SnakeAnimation) is verantwoordelijk voor
+    /// de Snake animatie
     /// Erft over van: Animation
     /// </summary>
-    class GremlinAnimation : Animation
+    class SnakeAnimation : Animation
     {
-        public GremlinAnimation()
+        public SnakeAnimation()
         {
             Speed = 5;
         }
         /// <summary>
-        /// Voegt frames toe aan de lijst voor de GremlinAnimation
+        /// Voegt frames toe aan de lijst voor de SnakeAnimation
         /// </summary>
         public override void AnimationFrames()
         {

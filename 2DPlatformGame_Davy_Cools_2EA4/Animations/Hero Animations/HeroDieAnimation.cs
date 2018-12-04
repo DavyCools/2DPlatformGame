@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (HeroDieAnimation) is verantwoordelijk voor
+    /// de DieAnimatie van de hero
+    /// Erft over van: Animation
+    /// </summary>
     class HeroDieAnimation : Animation
     {
         public HeroDieAnimation()
         {
             Speed = 10;
         }
+        /// <summary>
+        /// Voegt frames toe aan de lijst voor de HeroDieAnimation
+        /// </summary>
         public override void AnimationFrames()
         {
             AddFrame(new AnimationFrame() { FrameSelector = new Rectangle(335, 2695, 210, 287) });

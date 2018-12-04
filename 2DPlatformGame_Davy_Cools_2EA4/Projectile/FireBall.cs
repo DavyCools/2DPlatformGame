@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public class FireBall : IMoveableObject
+    /// <summary>
+    /// Deze klase (FireBall) is verantwoordelijk voor
+    /// aanmaken van een FireBall
+    /// Erft over van: IMoveableObject, IDrawObject, IDeathly
+    /// </summary>
+    class FireBall : IMoveableObject, IDrawObject, IDeathly
     {
-        Texture2D Texture;
+        private Texture2D texture;
         private bool flipAnimation;
         private Vector2 spawnPosition;
         public bool TouchingGround { get; set; }
@@ -47,11 +52,21 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 position.Y = (float)y;
         }
 
-        public Rectangle CollisionRectangle => throw new NotImplementedException();
-
-        public FireBall(Texture2D texture, Vector2 _position, bool _direction)
+        public Rectangle CollisionRectangle
         {
-            Texture = texture;
+            get {
+                    if (flipAnimation)
+                    return new Rectangle((int)Position.X - 20, (int)Position.Y, (texture.Width / 2), (texture.Height / 2));
+                    else
+                    return new Rectangle((int)Position.X - 10, (int)Position.Y, (texture.Width / 2), (texture.Height / 2));
+            }
+        }
+
+        public bool IsHit { get; set; }
+
+        public FireBall(Texture2D _texture, Vector2 _position, bool _direction)
+        {
+            texture = _texture;
             ChangeVelocity(MovementSpeed, 0);
             Position = _position;
             flipAnimation = _direction;
@@ -79,7 +94,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture,Position,null,Color.White,0f,new Vector2(Texture.Width/2,Texture.Height/2),0.6f, flipAnimation ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1f);
+            spriteBatch.Draw(texture,Position,null,Color.White,0f,new Vector2(texture.Width/2,texture.Height/2),0.6f, flipAnimation ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1f);
         }
     }
 }

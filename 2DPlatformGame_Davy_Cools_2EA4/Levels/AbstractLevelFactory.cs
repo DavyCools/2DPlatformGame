@@ -9,17 +9,21 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze abstract klasse (AbsctractLevelFactory) is verantwoordelijk voor 
+    /// het teruggeven van de juiste objecten
+    /// </summary>
     abstract class AbstractLevelFactory
     {
-        public IDrawObject GetExactBlock(int id, ContentManager content, Vector2 _position, List<ICollide> CollisionList)
+        public IDrawObject GetExactObject(int id, ContentManager content, Vector2 _position, List<ICollide> CollisionList)
         {
-            IDrawObject tempObject = CreateBlok(id, content, _position);           
-            if(tempObject is ICollide)
+            IDrawObject currentObject = CreateObject(id, content, _position);           
+            if(currentObject is ICollide)
             {
-                CollisionList.Add((ICollide)tempObject);
+                CollisionList.Add((ICollide)currentObject);
             }
-            return tempObject;
+            return currentObject;
         }
-        protected abstract IDrawObject CreateBlok(int id,ContentManager content, Vector2 _position);
+        protected abstract IDrawObject CreateObject(int id,ContentManager content, Vector2 _position);
     }
 }

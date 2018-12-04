@@ -9,44 +9,45 @@ using System.Threading.Tasks;
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
-    /// Deze klasse (MovementArrowsKeys) is verantwoordelijk voor de bewgeging van een meegegeven IMoveableObject als er op 1 van de knoppen gedefinieerde knoppen wordt gedrukt.
+    /// Deze klasse (MovementArrowsKeys) is verantwoordelijk voor 
+    /// de bewgeging van een meegegeven beweegbaar object (IMoveableObject) als er op 1 van de gedefinieerde knoppen wordt gedrukt.
     /// Erft over van: Movement
     /// </summary>
     class MovementArrowKeys : Movement
     {
-        public override void Update(IMoveableObject hero)
+        public override void Update(IMoveableObject moveableObject)
         {
             KeyboardState stateKey = Keyboard.GetState();
             if (stateKey.IsKeyDown(Keys.Left) && Right == false)
             {
                 Left = true;
                 //if (!hero.TouchingLeft)
-                    hero.ChangeVelocity(-movementSpeed, null);
+                    moveableObject.ChangeVelocity(-movementSpeed, null);
                     //hero.Velocity.X = -movementSpeed;
             }
             if (stateKey.IsKeyUp(Keys.Left) && Right == false)
             {
                 Left = false;
-                hero.ChangeVelocity(0, null);
+                moveableObject.ChangeVelocity(0, null);
                 //hero.Velocity.X = 0;
             }
             if (stateKey.IsKeyDown(Keys.Right) && Left == false)
             {
                 Right = true;
-                hero.ChangeVelocity(movementSpeed, null);
+                moveableObject.ChangeVelocity(movementSpeed, null);
                 //hero.Velocity.X = movementSpeed;
             }
             if (stateKey.IsKeyUp(Keys.Right) && Left == false)
             {
                 Right = false;
-                hero.ChangeVelocity(0, null);
+                moveableObject.ChangeVelocity(0, null);
                 //hero.Velocity.X = 0;
             }
-            if (stateKey.IsKeyDown(Keys.Up) && hero.Velocity.Y == 0)
+            if (stateKey.IsKeyDown(Keys.Up) && moveableObject.Velocity.Y == 0)
             {
                 Jump = true;
                 //if (!hero.TouchingTop)
-                    hero.ChangeVelocity(null, -7.8f);
+                    moveableObject.ChangeVelocity(null, -7.8f);
                     //hero.Velocity.Y = -7.8f;
             }
             if (stateKey.IsKeyUp(Keys.Up))
@@ -61,15 +62,15 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 Shoot = false;
             }
-            if (hero.Velocity.Y != 0)
+            if (moveableObject.Velocity.Y != 0)
             {
-                hero.ChangeVelocity(null, hero.Velocity.Y + 0.2f);
+                moveableObject.ChangeVelocity(null, moveableObject.Velocity.Y + 0.2f);
                 //hero.Velocity.Y += 0.2f;
             }
-            hero.Position += hero.Velocity;
-            if (!hero.TouchingGround && hero.Velocity.Y == 0)
+            moveableObject.Position += moveableObject.Velocity;
+            if (!moveableObject.TouchingGround && moveableObject.Velocity.Y == 0)
             {
-                hero.ChangeVelocity(null, 0.2f);
+                moveableObject.ChangeVelocity(null, 0.2f);
                 //hero.Velocity.Y = 0.2f;
             }
         }
