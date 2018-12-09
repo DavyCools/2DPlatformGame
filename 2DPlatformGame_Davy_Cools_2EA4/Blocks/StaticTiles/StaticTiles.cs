@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze abstracte klasse StaticTiles is verantwoordelijk voor
+    /// het juiste gedrag van de StaticTiles
+    /// Erft over van: Tiles, ICollide
+    /// </summary>
     abstract class StaticTiles : Tiles, ICollide
     {
         public StaticTiles(ContentManager content, Vector2 _position, string name) : base(content, _position, name)

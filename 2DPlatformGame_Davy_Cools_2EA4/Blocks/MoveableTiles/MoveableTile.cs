@@ -8,12 +8,19 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze abstracte klasse MoveableTile is verantwoordelijk voor
+    /// het juiste gedrag van een beweegbare Tile
+    /// Erft over van: StaticTiles, IMoveableObject, IUpdate
+    /// </summary>
     abstract class MoveableTile : StaticTiles, IMoveableObject, IUpdate
     {
-        public MoveableTile(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
+        protected int amountOfBlocks = 70;
+        public MoveableTile(ContentManager content, Vector2 _position, string name, int _amountOfBlocks) : base(content, _position, name)
         {
             ChangeVelocity(MovementSpeed, 0);
             position = Position;
+            amountOfBlocks *= _amountOfBlocks;
         }
         public bool TouchingGround { get; set; }
         public bool TouchingLeft { get; set; }

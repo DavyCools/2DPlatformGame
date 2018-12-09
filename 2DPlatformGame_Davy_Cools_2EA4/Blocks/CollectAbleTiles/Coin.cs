@@ -9,6 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse Coin is verantwoordelijk voor
+    /// het juiste gedrag van de Coin
+    /// Erft over van: CollectableTiles
+    /// </summary>
     class Coin : CollectableTiles
     {
         private bool firstFrame = true;
@@ -19,6 +24,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             Position += new Vector2(21, 20);
         }
         public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, 25, 25);
+        /// <summary>
+        /// Tekent de coin op het scherm
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (animation.CurrentFrame == animation.frames[0] && firstFrame)

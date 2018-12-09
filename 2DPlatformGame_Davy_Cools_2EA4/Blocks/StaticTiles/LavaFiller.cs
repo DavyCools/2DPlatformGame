@@ -8,6 +8,11 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse LavaFiller is verantwoordelijk voor
+    /// het juiste gedrag van de LavaFiller
+    /// Erft over van: StaticTiles
+    /// </summary>
     class LavaFiller : StaticTiles
     {
         public bool IsHit { get; set; }

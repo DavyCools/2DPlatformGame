@@ -16,6 +16,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     class LevelFactory : AbstractLevelFactory
     {
+        /// <summary>
+        /// Maakt het juiste object aan
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="content"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
         protected override IDrawObject CreateObject(int id,ContentManager content, Vector2 position)
         {
             IDrawObject b = null;
@@ -58,9 +65,17 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             else if (id == 19)
                 b = new Coin(content, position, "CoinSprite");
             else if (id == 20)
-                b = new GroundBlockHalf(content, position, "GroundBlockHalf") { TouchingLeft = true, TouchingRight = false };
+                b = new GroundBlockHalf(content, position, "GroundBlockHalf",2) { TouchingLeft = true, TouchingRight = false };
             else if (id == 21)
-                b = new GroundBlockHalf(content, position, "GroundBlockHalf") { TouchingLeft = false, TouchingRight = true };
+                b = new GroundBlockHalf(content, position, "GroundBlockHalf",2) { TouchingLeft = false, TouchingRight = true };
+            else if (id == 22)
+                b = new GroundBlockHalf(content, position, "GroundBlockHalf", 1) { TouchingLeft = true, TouchingRight = false };
+            else if (id == 23)
+                b = new GroundBlockHalf(content, position, "GroundBlockHalf", 1) { TouchingLeft = false, TouchingRight = true };
+            else if (id == 24)
+                b = new SpikeTileSteel(content, position, "SpikeTileSteel");
+            else if (id == 25)
+                b = new SpikeGroundTrap(content, position, "SpikeGroundTrap");
             else if (id == 50)
                 b = new Gremlin(content, position, "GremlinSheet");
             else if (id == 51)
@@ -69,8 +84,32 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 b = new FloatEye(content, position, "FloatEyeSheet");
             else if (id == 53)
                 b = new Snake(content, position, "SnakeSheet");
+            else if (id == 54)
+                b = new Beetle(content, position, "BeetleSheet");
             else if (id == 55)
                 b = new Flame(content, position, "Flame");
+            else if (id == 75)
+                b = new DoorTile(content, position, "DoorTile");
+            else if (id == 76)
+                b = new NormalLantern(content, position, "NormalLantern");
+            else if (id == 77)
+                b = new Bench(content, position, "Bench");
+            else if (id == 78)
+                b = new NormalTree(content, position, "NormalTree");
+            else if (id == 79)
+                b = new NormalSmallTree(content, position, "NormalSmallTree");
+            else if (id == 80)
+                b = new NormalBushLeft(content, position, "NormalBushLeft");
+            else if (id == 81)
+                b = new NormalBushRight(content, position, "NormalBushRight");
+            else if (id == 82)
+                b = new BigTree(content, position, "BigTree");
+            else if (id == 83)
+                b = new BigTree2(content, position, "BigTree2");
+            else if (id == 84)
+                b = new GrassBlock(content, position, "GrassBlock");
+            else if (id == 85)
+                b = new DirtBlockFiller(content, position, "DirtBlockFiller");
             else if (id == 99)
                 b = new InvisibleTile(content, position, "InvisibleTile");
             return b;

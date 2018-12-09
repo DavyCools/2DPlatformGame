@@ -11,7 +11,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
     /// Deze klasse (FloatEye) is verantwoordelijk
-    /// vvoor het juist gedrag van de FloatEye
+    /// voor het tekenen van een FloatEye
     /// Erft over van: Enemy, IKillable
     /// </summary>
     class FloatEye : Enemy, IKillable

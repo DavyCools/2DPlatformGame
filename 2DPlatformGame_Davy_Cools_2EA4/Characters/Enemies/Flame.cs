@@ -26,6 +26,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             get { return new Rectangle((int)Position.X, (int)Position.Y, texture.Width, texture.Height); }
         }
+        /// <summary>
+        /// Update de plaats van de flame
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             if (TouchingTop)
@@ -44,6 +48,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             TouchingGround = false;
             TouchingTop = false;
         }
+        /// <summary>
+        /// Tekent de flame op het scherm
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, new Rectangle(0, 0, texture.Width, texture.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, flipAnimation ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);

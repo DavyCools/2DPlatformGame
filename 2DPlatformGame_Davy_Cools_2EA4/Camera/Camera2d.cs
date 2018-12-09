@@ -16,12 +16,16 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     {
         public Matrix Transform { get; private set; }
         public float Zoom { get; set; }
-        public void Follow(IMoveableObject hero)
+        /// <summary>
+        /// Volgt het meegegeven object zodat deze steeds in het midden van het scherm blijft
+        /// </summary>
+        /// <param name="Character"></param>
+        public void Follow(IMoveableObject Character)
         {
             Matrix scale = Matrix.CreateScale(Zoom, Zoom, 1);
             var position = Matrix.CreateTranslation(
-                -hero.Position.X - (hero.CollisionRectangle.Width / 2),
-                -hero.Position.Y - (hero.CollisionRectangle.Height / 2),
+                -Character.Position.X - (Character.CollisionRectangle.Width / 2),
+                -Character.Position.Y - (Character.CollisionRectangle.Height / 2),
                 0);
             var offset = Matrix.CreateTranslation(
                 Game1.ScreenWidth/2 / Zoom,

@@ -16,7 +16,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     public class Hero : IMoveableObject, IUpdate, IDrawObject, IDeathly
     {
-        List<IMoveableObject> FireBallList;
+        List<IMoveableObject> projectileList;
         Texture2D bulletTexture;
         bool CanShootFireBall = true;
         public int TotalCoins = 0;
@@ -67,7 +67,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
         public Hero(ContentManager content)
         {
-            FireBallList = new List<IMoveableObject>();
+            projectileList = new List<IMoveableObject>();
             bulletTexture = content.Load<Texture2D>("Bullet");
             texture = content.Load<Texture2D>("IceWizard");
             Position = new Vector2(70, 350);
@@ -80,11 +80,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             heroHitAnimation = new HeroHitAnimation();
             animation = heroIdleAnimation;
         }
-
+        /// <summary>
+        /// Zorgt voor het juiste gedrag van de hero
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            if (FireBallList != null)
-                UpdateBullet();
+            if (projectileList != null)
+                UpdateProjectiles();
             if (IsHit && totalLives != 0)
             {
                 totalLives--;
@@ -143,42 +146,54 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 TouchingRight = false;
                 TouchingTop = false;
             }   
-            
         }
+        /// <summary>
+        /// Tekent de hero op het scherm en roept voor elke kogel de methode Draw op
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.scale, flipAnimation ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-            foreach (FireBall _bullet in FireBallList)
+            foreach (FireBallBlue _bullet in projectileList)
             {
                 _bullet.Draw(spriteBatch);
             }
         }
         public List<IMoveableObject> GetFireBalls()
         {
-            return FireBallList;
+            return projectileList;
         }
+        /// <summary>
+        /// Juiste gedrag voor een projectiel af te vuren
+        /// </summary>
         private void Shoot()
         {
             if(CanShootFireBall && animation.CurrentFrame == animation.frames[6])
             {
-                AddFireBall();
+                AddProjectile();
                 CanShootFireBall = false;
             }
             if (animation.CurrentFrame != animation.frames[6])
                 CanShootFireBall = true;
         }
-        private void AddFireBall()
+        /// <summary>
+        /// Voegt een projectiel toe aan de lijst
+        /// </summary>
+        private void AddProjectile()
         {
-            FireBallList.Add(new FireBall(bulletTexture, position, flipAnimation));
+            projectileList.Add(new FireBallBlue(bulletTexture, position, flipAnimation));
         }
-        private void UpdateBullet()
+        /// <summary>
+        /// Roept de Update methode toe voor elk projectiel
+        /// </summary>
+        private void UpdateProjectiles()
         {
-            foreach (FireBall _bullet in FireBallList.ToList())
+            foreach (FireBallBlue _bullet in projectileList.ToList())
             {
                 bool remove = _bullet.Update();
                 if (remove || _bullet.IsHit)
                 {
-                    FireBallList.Remove(_bullet);
+                    projectileList.Remove(_bullet);
                 }
             }
         }

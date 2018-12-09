@@ -8,6 +8,11 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse Lava is verantwoordelijk voor
+    /// het juiste gedrag van de Lava
+    /// Erft over van: StaticTiles, IDeathly
+    /// </summary>
     class Lava : StaticTiles, IDeathly
     {
         public bool IsHit { get; set; }

@@ -10,7 +10,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
     /// Deze klasse (Plant) is verantwoordelijk
-    /// voor het juist gedrag van de plant
+    /// voor de specifieke eigenschappen van een plant
     /// Erft over van: Enemy
     /// </summary>
     class Plant : Enemy
@@ -23,6 +23,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             get { return new Rectangle((int)Position.X + 15, (int)Position.Y + 10, (int)(48 * animation.scale) - 20, (int)(48 * animation.scale) - 14); } 
         }
+        /// <summary>
+        /// Update de plaats van de plant
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             animation.Update(gameTime);

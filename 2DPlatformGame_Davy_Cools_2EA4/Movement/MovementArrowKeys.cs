@@ -15,9 +15,17 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     class MovementArrowKeys : Movement
     {
+        /// <summary>
+        /// Controleert welke knop er ingedrukt is
+        /// </summary>
+        /// <param name="moveableObject"></param>
         public override void Update(IMoveableObject moveableObject)
         {
             KeyboardState stateKey = Keyboard.GetState();
+            if (stateKey.IsKeyDown(Keys.T))
+                moveableObject.ChangePosition(9876, 152);
+            //moveableObject.ChangePosition(9386, 152);
+            //moveableObject.ChangePosition(5593, 150);
             if (stateKey.IsKeyDown(Keys.Left) && Right == false)
             {
                 Left = true;

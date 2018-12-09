@@ -15,6 +15,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     abstract class AbstractLevelFactory
     {
+        /// <summary>
+        /// Krijgt het juiste object en voeg deze toe aan een lijst
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="content"></param>
+        /// <param name="_position"></param>
+        /// <param name="CollisionList"></param>
+        /// <returns></returns>
         public IDrawObject GetExactObject(int id, ContentManager content, Vector2 _position, List<ICollide> CollisionList)
         {
             IDrawObject currentObject = CreateObject(id, content, _position);           

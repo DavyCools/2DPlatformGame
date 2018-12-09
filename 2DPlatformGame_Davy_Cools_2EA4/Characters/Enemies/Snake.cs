@@ -10,7 +10,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
     /// Deze klasse (Snake) is verantwoordelijk
-    /// voor het juist gedrag van de snake
+    /// voor de specifieke eigenschappen van een snake
     /// Erft over van: Enemy
     /// </summary>
     class Snake : Enemy

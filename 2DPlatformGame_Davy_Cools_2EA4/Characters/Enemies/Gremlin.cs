@@ -11,7 +11,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
     /// Deze klasse (Gremlin) is verantwoordelijk
-    /// voor het juist gedrag van de gremlin
+    /// voor de specifieke eigenschappen van een gremlin
     /// Erft over van: Enemy, IKillable
     /// </summary>
     class Gremlin : Enemy, IKillable

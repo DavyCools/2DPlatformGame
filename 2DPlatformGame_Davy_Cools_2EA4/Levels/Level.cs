@@ -27,6 +27,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         protected abstract void CreateLevelArray();
         public byte[,] LevelArray;
         public List<IDrawObject> TilesList;
+        /// <summary>
+        /// Maakt het level aan
+        /// </summary>
+        /// <param name="CollisionList"></param>
         public void CreateLevel(List<ICollide> CollisionList)
         {
             for (int x = 0; x < LevelArray.GetLength(0); x++)
@@ -40,6 +44,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 }
             }
         }
+        /// <summary>
+        /// Tekent het level op het scherm
+        /// </summary>
+        /// <param name="spritebatch"></param>
         public void DrawLevel(SpriteBatch spritebatch)
         {
             foreach (IDrawObject tempTile in TilesList)
@@ -47,6 +55,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 tempTile.Draw(spritebatch);
             }
         }
+        /// <summary>
+        /// Verwijderd de meegegeven lijst uit het level
+        /// </summary>
+        /// <param name="_tiles"></param>
         public void RemoveTile(List<IDrawObject> _tiles)
         {
             foreach (IDrawObject _tile in _tiles)

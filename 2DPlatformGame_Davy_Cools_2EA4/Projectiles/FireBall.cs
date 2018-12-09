@@ -70,10 +70,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             ChangeVelocity(MovementSpeed, 0);
             Position = _position;
             flipAnimation = _direction;
-            if(flipAnimation)
-                Position += new Vector2(0,30);
+            if (flipAnimation)
+                ChangePosition(Position.X,Position.Y + 30);
+                //Position += new Vector2(0,30);
             if(!flipAnimation)
-                Position += new Vector2(35, 30);
+                ChangePosition(Position.X + 35, Position.Y + 30);
+            //Position += new Vector2(35, 30);
             spawnPosition = Position;
             
         }

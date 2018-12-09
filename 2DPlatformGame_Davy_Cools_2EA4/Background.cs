@@ -25,37 +25,30 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public Background(ContentManager content)
         {
             positionX = -(Game1.ScreenWidth / 2);
-            positionY = -Game1.ScreenHeight + 100;
+            positionY = -Game1.ScreenHeight + 350;
             screenWidth = Game1.ScreenWidth * 2;
             screenHeight = Game1.ScreenHeight * 2;
             backgroundTexture = content.Load <Texture2D>("BackgroundLevel1");
             backgroundArray = new Rectangle[] { new Rectangle(positionX,positionY,screenWidth, screenHeight),
                               new Rectangle(positionX + backgroundWidth,positionY,screenWidth,screenHeight),
                               new Rectangle(positionX + backgroundWidth*2,positionY,screenWidth,screenHeight),
-                              new Rectangle(positionX + backgroundWidth*3,positionY,screenWidth,screenHeight)
+                              new Rectangle(positionX + backgroundWidth*3,positionY,screenWidth,screenHeight),
+                              new Rectangle(positionX + backgroundWidth*4,positionY,screenWidth,screenHeight),
+                              new Rectangle(positionX + backgroundWidth*5,positionY,screenWidth,screenHeight)
             };
         }
-        public void Update(float position)
-        {
-            /*if (position > positionX + backgroundWidth)
-            {
-                positionX += backgroundWidth;
-                backgroundArray[index].X += backgroundWidth;
-                index++;
-            }
-            else if (position < positionX - backgroundWidth)
-            {
-                positionX -= backgroundWidth/2;
-                backgroundArray[0].X -= backgroundWidth;
-                index--;
-            }*/
-        }
+        /// <summary>
+        /// Tekent de achtergrond
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(backgroundTexture, backgroundArray[0],Color.White);
             spriteBatch.Draw(backgroundTexture, backgroundArray[1], Color.White);
             spriteBatch.Draw(backgroundTexture, backgroundArray[2], Color.White);
             spriteBatch.Draw(backgroundTexture, backgroundArray[3], Color.White);
+            spriteBatch.Draw(backgroundTexture, backgroundArray[4], Color.White);
+            spriteBatch.Draw(backgroundTexture, backgroundArray[5], Color.White);
         }
     }
 }

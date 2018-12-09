@@ -19,10 +19,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 foreach (ICollide collisionObject in CollisionList)
                 {
-                    if(movingObject is FireBall)
+                    if(movingObject is Projectile)
                     {
                         if (movingObject.CollisionRectangle.Intersects(collisionObject.CollisionRectangle))
-                        {
+                        {   
                             IDeathly temp = (IDeathly)movingObject;
                             temp.IsHit = true;
                             movingCharacterList.Remove(movingObject);
@@ -30,7 +30,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     }
                     else
                     {
-                        //reset(movingObject);
                         if (movingObject.Velocity.Y >= 0 && IsTouchingTop(movingObject, collisionObject))
                         {
                             movingObject.ChangeVelocity(null, 0);
@@ -53,8 +52,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                             movingObject.ChangePosition(movingObject.Position.X - movingObject.MovementSpeed, null);
                             movingObject.TouchingRight = true;
                         }
-                    }
-                    
+                    } 
                 }
             }
                   
@@ -98,13 +96,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 }
             }
             return _returnTiles;
-        }
-        private void Reset(IMoveableObject movingObject)
-        {
-            movingObject.TouchingGround = false;
-            movingObject.TouchingLeft = false;
-            movingObject.TouchingRight = false;
-            movingObject.TouchingTop = false;
         }
         private bool IsTouchingLeft(IMoveableObject source, ICollide target)
         {

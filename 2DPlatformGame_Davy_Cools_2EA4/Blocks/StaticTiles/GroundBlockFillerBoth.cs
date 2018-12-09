@@ -8,6 +8,11 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse GroundBlockFillerBoth is verantwoordelijk voor
+    /// het juiste gedrag van de GroundBlockFillerBoth
+    /// Erft over van: StaticTiles
+    /// </summary>
     class GroundBlockFillerBoth : StaticTiles
     {
         public GroundBlockFillerBoth(ContentManager content, Vector2 _position, string name) : base(content, _position, name)

@@ -23,6 +23,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             texture = content.Load<Texture2D>(name);
             Position = _position;
         }
+        /// <summary>
+        /// Tekent de tile op het scherm
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, Color.AliceBlue);

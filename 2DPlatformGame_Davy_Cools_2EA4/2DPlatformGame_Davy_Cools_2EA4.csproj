@@ -41,6 +41,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Animations\Enemy Animations\BeetleAnimation.cs" />
+    <Compile Include="Blocks\NonStaticTiles\BigTree2.cs" />
+    <Compile Include="Blocks\NonStaticTiles\BigTree.cs" />
+    <Compile Include="Blocks\NonStaticTiles\Bench.cs" />
+    <Compile Include="Characters\Enemies\Beetle.cs" />
     <Compile Include="Blocks\NonStaticTiles\ArrowTileRight.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Blocks\StaticTiles\GroundBlock.cs" />
@@ -55,7 +60,17 @@
     <Compile Include="Blocks\StaticTiles\GroundBlockFillerRight.cs" />
     <Compile Include="Blocks\StaticTiles\GroundBlockFillerLeft.cs" />
     <Compile Include="Blocks\StaticTiles\GroundBlockFillerBoth.cs" />
-    <Compile Include="Projectile\FireBall.cs" />
+    <Compile Include="Blocks\NonStaticTiles\DoorTile.cs" />
+    <Compile Include="Blocks\NonStaticTiles\NormalBushLeft.cs" />
+    <Compile Include="Blocks\NonStaticTiles\NormalBushRight.cs" />
+    <Compile Include="Blocks\NonStaticTiles\NormalLantern.cs" />
+    <Compile Include="Blocks\NonStaticTiles\NormalSmallTree.cs" />
+    <Compile Include="Blocks\NonStaticTiles\NormalTree.cs" />
+    <Compile Include="Blocks\StaticTiles\GrassBlock.cs" />
+    <Compile Include="Blocks\StaticTiles\DirtBlockFiller.cs" />
+    <Compile Include="Projectiles\FireBallBlue.cs" />
+    <Compile Include="Projectiles\Projectile.cs" />
+    <Compile Include="Projectiles\FireBall.cs" />
     <Compile Include="Animations\Collectable Animations\CoinAnimation.cs" />
     <Compile Include="Blocks\CollectAbleTiles\Coin.cs" />
     <Compile Include="Blocks\CollectAbleTiles\CollectableTiles.cs" />
@@ -109,6 +124,8 @@
     <Compile Include="Blocks\NonStaticTiles\SignTileLevel1.cs" />
     <Compile Include="Animations\Enemy Animations\SnakeAnimation.cs" />
     <Compile Include="Characters\Enemies\Snake.cs" />
+    <Compile Include="Blocks\DeathlyTiles\SpikeTileSteel.cs" />
+    <Compile Include="Blocks\DeathlyTiles\SpikeGroundTrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

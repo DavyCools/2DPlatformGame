@@ -11,7 +11,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
     /// Deze abstract klasse (Enemy) is beschrijft
-    /// de algme functionaliteit van een Enemy
+    /// de algeme functionaliteit van een Enemy
+    /// Erft over van: IMoveableObject, IUpdate, IDrawobject, IDeathly
     /// </summary>
     abstract class Enemy : IMoveableObject, IUpdate, IDrawObject, IDeathly
     {
@@ -22,7 +23,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public bool TouchingLeft { get; set; }
         public bool TouchingRight { get; set; }
         public bool TouchingTop { get; set; }
-        public float MovementSpeed => 1.5f;
+        public virtual float MovementSpeed => 1.5f;
         public bool IsHit { get; set; }
         public Enemy(ContentManager content,Vector2 position, String name)
         {
@@ -62,11 +63,18 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             if (y != null)
                 velocity.Y = (float)y;
         }
+        /// <summary>
+        /// Tekent de enemy op het scherm
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, animation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, animation.scale, flipAnimation ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
         }
-
+        /// <summary>
+        /// Update de plaats van de enemy
+        /// </summary>
+        /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
             animation.Update(gameTime);

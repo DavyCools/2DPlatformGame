@@ -122,7 +122,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             CheckAllCollisions();
             hero.Update(gameTime);
             camera.Follow(hero);
-            backGroundLevel1.Update(hero.Position.X);
             base.Update(gameTime);
         }
 
