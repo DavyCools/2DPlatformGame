@@ -45,6 +45,7 @@
     <Compile Include="Blocks\NonStaticTiles\BigTree2.cs" />
     <Compile Include="Blocks\NonStaticTiles\BigTree.cs" />
     <Compile Include="Blocks\NonStaticTiles\Bench.cs" />
+    <Compile Include="Menu\Button.cs" />
     <Compile Include="Characters\Enemies\Beetle.cs" />
     <Compile Include="Blocks\NonStaticTiles\ArrowTileRight.cs" />
     <Compile Include="Background.cs" />
@@ -68,6 +69,11 @@
     <Compile Include="Blocks\NonStaticTiles\NormalTree.cs" />
     <Compile Include="Blocks\StaticTiles\GrassBlock.cs" />
     <Compile Include="Blocks\StaticTiles\DirtBlockFiller.cs" />
+    <Compile Include="Menu\ControlsMenu.cs" />
+    <Compile Include="Menu\GameMenuScreen.cs" />
+    <Compile Include="Animations\Menu Animations\GremlinFrontAnimation.cs" />
+    <Compile Include="Menu\IMenu.cs" />
+    <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Projectiles\FireBallBlue.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
     <Compile Include="Projectiles\FireBall.cs" />

@@ -14,7 +14,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            using (var game = new GameMenuScreen())
                 game.Run();
         }
     }
