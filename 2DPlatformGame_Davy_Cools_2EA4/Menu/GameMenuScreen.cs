@@ -24,7 +24,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         int currentMenu = (int)Menu.MENU;
         Button playButton, infoButton,controlsButton, creditsButton, exitButton, resumeButton, restartButton, quitButton, backButton;
 
-        IMenu mainMenuBackground,controlsMenu;
+        IMenu mainMenuBackground,controlsMenu,infoMenu;
 
         public GameMenuScreen()
         {
@@ -65,6 +65,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             backButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 + 200)) { Scale = 0.4f };
             mainMenuBackground = new MainMenu(Content);
             controlsMenu = new ControlsMenu(Content);
+            infoMenu = new InfoMenu(Content);
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -189,6 +190,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 case (int)Menu.PLAY:
                     break;
                 case (int)Menu.INFO:
+                    infoMenu.Draw(spriteBatch, MiddleScreenWidth);
                     backButton.Draw(spriteBatch);
                     break;
                 case (int)Menu.CONTROLS:
