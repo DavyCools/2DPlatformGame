@@ -11,10 +11,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     class InfoMenu : IMenu
     {
-        Texture2D infoTexture;
+        Texture2D infoTextureControls, infoTextureAttack, infoEndLevel;
         public InfoMenu(ContentManager content)
         {
-            infoTexture = content.Load<Texture2D>("InfoEnemies");
+            infoTextureControls = content.Load<Texture2D>("InfoEnemies");
+            infoTextureAttack = content.Load<Texture2D>("ChargedAttackInfo");
+            infoEndLevel = content.Load<Texture2D>("EndLevelInfo");
         }
         public void Update(GameTime gameTime)
         {
@@ -22,7 +24,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         public void Draw(SpriteBatch spriteBatch, int MiddleScreenWidth)
         {
-            spriteBatch.Draw(infoTexture, new Vector2(MiddleScreenWidth - 535, 150), null, Color.AliceBlue, 0f, Vector2.Zero, 0.55f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(infoTextureControls, new Vector2(MiddleScreenWidth - 535, 150), null, Color.AliceBlue, 0f, Vector2.Zero, 0.55f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(infoTextureAttack, new Vector2(MiddleScreenWidth - 560, 450), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(infoEndLevel, new Vector2(MiddleScreenWidth - 535, 380), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
         }
     }
 }

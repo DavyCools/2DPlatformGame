@@ -70,7 +70,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             projectileList = new List<IMoveableObject>();
             bulletTexture = content.Load<Texture2D>("Bullet");
             texture = content.Load<Texture2D>("IceWizard");
-            Position = new Vector2(70, 350);
+            Position = new Vector2(70, 770);
             Velocity = new Vector2(2, 0);
             heroAttackAnimation = new HeroAttackAnimation();
             heroRunAnimation = new HeroRunAnimation();
@@ -92,7 +92,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 totalLives--;
                 if (totalLives != 0)
-                    Position = new Vector2(70, 450);
+                    Position = new Vector2(70, 770);
                 IsHit = false;
             }
             if (totalLives == 0)

@@ -185,19 +185,23 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     }
                     if (quitButton.CheckClicked(mouseState))
                     {
+                        fullGame.ResetCurrentLevel();
                         currentMenu = (int)Menu.MENU;
                         Thread.Sleep(100);
                     }
                     if (restartButton.CheckClicked(mouseState))
                     {
                         currentMenu = (int)Menu.PLAY;
-                        fullGame.Initialize(Content, ScreenHeight, ScreenWidth);
-                        fullGame.LoadContent(Content);
+                        fullGame.ResetCurrentLevel();
+                        //Restart de volledige game
+                        //fullGame.Initialize(Content, ScreenHeight, ScreenWidth);
+                        //fullGame.LoadContent(Content);
                     }
                     break;
                 case (int)Menu.NEXTLEVEL:
                     if (quitButton.CheckClicked(mouseState))
                     {
+                        fullGame.ResetCurrentLevel();
                         currentMenu = (int)Menu.MENU;
                         Thread.Sleep(100);
                     }

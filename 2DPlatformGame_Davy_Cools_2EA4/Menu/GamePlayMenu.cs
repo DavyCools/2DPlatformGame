@@ -146,6 +146,22 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 spriteBatch.Draw(threeStarsTexture, new Vector2(ScreenWidth/2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
             }
         }
+        public void ResetCurrentLevel()
+        {
+            CurrentLevel.TilesList.Clear();
+            CollisionItemList.Clear();
+            HeroList.Clear();
+            InvisibleObjectCollisionList.Clear();
+            DeathlyObjectsList.Clear();
+            charactersList.Clear();
+            MovingObjectsList.Clear();
+            CurrentLevel.CreateLevel(CollisionItemList);
+            MakeLists();
+            hero.ChangePosition(70, 770);
+            endLevelCoins = hero.TotalCoins;
+            hero.TotalCoins = 0;
+            hero.Lives = 3;
+        }
         public bool CheckEndOfLevel()
         {
             if (hero.CollisionRectangle.Intersects(nextlevelObject.CollisionRectangle))
@@ -157,19 +173,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         private void NextLevel()
         {
-            CollisionItemList.Clear();
-            HeroList.Clear();
-            InvisibleObjectCollisionList.Clear();
-            DeathlyObjectsList.Clear();
-            charactersList.Clear();
-            MovingObjectsList.Clear();
             CurrentLevel = new Level2(content);
-            CurrentLevel.CreateLevel(CollisionItemList);
-            MakeLists();
-            hero.ChangePosition(70, 350);
-            endLevelCoins = hero.TotalCoins;
-            hero.TotalCoins = 0;
-            hero.Lives = 3;
+            ResetCurrentLevel();
         }
         private void CheckAllCollisions()
         {
