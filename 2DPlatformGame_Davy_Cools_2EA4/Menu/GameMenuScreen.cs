@@ -19,13 +19,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public static int MiddleScreenWidth;
         public static int MiddleScreenHeight;
         MouseState mouseState;
-        Game currentgame;
-        enum Menu { MENU, PLAY, INFO, CONTROLS, CREDITS, EXIT, PAUSE };
+        enum Menu { MENU, PLAY, INFO, CONTROLS, CREDITS, EXIT, PAUSE, NEXTLEVEL };
         int currentMenu = (int)Menu.MENU;
-        Button playButton, infoButton,controlsButton, creditsButton, exitButton, resumeButton, restartButton, quitButton, backButton;
+        Button playButton, infoButton,controlsButton, creditsButton, exitButton, resumeButton, restartButton, quitButton, backButton, continueButton;
 
         IMenu mainMenuBackground,controlsMenu,infoMenu;
-
+        GamePlayMenu fullGame;
+        Texture2D titelTexture;
         public GameMenuScreen()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -61,11 +61,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             exitButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 + 200)) { Scale = 0.4f };
             resumeButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 - 200)) { Scale = 0.4f };
             restartButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 - 100)) { Scale = 0.4f };
-            quitButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 )) { Scale = 0.4f };
+            quitButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 + 200)) { Scale = 0.4f };
             backButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 + 200)) { Scale = 0.4f };
+            continueButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 + 100)) { Scale = 0.4f };
             mainMenuBackground = new MainMenu(Content);
             controlsMenu = new ControlsMenu(Content);
             infoMenu = new InfoMenu(Content);
+            fullGame = new GamePlayMenu();
+            fullGame.Initialize(Content,ScreenHeight,ScreenWidth);
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -79,14 +82,18 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
+            titelTexture = Content.Load<Texture2D>("2DGameName");
             playButton.ButtonTexture = Content.Load<Texture2D>("PlayButton");
             infoButton.ButtonTexture = Content.Load<Texture2D>("InfoButton");
             controlsButton.ButtonTexture = Content.Load<Texture2D>("controlsButton");
             creditsButton.ButtonTexture = Content.Load<Texture2D>("CreditsButton");
             exitButton.ButtonTexture = Content.Load<Texture2D>("ExitButton");
-            //restartButton.ButtonTexture = Content.Load<Texture2D>("RestartButton");
+            restartButton.ButtonTexture = Content.Load<Texture2D>("RestartButton");
             quitButton.ButtonTexture = Content.Load<Texture2D>("QuitButton");
             backButton.ButtonTexture = Content.Load<Texture2D>("BackButton");
+            resumeButton.ButtonTexture = Content.Load<Texture2D>("ResumeButton");
+            continueButton.ButtonTexture = Content.Load<Texture2D>("ContinueButton");
+            fullGame.LoadContent(Content);
         }
 
         /// <summary>
@@ -105,19 +112,22 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            //    Exit();
             // TODO: Add your update logic here
             mouseState = Mouse.GetState();
-            mainMenuBackground.Update(gameTime);
+            if (currentMenu != (int)Menu.PLAY)
+            {
+                mainMenuBackground.Update(gameTime);
+                IsMouseVisible = true;
+            }
             switch (currentMenu)
             {
                 case (int)Menu.MENU:
                     if (playButton.CheckClicked(mouseState))
                     {
                         currentMenu = (int)Menu.PLAY;
-                        currentgame = new Game1();
-                        currentgame.Run();
+                        //currentgame = new Game1();
+                        //currentgame.Run();
+
                     }
                     if (infoButton.CheckClicked(mouseState))
                     {
@@ -139,7 +149,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     break;
                 case (int)Menu.PLAY:
                     if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                       Exit();
+                        currentMenu = (int)Menu.PAUSE;
+                    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.E))
+                        if (fullGame.CheckEndOfLevel())
+                            currentMenu = (int)Menu.NEXTLEVEL;
+                    fullGame.Update(gameTime);
+                    IsMouseVisible = false;
                     break;
                 case (int)Menu.INFO:
                     if (backButton.CheckClicked(mouseState))
@@ -163,6 +178,34 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                         Thread.Sleep(100);
                     }    
                     break;
+                case (int)Menu.PAUSE:
+                    if (resumeButton.CheckClicked(mouseState))
+                    {
+                        currentMenu = (int)Menu.PLAY;
+                    }
+                    if (quitButton.CheckClicked(mouseState))
+                    {
+                        currentMenu = (int)Menu.MENU;
+                        Thread.Sleep(100);
+                    }
+                    if (restartButton.CheckClicked(mouseState))
+                    {
+                        currentMenu = (int)Menu.PLAY;
+                        fullGame.Initialize(Content, ScreenHeight, ScreenWidth);
+                        fullGame.LoadContent(Content);
+                    }
+                    break;
+                case (int)Menu.NEXTLEVEL:
+                    if (quitButton.CheckClicked(mouseState))
+                    {
+                        currentMenu = (int)Menu.MENU;
+                        Thread.Sleep(100);
+                    }
+                    if (continueButton.CheckClicked(mouseState))
+                    {
+                        currentMenu = (int)Menu.PLAY;
+                    }
+                    break;
             }
             base.Update(gameTime);
         }
@@ -175,9 +218,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
             if(currentMenu != (int)Menu.PLAY)
-            mainMenuBackground.Draw(spriteBatch, MiddleScreenWidth);
+            {
+                spriteBatch.Begin();
+                mainMenuBackground.Draw(spriteBatch, MiddleScreenWidth);
+                if (currentMenu != (int)Menu.NEXTLEVEL)
+                    spriteBatch.Draw(titelTexture, new Vector2(MiddleScreenWidth - 500, 25), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
+            }
             switch (currentMenu)
             {
                 case (int)Menu.MENU:
@@ -188,6 +235,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     exitButton.Draw(spriteBatch);
                     break;
                 case (int)Menu.PLAY:
+                    fullGame.Draw(gameTime, spriteBatch);
                     break;
                 case (int)Menu.INFO:
                     infoMenu.Draw(spriteBatch, MiddleScreenWidth);
@@ -199,6 +247,16 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     break;
                 case (int)Menu.CREDITS:
                     backButton.Draw(spriteBatch);
+                    break;
+                case (int)Menu.PAUSE:
+                    resumeButton.Draw(spriteBatch);
+                    restartButton.Draw(spriteBatch);
+                    quitButton.Draw(spriteBatch);
+                    break;
+                case (int)Menu.NEXTLEVEL:
+                    fullGame.DrawInbetweenLevels(spriteBatch);
+                    continueButton.Draw(spriteBatch);
+                    quitButton.Draw(spriteBatch);
                     break;
             }
             spriteBatch.End();

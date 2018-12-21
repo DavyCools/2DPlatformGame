@@ -1,14 +1,15 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
-    public class Game1 : Game
+    class GamePlayMenu
     {
         List<ICollide> CollisionItemList;
         List<ICollide> InvisibleObjectCollisionList;
@@ -16,13 +17,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         List<IMoveableObject> charactersList;
         List<IMoveableObject> HeroList;
         List<ICollide> DeathlyObjectsList;
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        ICollide nextlevelObject;
         Hero hero;
         Camera2d camera;
-        
-        public static int ScreenHeight;
-        public static int ScreenWidth;
+
+        static int ScreenHeight;
+        static int ScreenWidth;
 
         Level CurrentLevel;
 
@@ -32,15 +32,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         SpriteFont scoreFont;
 
         List<IDrawObject> removeObjects;
-        public Game1()
+
+        int endLevelCoins;
+        Texture2D noStarsTexture, oneStarTexture, twoStarsTexture, threeStarsTexture;
+
+        ContentManager content;
+        public GamePlayMenu()
         {
-            graphics = new GraphicsDeviceManager(this)
-            {
-                PreferredBackBufferWidth = 1280,
-                PreferredBackBufferHeight = 720
-            };
-            //this.graphics.IsFullScreen = true;
-            Content.RootDirectory = "Content";
+
         }
 
         /// <summary>
@@ -49,12 +48,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
-        protected override void Initialize()
+        public void Initialize(ContentManager Content, int screenHeight, int screenWidth)
         {
+            content = Content;
             // TODO: Add your initialization logic here
-
-            ScreenHeight = graphics.PreferredBackBufferHeight;
-            ScreenWidth = graphics.PreferredBackBufferWidth;
+            ScreenHeight = screenHeight;
+            ScreenWidth = screenWidth;
 
             CollisionItemList = new List<ICollide>();
             InvisibleObjectCollisionList = new List<ICollide>();
@@ -64,40 +63,32 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             DeathlyObjectsList = new List<ICollide>();
             removeObjects = new List<IDrawObject>();
 
-            hero = new Hero(Content) {_Movement = new MovementArrowKeys() };
+            hero = new Hero(Content) { _Movement = new MovementArrowKeys() };
 
-            camera = new Camera2d() {Zoom = 1.5f };
+            camera = new Camera2d() { Zoom = 1.5f };
 
             collider = new CollitionChecker();
 
             CurrentLevel = new Level1(Content);
             backGroundLevel1 = new Background(Content);
-
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            base.Initialize();
         }
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent()
+        public void LoadContent(ContentManager Content)
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            
+
             CurrentLevel.CreateLevel(CollisionItemList);
             MakeLists();
             scoreFont = Content.Load<SpriteFont>("ScoreFont");
+            noStarsTexture = Content.Load<Texture2D>("LevelCompletedNoStars");
+            oneStarTexture = Content.Load<Texture2D>("LevelCompletedOneStar");
+            twoStarsTexture = Content.Load<Texture2D>("LevelCompletedTwoStars");
+            threeStarsTexture = Content.Load<Texture2D>("LevelCompletedThreeStars");
             // TODO: use this.Content to load your game content here
-        }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -105,46 +96,80 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
             // TODO: Add your update logic here
-            foreach(IUpdate temp2 in MovingObjectsList)
+            foreach (IUpdate temp2 in MovingObjectsList)
             {
                 temp2.Update(gameTime);
             }
             foreach (IUpdate temp3 in charactersList)
             {
-                if(!(temp3 is Hero))
-                temp3.Update(gameTime);
+                if (!(temp3 is Hero))
+                    temp3.Update(gameTime);
             }
             CheckAllCollisions();
             hero.Update(gameTime);
             camera.Follow(hero);
-            base.Update(gameTime);
         }
 
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             spriteBatch.Begin(transformMatrix: camera.Transform);
             backGroundLevel1.Draw(spriteBatch);
             CurrentLevel.DrawLevel(spriteBatch);
-            /*foreach (IUpdate temp2 in collectAblesList)
-            {
-                temp2.Draw(spriteBatch);
-            }*/
-            spriteBatch.DrawString(scoreFont, "Lives: " + hero.Lives.ToString(), (hero.Position - new Vector2(400,205)), Color.White);
-            spriteBatch.DrawString(scoreFont, "Coins: " + hero.TotalCoins.ToString(), (hero.Position - new Vector2(400,185)), Color.White);
+            spriteBatch.DrawString(scoreFont, "Lives: " + hero.Lives.ToString(), (hero.Position - new Vector2(400, 205)), Color.White);
+            spriteBatch.DrawString(scoreFont, "Coins: " + hero.TotalCoins.ToString(), (hero.Position - new Vector2(400, 185)), Color.White);
             hero.Draw(spriteBatch);
-            spriteBatch.End();
-            base.Draw(gameTime);
+        }
+        public void DrawInbetweenLevels(SpriteBatch spriteBatch)
+        {
+            if(endLevelCoins < 20)
+            {
+                spriteBatch.Draw(noStarsTexture, new Vector2(ScreenWidth / 2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
+            }
+            else if (endLevelCoins >= 20 && endLevelCoins < 40)
+            {
+                spriteBatch.Draw(oneStarTexture, new Vector2(ScreenWidth / 2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
+            }
+            else if(endLevelCoins >= 40 && endLevelCoins < 60)
+            {
+                spriteBatch.Draw(twoStarsTexture, new Vector2(ScreenWidth / 2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
+            }
+            else
+            {
+                spriteBatch.Draw(threeStarsTexture, new Vector2(ScreenWidth/2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
+            }
+        }
+        public bool CheckEndOfLevel()
+        {
+            if (hero.CollisionRectangle.Intersects(nextlevelObject.CollisionRectangle))
+            {
+                NextLevel();
+                return true;
+            }
+            return false;
+        }
+        private void NextLevel()
+        {
+            CollisionItemList.Clear();
+            HeroList.Clear();
+            InvisibleObjectCollisionList.Clear();
+            DeathlyObjectsList.Clear();
+            charactersList.Clear();
+            MovingObjectsList.Clear();
+            CurrentLevel = new Level2(content);
+            CurrentLevel.CreateLevel(CollisionItemList);
+            MakeLists();
+            hero.ChangePosition(70, 350);
+            endLevelCoins = hero.TotalCoins;
+            hero.TotalCoins = 0;
+            hero.Lives = 3;
         }
         private void CheckAllCollisions()
         {
@@ -165,9 +190,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             //charactersList.Add(hero);
             HeroList.Add(hero);
             //De lijst die teruggegeven wordt van een level filteren in verschillende lijsten
-            foreach (ICollide temp in CollisionItemList)
+            foreach (ICollide temp in CollisionItemList.ToList())
             {
-                if(temp is ICollideInvisible)
+                if( temp is INextLevelTile)
+                {
+                    nextlevelObject = temp;
+                    CollisionItemList.Remove(temp);
+                }
+                if (temp is ICollideInvisible)
                 {
                     InvisibleObjectCollisionList.Add(temp);
                 }
@@ -198,7 +228,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             {
                 CollisionItemList.Remove(temp);
             }
-            foreach(ICollide temp in InvisibleObjectCollisionList)
+            foreach (ICollide temp in InvisibleObjectCollisionList)
             {
                 CollisionItemList.Remove(temp);
             }

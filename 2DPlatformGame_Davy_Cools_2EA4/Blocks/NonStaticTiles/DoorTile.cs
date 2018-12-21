@@ -13,11 +13,15 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// het juiste gedrag van de DoorTile
     /// Erft over van: NonStaticTiles
     /// </summary>
-    class DoorTile : NonStaticTiles
+    class DoorTile : NonStaticTiles, INextLevelTile
     {
         public DoorTile(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {
             Position = new Vector2(Position.X, Position.Y - 38);
+        }
+        public Rectangle CollisionRectangle
+        {
+            get { return new Rectangle((int)Position.X, (int)Position.Y, texture.Width, texture.Height); }
         }
     }
 }

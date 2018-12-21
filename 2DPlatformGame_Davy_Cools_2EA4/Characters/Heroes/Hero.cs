@@ -21,7 +21,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         bool CanShootFireBall = true;
         public int TotalCoins = 0;
         private int totalLives = 3;
-        public int GetLives { get { return totalLives; }}
+        public int Lives { get { return totalLives; } set { totalLives = value; } }
         public bool IsHit { get; set; }
         Texture2D texture;
         Animation animation, heroAttackAnimation, heroRunAnimation, heroDieAnimation, heroJumpAnimation, heroIdleAnimation, heroHitAnimation;

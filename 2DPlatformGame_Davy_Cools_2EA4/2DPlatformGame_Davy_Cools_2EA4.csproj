@@ -45,6 +45,9 @@
     <Compile Include="Blocks\NonStaticTiles\BigTree2.cs" />
     <Compile Include="Blocks\NonStaticTiles\BigTree.cs" />
     <Compile Include="Blocks\NonStaticTiles\Bench.cs" />
+    <Compile Include="Interfaces\INextLevelTile.cs" />
+    <Compile Include="Levels\Level2.cs" />
+    <Compile Include="Menu\GamePlayMenu.cs" />
     <Compile Include="Menu\InfoMenu.cs" />
     <Compile Include="Menu\Button.cs" />
     <Compile Include="Characters\Enemies\Beetle.cs" />

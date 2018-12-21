@@ -39,7 +39,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public void Draw(SpriteBatch spriteBatch, int MiddleScreenWidth)
         {        
             spriteBatch.Draw(background, new Vector2(0, 0), null, Color.AliceBlue, 0f, Vector2.Zero, 0.667f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(titelTexture, new Vector2(MiddleScreenWidth - 500, 25), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
+            //spriteBatch.Draw(titelTexture, new Vector2(MiddleScreenWidth - 500, 25), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
             spriteBatch.Draw(heroMenutexture, new Vector2(285, 539), heroIdleMenuAnimation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 0.25f, SpriteEffects.None, 0f);
             spriteBatch.Draw(gremlinTexture, new Vector2(940, 572), gremlinAnimation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(gremlinTexture, new Vector2(1182, 572), gremlinAnimation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);

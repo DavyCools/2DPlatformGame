@@ -28,8 +28,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 -Character.Position.Y - (Character.CollisionRectangle.Height / 2),
                 0);
             var offset = Matrix.CreateTranslation(
-                Game1.ScreenWidth/2 / Zoom,
-                Game1.ScreenHeight/2 / Zoom,
+                GameMenuScreen.ScreenWidth/2 / Zoom,
+                GameMenuScreen.ScreenHeight/2 / Zoom,
                 0);
             Transform = position * offset * scale;
         }
