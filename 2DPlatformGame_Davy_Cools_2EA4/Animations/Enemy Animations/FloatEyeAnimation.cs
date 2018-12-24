@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (FloatEyeAnimation) is verantwoordelijk voor
+    /// de FloatEye animatie
+    /// Erft over van: Animation
+    /// </summary>
     class FloatEyeAnimation : Animation
     {
-        /// <summary>
-        /// Deze klasse (FloatEyeAnimation) is verantwoordelijk voor
-        /// de FloatEye animatie
-        /// Erft over van: Animation
-        /// </summary>
         public FloatEyeAnimation()
         {
             Speed = 5;

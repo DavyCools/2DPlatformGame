@@ -17,25 +17,22 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         List<IMoveableObject> charactersList;
         List<IMoveableObject> HeroList;
         List<ICollide> DeathlyObjectsList;
+        List<IDrawObject> removeObjects;
         ICollide nextlevelObject;
-        Hero hero;
-        Camera2d camera;
 
         static int ScreenHeight;
         static int ScreenWidth;
 
-        Level CurrentLevel;
-
+        Hero hero;
+        Camera2d camera;
+        Level currentLevel;
         CollitionChecker collider;
 
-        Background backGroundLevel1;
+        Background backGroundLevel;
         SpriteFont scoreFont;
-
-        List<IDrawObject> removeObjects;
-
         int endLevelCoins;
-        Texture2D noStarsTexture, oneStarTexture, twoStarsTexture, threeStarsTexture;
 
+        Texture2D noStarsTexture, oneStarTexture, twoStarsTexture, threeStarsTexture, hearthTexture, coinTexture;
         ContentManager content;
         public GamePlayMenu()
         {
@@ -64,13 +61,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             removeObjects = new List<IDrawObject>();
 
             hero = new Hero(Content) { _Movement = new MovementArrowKeys() };
-
             camera = new Camera2d() { Zoom = 1.5f };
-
             collider = new CollitionChecker();
-
-            CurrentLevel = new Level1(Content);
-            backGroundLevel1 = new Background(Content);
+            currentLevel = new Level1(Content);
+            backGroundLevel = new Background(Content, "BackgroundLevel1");
         }
 
         /// <summary>
@@ -81,13 +75,15 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             // Create a new SpriteBatch, which can be used to draw textures.
 
-            CurrentLevel.CreateLevel(CollisionItemList);
+            currentLevel.CreateLevel(CollisionItemList);
             MakeLists();
             scoreFont = Content.Load<SpriteFont>("ScoreFont");
             noStarsTexture = Content.Load<Texture2D>("LevelCompletedNoStars");
             oneStarTexture = Content.Load<Texture2D>("LevelCompletedOneStar");
             twoStarsTexture = Content.Load<Texture2D>("LevelCompletedTwoStars");
             threeStarsTexture = Content.Load<Texture2D>("LevelCompletedThreeStars");
+            hearthTexture = Content.Load<Texture2D>("Hearth");
+            coinTexture = Content.Load<Texture2D>("Coin");
             // TODO: use this.Content to load your game content here
         }
 
@@ -121,41 +117,39 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             // TODO: Add your drawing code here
             spriteBatch.Begin(transformMatrix: camera.Transform);
-            backGroundLevel1.Draw(spriteBatch);
-            CurrentLevel.DrawLevel(spriteBatch);
-            spriteBatch.DrawString(scoreFont, "Lives: " + hero.Lives.ToString(), (hero.Position - new Vector2(400, 205)), Color.White);
-            spriteBatch.DrawString(scoreFont, "Coins: " + hero.TotalCoins.ToString(), (hero.Position - new Vector2(400, 185)), Color.White);
+            backGroundLevel.Draw(spriteBatch);
+            currentLevel.DrawLevel(spriteBatch);
+            spriteBatch.Draw(hearthTexture, (hero.Position - new Vector2(400, 205)), null, Color.AliceBlue, 0f, Vector2.Zero, 0.25f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(coinTexture, (hero.Position - new Vector2(400, 180)), null, Color.AliceBlue, 0f, Vector2.Zero, 0.3f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(scoreFont, hero.Lives.ToString(), (hero.Position - new Vector2(370, 202)), Color.White);
+            spriteBatch.DrawString(scoreFont, hero.TotalCoins.ToString(), (hero.Position - new Vector2(370, 177)), Color.White);
             hero.Draw(spriteBatch);
         }
-        public void DrawInbetweenLevels(SpriteBatch spriteBatch)
+        public void DrawEndLevelStars(SpriteBatch spriteBatch)
         {
             if(endLevelCoins < 20)
-            {
                 spriteBatch.Draw(noStarsTexture, new Vector2(ScreenWidth / 2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
-            }
             else if (endLevelCoins >= 20 && endLevelCoins < 40)
-            {
                 spriteBatch.Draw(oneStarTexture, new Vector2(ScreenWidth / 2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
-            }
             else if(endLevelCoins >= 40 && endLevelCoins < 60)
-            {
                 spriteBatch.Draw(twoStarsTexture, new Vector2(ScreenWidth / 2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
-            }
             else
-            {
                 spriteBatch.Draw(threeStarsTexture, new Vector2(ScreenWidth/2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
-            }
+        }
+        public void SetCheats(bool teleportCheat)
+        {
+            hero._Movement.TeleportCheat = teleportCheat;
         }
         public void ResetCurrentLevel()
         {
-            CurrentLevel.TilesList.Clear();
+            currentLevel.TilesList.Clear();
             CollisionItemList.Clear();
             HeroList.Clear();
             InvisibleObjectCollisionList.Clear();
             DeathlyObjectsList.Clear();
             charactersList.Clear();
             MovingObjectsList.Clear();
-            CurrentLevel.CreateLevel(CollisionItemList);
+            currentLevel.CreateLevel(CollisionItemList);
             MakeLists();
             hero.ChangePosition(70, 770);
             endLevelCoins = hero.TotalCoins;
@@ -173,69 +167,38 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         private void NextLevel()
         {
-            CurrentLevel = new Level2(content);
-            ResetCurrentLevel();
+            if(!(currentLevel is Level2))
+            {
+                currentLevel = new Level2(content);
+                backGroundLevel = new Background(content, "BackgroundLevel2");
+                ResetCurrentLevel();
+            }
         }
         private void CheckAllCollisions()
         {
-            collider.CheckCollitionIntersect(HeroList, DeathlyObjectsList);
-            removeObjects = collider.CheckCollitionIntersect(HeroList, MovingObjectsList);
-            CurrentLevel.RemoveTile(removeObjects);
-            removeObjects = collider.CheckCollitionIntersect(HeroList, DeathlyObjectsList);
-            CurrentLevel.RemoveTile(removeObjects);
-            removeObjects = collider.CheckCollitionIntersect(hero.GetFireBalls(), DeathlyObjectsList);
-            CurrentLevel.RemoveTile(removeObjects);
-            collider.CheckCollision(charactersList, CollisionItemList);
-            collider.CheckCollision(charactersList, InvisibleObjectCollisionList);
-            collider.CheckCollision(HeroList, CollisionItemList);
-            collider.CheckCollision(hero.GetFireBalls(), CollisionItemList);
+            removeObjects = collider.CheckCollition(charactersList, CollisionItemList);
+            currentLevel.RemoveTile(removeObjects);
+            removeObjects = collider.CheckCollition(hero.GetFireBalls(), CollisionItemList);
+            currentLevel.RemoveTile(removeObjects);
         }
         private void MakeLists()
         {
-            //charactersList.Add(hero);
-            HeroList.Add(hero);
-            //De lijst die teruggegeven wordt van een level filteren in verschillende lijsten
+            charactersList.Add(hero);
             foreach (ICollide temp in CollisionItemList.ToList())
             {
-                if( temp is INextLevelTile)
-                {
-                    nextlevelObject = temp;
-                    CollisionItemList.Remove(temp);
-                }
-                if (temp is ICollideInvisible)
-                {
-                    InvisibleObjectCollisionList.Add(temp);
-                }
-                if (temp is IDeathly)
-                {
-                    DeathlyObjectsList.Add(temp);
-                }
                 if (temp is Enemy)
                 {
                     charactersList.Add((IMoveableObject)temp);
                 }
-                else if (temp is IUpdate)
+                else if (temp is IUpdate && !(temp is Enemy))
                 {
                     MovingObjectsList.Add(temp);
                 }
-            }
-            //Deze foreach verwijdert alle objecten uit de lijst van collisionItemList die niet beweegbaar zijn omdat deze later alleen gaan gecontroleerd worden of ze algemeen geraakt worden
-            foreach (ICollide temp in MovingObjectsList)
-            {
-                if (!(temp is IMoveableObject))
+                else if (temp is INextLevelTile)
+                {
+                    nextlevelObject = temp;
                     CollisionItemList.Remove(temp);
-            }
-            foreach (ICollide temp in charactersList)
-            {
-                CollisionItemList.Remove(temp);
-            }
-            foreach (ICollide temp in DeathlyObjectsList)
-            {
-                CollisionItemList.Remove(temp);
-            }
-            foreach (ICollide temp in InvisibleObjectCollisionList)
-            {
-                CollisionItemList.Remove(temp);
+                }
             }
         }
     }

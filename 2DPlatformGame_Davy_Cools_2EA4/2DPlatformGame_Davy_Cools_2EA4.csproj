@@ -52,7 +52,7 @@
     <Compile Include="Menu\Button.cs" />
     <Compile Include="Characters\Enemies\Beetle.cs" />
     <Compile Include="Blocks\NonStaticTiles\ArrowTileRight.cs" />
-    <Compile Include="Background.cs" />
+    <Compile Include="Background\Background.cs" />
     <Compile Include="Blocks\StaticTiles\GroundBlock.cs" />
     <Compile Include="Blocks\StaticTiles\GroundBlockLeft.cs" />
     <Compile Include="Blocks\StaticTiles\GroundBlockLeftCorner.cs" />
@@ -80,7 +80,6 @@
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Projectiles\FireBallBlue.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
-    <Compile Include="Projectiles\FireBall.cs" />
     <Compile Include="Animations\Collectable Animations\CoinAnimation.cs" />
     <Compile Include="Blocks\CollectAbleTiles\Coin.cs" />
     <Compile Include="Blocks\CollectAbleTiles\CollectableTiles.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="Blocks\StaticTiles\StaticTiles.cs" />
     <Compile Include="Camera\Camera2d.cs" />
     <Compile Include="CollisionDetection\CollitionChecker.cs" />
-    <Compile Include="Game1.cs" />
     <Compile Include="Characters\Heroes\Hero.cs" />
     <Compile Include="Animations\Hero Animations\HeroAttackAnimation.cs" />
     <Compile Include="Animations\Hero Animations\HeroDieAnimation.cs" />

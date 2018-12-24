@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (BeetleAnimation) is verantwoordelijk voor
+    /// de Beetle animatie
+    /// Erft over van: Animation
+    /// </summary>
     class BeetleAnimation : Animation
     {
         public BeetleAnimation()

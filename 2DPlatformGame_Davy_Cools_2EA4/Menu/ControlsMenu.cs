@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze klasse (ControlsMenu) is veratnwoordelijk voor
+    /// hoe het menu van de controls eruit moet zien
+    /// </summary>
     class ControlsMenu : IMenu
     {
         Texture2D movementControls, pauseControl, endControl;

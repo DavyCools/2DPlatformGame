@@ -22,42 +22,32 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public override void Update(IMoveableObject moveableObject)
         {
             KeyboardState stateKey = Keyboard.GetState();
-            if (stateKey.IsKeyDown(Keys.T))
-                moveableObject.ChangePosition(11600, 152);
-            //moveableObject.ChangePosition(9876, 152);
-            //moveableObject.ChangePosition(9386, 152);
-            //moveableObject.ChangePosition(5593, 150);
+            if (stateKey.IsKeyDown(Keys.T) && TeleportCheat)
+                moveableObject.ChangePosition(11561, 642);
             if (stateKey.IsKeyDown(Keys.Left) && Right == false)
             {
                 Left = true;
-                //if (!hero.TouchingLeft)
-                    moveableObject.ChangeVelocity(-movementSpeed, null);
-                    //hero.Velocity.X = -movementSpeed;
+                moveableObject.ChangeVelocity(-movementSpeed, null);
             }
             if (stateKey.IsKeyUp(Keys.Left) && Right == false)
             {
                 Left = false;
                 moveableObject.ChangeVelocity(0, null);
-                //hero.Velocity.X = 0;
             }
             if (stateKey.IsKeyDown(Keys.Right) && Left == false)
             {
                 Right = true;
                 moveableObject.ChangeVelocity(movementSpeed, null);
-                //hero.Velocity.X = movementSpeed;
             }
             if (stateKey.IsKeyUp(Keys.Right) && Left == false)
             {
                 Right = false;
                 moveableObject.ChangeVelocity(0, null);
-                //hero.Velocity.X = 0;
             }
             if (stateKey.IsKeyDown(Keys.Up) && moveableObject.Velocity.Y == 0)
             {
                 Jump = true;
-                //if (!hero.TouchingTop)
-                    moveableObject.ChangeVelocity(null, -7.8f);
-                    //hero.Velocity.Y = -7.8f;
+                moveableObject.ChangeVelocity(null, -7.8f);
             }
             if (stateKey.IsKeyUp(Keys.Up))
             {
@@ -74,13 +64,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             if (moveableObject.Velocity.Y != 0)
             {
                 moveableObject.ChangeVelocity(null, moveableObject.Velocity.Y + 0.2f);
-                //hero.Velocity.Y += 0.2f;
             }
             moveableObject.Position += moveableObject.Velocity;
             if (!moveableObject.TouchingGround && moveableObject.Velocity.Y == 0)
             {
                 moveableObject.ChangeVelocity(null, 0.2f);
-                //hero.Velocity.Y = 0.2f;
             }
         }
     }

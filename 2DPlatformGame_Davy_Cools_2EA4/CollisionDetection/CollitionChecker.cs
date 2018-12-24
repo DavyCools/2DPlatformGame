@@ -13,90 +13,112 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     class CollitionChecker
     {
-        public void CheckCollision(List<IMoveableObject> movingCharacterList, List<ICollide> CollisionList)
-        {
-            foreach(IMoveableObject movingObject in movingCharacterList.ToList())
-            {
-                foreach (ICollide collisionObject in CollisionList)
-                {
-                    if(movingObject is Projectile)
-                    {
-                        if (movingObject.CollisionRectangle.Intersects(collisionObject.CollisionRectangle))
-                        {   
-                            IDeathly temp = (IDeathly)movingObject;
-                            temp.IsHit = true;
-                            movingCharacterList.Remove(movingObject);
-                        }
-                    }
-                    else
-                    {
-                        if (movingObject.Velocity.Y >= 0 && IsTouchingTop(movingObject, collisionObject))
-                        {
-                            movingObject.ChangeVelocity(null, 0);
-                            movingObject.TouchingGround = true;
-                        }
-                        if (movingObject.Velocity.Y <= 0 && IsTouchingBottom(movingObject, collisionObject))
-                        {
-                            movingObject.ChangeVelocity(null, 0.2f);
-                            movingObject.TouchingTop = true;
-                        }
-                        if (movingObject.Velocity.X < 0 && IsTouchingRight(movingObject, collisionObject))
-                        {
-                            movingObject.ChangeVelocity(0, null);
-                            movingObject.ChangePosition(movingObject.Position.X + movingObject.MovementSpeed, null);
-                            movingObject.TouchingLeft = true;
-                        }
-                        if (movingObject.Velocity.X > 0 && IsTouchingLeft(movingObject, collisionObject))
-                        {
-                            movingObject.ChangeVelocity(0, null);
-                            movingObject.ChangePosition(movingObject.Position.X - movingObject.MovementSpeed, null);
-                            movingObject.TouchingRight = true;
-                        }
-                    } 
-                }
-            }
-                  
-        }
-        public List<IDrawObject> CheckCollitionIntersect(List<IMoveableObject> movingCharacterList, List<ICollide> CollisionList)
+        /// <summary>
+        /// Controleert of een bepaald object een ander bepaald opbject raakt
+        /// </summary>
+        /// <param name="movingObjectList"></param>
+        /// <param name="CollisionList"></param>
+        /// <returns></returns>
+        public List<IDrawObject> CheckCollition(List<IMoveableObject> movingObjectList, List<ICollide> CollisionList)
         {
             List<IDrawObject> _returnTiles = new List<IDrawObject>();
-            foreach (IMoveableObject movingObject in movingCharacterList.ToList())
+            foreach (IMoveableObject source in movingObjectList.ToList())
             {
-                foreach (ICollide collisionObject in CollisionList.ToList())
+                foreach (ICollide target in CollisionList.ToList())
                 {
-                    if (movingObject.CollisionRectangle.Intersects(collisionObject.CollisionRectangle))
+                    if (source is Hero)
                     {
-                        if(movingObject is Hero)
+                        if (target is IDeathly)
                         {
-                            if (collisionObject is Coin)
-                            {
-                                Hero temp = (Hero)movingObject;
-                                temp.TotalCoins++;
-                                CollisionList.Remove(collisionObject);
-                                _returnTiles.Add((IDrawObject)collisionObject);
-                            }
-                            if(collisionObject is IDeathly)
-                            {
-                                IDeathly temp = (IDeathly)movingObject;
-                                temp.IsHit = true;
-                            }
+                            if(source.CollisionRectangle.Intersects(target.CollisionRectangle))
+                                ((IDeathly)source).IsHit = true;
                         }
-                        else
+                        else if (target is Coin)
                         {
-                            IDeathly temp = (IDeathly)movingObject;
-                            temp.IsHit = true;
-                            if((collisionObject is IKillable))
+                            if (source.CollisionRectangle.Intersects(target.CollisionRectangle))
                             {
-                                movingCharacterList.Remove(movingObject);
-                                CollisionList.Remove(collisionObject);
-                                _returnTiles.Add((IDrawObject)collisionObject);
-                            }
+                                ((Hero)source).TotalCoins++;
+                                CollisionList.Remove(target);
+                                _returnTiles.Add((IDrawObject)target);
+                            }   
+                        }
+                        else if (!(target is ICollideInvisible))
+                        {
+                            IsTouchingSides(source,target);
+                        }
+                    }
+                    else if (source is Enemy)
+                    {
+                        if(target is IDeathly)
+                        {
+                            if (source.CollisionRectangle.Intersects(target.CollisionRectangle))
+                                ((IDeathly)target).IsHit = true;
+                        }
+                        else if (!(target is Enemy) && !(target is CollectableTiles))
+                        {
+                            IsTouchingSides(source, target);
+                        }
+                    }
+                    else if (source is Projectile)
+                    {
+                        if(target is IKillable)
+                        {
+                            if (source.CollisionRectangle.Intersects(target.CollisionRectangle))
+                            {
+                                ((IDeathly)source).IsHit = true;
+                                ((IDeathly)target).IsHit = true;
+                                _returnTiles.Add((IDrawObject)target);
+                                CollisionList.Remove(target);
+                            }   
+                        }
+                        else if (!(target is ICollideInvisible || target is CollectableTiles))
+                        {
+                            if (source.CollisionRectangle.Intersects(target.CollisionRectangle))
+                            {
+                                ((IDeathly)source).IsHit = true;
+                            }   
                         }
                     }
                 }
             }
             return _returnTiles;
         }
+        /// <summary>
+        /// Controleert aan welke kant een object het ander object raakt
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        private void IsTouchingSides(IMoveableObject source, ICollide target)
+        {
+            if (source.Velocity.Y >= 0 && IsTouchingTop(source, target))
+            {
+                source.ChangeVelocity(null, 0);
+                source.TouchingGround = true;
+            }
+            if (source.Velocity.Y <= 0 && IsTouchingBottom(source, target))
+            {
+                source.ChangeVelocity(null, 0.2f);
+                source.TouchingTop = true;
+            }
+            if (source.Velocity.X < 0 && IsTouchingRight(source, target))
+            {
+                source.ChangeVelocity(0, null);
+                source.ChangePosition(source.Position.X + source.MovementSpeed, null);
+                source.TouchingLeft = true;
+            }
+            if (source.Velocity.X > 0 && IsTouchingLeft(source, target))
+            {
+                source.ChangeVelocity(0, null);
+                source.ChangePosition(source.Position.X - source.MovementSpeed, null);
+                source.TouchingRight = true;
+            }
+        }
+        /// <summary>
+        /// Controleert of het de source het target links raakt
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         private bool IsTouchingLeft(IMoveableObject source, ICollide target)
         {
             return source.CollisionRectangle.Right + source.Velocity.X > target.CollisionRectangle.Left &&
@@ -105,6 +127,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                    source.CollisionRectangle.Top < target.CollisionRectangle.Bottom;
             
         }
+        /// <summary>
+        /// Controleert of de source het target rechts raakt
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         private bool IsTouchingRight(IMoveableObject source, ICollide target)
         {
             return source.CollisionRectangle.Left + source.Velocity.X < target.CollisionRectangle.Right &&
@@ -112,6 +140,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                    source.CollisionRectangle.Bottom > target.CollisionRectangle.Top &&
                    source.CollisionRectangle.Top < target.CollisionRectangle.Bottom;
         }
+        /// <summary>
+        /// Controleert of de source het target vanboven raakt
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         private bool IsTouchingTop(IMoveableObject source, ICollide target)
         {
             return source.CollisionRectangle.Bottom + source.Velocity.Y > target.CollisionRectangle.Top &&
@@ -119,6 +153,12 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                    source.CollisionRectangle.Right > target.CollisionRectangle.Left &&
                    source.CollisionRectangle.Left < target.CollisionRectangle.Right;
         }
+        /// <summary>
+        /// Controleert of de source het target vanonder raakt
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         private bool IsTouchingBottom(IMoveableObject source, ICollide target)
         {
             return source.CollisionRectangle.Top + source.Velocity.Y < target.CollisionRectangle.Bottom &&

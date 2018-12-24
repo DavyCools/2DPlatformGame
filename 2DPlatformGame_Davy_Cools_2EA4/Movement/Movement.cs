@@ -14,6 +14,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     public abstract class Movement
     {
         protected float movementSpeed = 3;
+        public bool TeleportCheat { get; set; }
         public bool Left { get; set; }
         public bool Right { get; set; }
         public bool Jump { get; set; }

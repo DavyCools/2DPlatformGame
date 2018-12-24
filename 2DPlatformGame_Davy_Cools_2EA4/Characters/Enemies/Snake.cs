@@ -19,5 +19,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             animation = new SnakeAnimation() {scale = 0.7f};
         }
+        public override Rectangle CollisionRectangle
+        {
+            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(48 * animation.scale)-8, (int)(48 * animation.scale) - 8); }
+        }
     }
 }

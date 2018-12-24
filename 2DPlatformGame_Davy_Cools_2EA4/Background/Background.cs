@@ -22,13 +22,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         private int screenWidth;
         private int screenHeight;
         private int backgroundWidth = 2560;
-        public Background(ContentManager content)
+        public Background(ContentManager content, string textureName)
         {
             positionX = -(GameMenuScreen.ScreenWidth / 2);
             positionY = -GameMenuScreen.ScreenHeight + 350;
             screenWidth = GameMenuScreen.ScreenWidth * 2;
             screenHeight = GameMenuScreen.ScreenHeight * 2;
-            backgroundTexture = content.Load <Texture2D>("BackgroundLevel1");
+            backgroundTexture = content.Load <Texture2D>(textureName);
             backgroundArray = new Rectangle[] { new Rectangle(positionX,positionY,screenWidth, screenHeight),
                               new Rectangle(positionX + backgroundWidth,positionY,screenWidth,screenHeight),
                               new Rectangle(positionX + backgroundWidth*2,positionY,screenWidth,screenHeight),

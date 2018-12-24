@@ -9,6 +9,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     class GremlinFrontAnimation : Animation
     {
+        /// <summary>
+        /// Deze klasse (GremlinAnimation) is verantwoordelijk voor
+        /// de Gremlin animatie die naar het scherm toe loopt
+        /// Erft over van: Animation
+        /// </summary>
         public GremlinFrontAnimation()
         {
             Speed = 5;
