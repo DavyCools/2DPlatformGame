@@ -154,6 +154,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             hero.ChangePosition(70, 770);
             endLevelCoins = hero.TotalCoins;
             hero.TotalCoins = 0;
+            endLevelCoins = 0;
             hero.Lives = 3;
         }
         public bool CheckEndOfLevel()

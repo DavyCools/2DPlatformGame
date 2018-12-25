@@ -43,7 +43,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             spriteBatch.Draw(gremlinTexture, new Vector2(940, 572), gremlinAnimation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(gremlinTexture, new Vector2(1182, 572), gremlinAnimation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(plantTexture, new Vector2(1054, 604), plantAnimation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 1.25f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(tKeyTexture, new Vector2(1180, 640), null, Color.AliceBlue, 0f, Vector2.Zero, 0.2f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(tKeyTexture, new Vector2(1075, 677), null, Color.AliceBlue, 0f, Vector2.Zero, 0.1f, SpriteEffects.None, 0f);
 
         }
     }

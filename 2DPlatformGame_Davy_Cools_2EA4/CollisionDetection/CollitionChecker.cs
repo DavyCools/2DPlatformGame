@@ -95,23 +95,27 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 source.ChangeVelocity(null, 0);
                 source.TouchingGround = true;
             }
+            if(!(source is Enemy) || source is Flame)
             if (source.Velocity.Y <= 0 && IsTouchingBottom(source, target))
             {
                 source.ChangeVelocity(null, 0.2f);
                 source.TouchingTop = true;
             }
-            if (source.Velocity.X < 0 && IsTouchingRight(source, target))
-            {
-                source.ChangeVelocity(0, null);
-                source.ChangePosition(source.Position.X + source.MovementSpeed, null);
-                source.TouchingLeft = true;
+            if(!(source is Flame)){
+                if (source.Velocity.X < 0 && IsTouchingRight(source, target))
+                {
+                    source.ChangeVelocity(0, null);
+                    source.ChangePosition(source.Position.X + source.MovementSpeed, null);
+                    source.TouchingLeft = true;
+                }
+                if (source.Velocity.X > 0 && IsTouchingLeft(source, target))
+                {
+                    source.ChangeVelocity(0, null);
+                    source.ChangePosition(source.Position.X - source.MovementSpeed, null);
+                    source.TouchingRight = true;
+                }
             }
-            if (source.Velocity.X > 0 && IsTouchingLeft(source, target))
-            {
-                source.ChangeVelocity(0, null);
-                source.ChangePosition(source.Position.X - source.MovementSpeed, null);
-                source.TouchingRight = true;
-            }
+            
         }
         /// <summary>
         /// Controleert of het de source het target links raakt

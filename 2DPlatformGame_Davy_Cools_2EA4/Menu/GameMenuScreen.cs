@@ -21,7 +21,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         MouseState mouseState;
         enum Menu { MENU, PLAY, INFO, CONTROLS, CREDITS, EXIT, PAUSE, NEXTLEVEL };
         int currentMenu = (int)Menu.MENU;
-        Button playButton, infoButton,controlsButton, creditsButton, exitButton, resumeButton, restartButton, quitButton, backButton, continueButton, checkboxButton;
+        Button playButton, infoButton,controlsButton, creditsButton, exitButton, resumeButton, restartButton, quitButton, backButton, continueButton, checkboxCheatsButton, checkboxFullscreenButton;
 
         IMenu mainMenuBackground,controlsMenu,infoMenu;
         GamePlayMenu fullGame;
@@ -41,7 +41,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             Window.Position = new Point(
                 MiddleScreenWidth - (graphics.PreferredBackBufferWidth / 2),
                 MiddleScreenHeight - (graphics.PreferredBackBufferHeight / 2));
-            //this.graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -68,7 +67,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             quitButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 + 200)) { Scale = 0.4f };
             backButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 + 200)) { Scale = 0.4f };
             continueButton = new Button(new Vector2(MiddleScreenWidth - 400, MiddleScreenHeight - 178 + 100)) { Scale = 0.4f };
-            checkboxButton = new Button(new Vector2(MiddleScreenWidth - 15 , MiddleScreenHeight + 105)) { Scale = 0.1f};
+            checkboxCheatsButton = new Button(new Vector2(MiddleScreenWidth - 15 , MiddleScreenHeight + 95)) { Scale = 0.1f};
+            checkboxFullscreenButton = new Button(new Vector2(MiddleScreenWidth + 220, MiddleScreenHeight + 95)) { Scale = 0.1f };
 
             mainMenuBackground = new MainMenu(Content);
             controlsMenu = new ControlsMenu(Content);
@@ -98,9 +98,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             backButton.ButtonTexture = Content.Load<Texture2D>("BackButton");
             resumeButton.ButtonTexture = Content.Load<Texture2D>("ResumeButton");
             continueButton.ButtonTexture = Content.Load<Texture2D>("ContinueButton");
-            checkboxButton.ButtonTexture = Content.Load<Texture2D>("CheckboxOff");
             checkboxOffTexture = Content.Load<Texture2D>("CheckboxOff");
             checkboxOnTexture = Content.Load<Texture2D>("CheckboxOn");
+            checkboxCheatsButton.ButtonTexture = checkboxOffTexture;
+            checkboxFullscreenButton.ButtonTexture = checkboxOffTexture;
             scoreFont = Content.Load<SpriteFont>("ScoreFont");
             fullGame.LoadContent(Content);
         }
@@ -134,9 +135,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     if (playButton.CheckClicked(mouseState))
                     {
                         currentMenu = (int)Menu.PLAY;
-                        //currentgame = new Game1();
-                        //currentgame.Run();
-
                     }
                     if (infoButton.CheckClicked(mouseState))
                     {
@@ -155,14 +153,23 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                         currentMenu = (int)Menu.EXIT;
                         Exit();
                     }
-                    if (checkboxButton.CheckClicked(mouseState))
+                    if (checkboxCheatsButton.CheckClicked(mouseState))
                     {
                         if (!checkboxCheats)
-                            checkboxButton.ButtonTexture = checkboxOnTexture;
+                            checkboxCheatsButton.ButtonTexture = checkboxOnTexture;
                         else
-                            checkboxButton.ButtonTexture = checkboxOffTexture;
+                            checkboxCheatsButton.ButtonTexture = checkboxOffTexture;
                         checkboxCheats = !checkboxCheats;
                         fullGame.SetCheats(checkboxCheats);
+                        Thread.Sleep(100);
+                    }
+                    if (checkboxFullscreenButton.CheckClicked(mouseState))
+                    {
+                        if (checkboxFullscreenButton.ButtonTexture == checkboxOffTexture)
+                            checkboxFullscreenButton.ButtonTexture = checkboxOnTexture;
+                        else
+                            checkboxFullscreenButton.ButtonTexture = checkboxOffTexture;
+                        graphics.ToggleFullScreen();
                         Thread.Sleep(100);
                     }
                     break;
@@ -257,11 +264,13 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     controlsButton.Draw(spriteBatch);
                     creditsButton.Draw(spriteBatch);
                     exitButton.Draw(spriteBatch);
-                    checkboxButton.Draw(spriteBatch);
+                    checkboxCheatsButton.Draw(spriteBatch);
+                    checkboxFullscreenButton.Draw(spriteBatch);
                     if(checkboxCheats)
-                        spriteBatch.DrawString(scoreFont, "Cheats on ", (new Vector2(MiddleScreenWidth + 72, MiddleScreenHeight + 140)), Color.Black);
+                        spriteBatch.DrawString(scoreFont, "Cheats on ", (new Vector2(MiddleScreenWidth - 35, MiddleScreenHeight + 145)), Color.Black);
                     else
-                        spriteBatch.DrawString(scoreFont, "Cheats off", (new Vector2(MiddleScreenWidth + 72, MiddleScreenHeight + 140)), Color.Black);
+                        spriteBatch.DrawString(scoreFont, "Cheats off", (new Vector2(MiddleScreenWidth - 35, MiddleScreenHeight + 145)), Color.Black);
+                    spriteBatch.DrawString(scoreFont, "Fullscreen", (new Vector2(MiddleScreenWidth + 190, MiddleScreenHeight + 145)), Color.Black);
                     break;
                 case (int)Menu.PLAY:
                     fullGame.Draw(gameTime, spriteBatch);
