@@ -135,6 +135,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     if (playButton.CheckClicked(mouseState))
                     {
                         currentMenu = (int)Menu.PLAY;
+                        fullGame.SetCheats(checkboxCheats);
                     }
                     if (infoButton.CheckClicked(mouseState))
                     {
@@ -160,7 +161,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                         else
                             checkboxCheatsButton.ButtonTexture = checkboxOffTexture;
                         checkboxCheats = !checkboxCheats;
-                        fullGame.SetCheats(checkboxCheats);
                         Thread.Sleep(100);
                     }
                     if (checkboxFullscreenButton.CheckClicked(mouseState))
