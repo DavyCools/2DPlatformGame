@@ -88,18 +88,35 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             if (projectileList != null)
                 UpdateProjectiles();
-            if (IsHit && totalLives != 0)
+            if (IsHit && totalLives != 0 && animation != heroHitAnimation)
             {
                 totalLives--;
-                if (totalLives != 0)
-                    Position = new Vector2(70, 770);
                 IsHit = false;
+                animation = heroHitAnimation;
             }
             if (totalLives == 0)
             {
-                animation = heroDieAnimation;
+                if(animation != heroDieAnimation)
+                {
+                    heroDieAnimation = new HeroDieAnimation();
+                    animation = heroDieAnimation;
+                }
                 if(animation.CurrentFrame != animation.frames[animation.frames.Count - 1])
                     animation.Update(gameTime);
+                else
+                    IsHit = false;     
+            }
+            else if(animation == heroHitAnimation)
+            {
+                if(animation.CurrentFrame != animation.frames[animation.frames.Count - 1])
+                    animation.Update(gameTime);
+                else if(totalLives != 0)
+                {
+                    animation = heroIdleAnimation;
+                    heroHitAnimation = new HeroHitAnimation();
+                    Position = new Vector2(70, 770);
+                    IsHit = false;
+                }
             }
             else
             {

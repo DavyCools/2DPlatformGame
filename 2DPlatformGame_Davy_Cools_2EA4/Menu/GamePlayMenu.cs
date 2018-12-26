@@ -12,14 +12,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     class GamePlayMenu
     {
         List<ICollide> CollisionItemList;
-        List<ICollide> InvisibleObjectCollisionList;
-        List<ICollide> MovingObjectsList;
         List<IMoveableObject> charactersList;
-        List<IMoveableObject> HeroList;
-        List<ICollide> DeathlyObjectsList;
         List<IDrawObject> removeObjects;
         ICollide nextlevelObject;
-
         static int ScreenHeight;
         static int ScreenWidth;
 
@@ -53,11 +48,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             ScreenWidth = screenWidth;
 
             CollisionItemList = new List<ICollide>();
-            InvisibleObjectCollisionList = new List<ICollide>();
-            MovingObjectsList = new List<ICollide>();
             charactersList = new List<IMoveableObject>();
-            HeroList = new List<IMoveableObject>();
-            DeathlyObjectsList = new List<ICollide>();
             removeObjects = new List<IDrawObject>();
 
             hero = new Hero(Content) { _Movement = new MovementArrowKeys() };
@@ -95,14 +86,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
-            foreach (IUpdate temp2 in MovingObjectsList)
+            foreach(ICollide temp in CollisionItemList)
             {
-                temp2.Update(gameTime);
-            }
-            foreach (IUpdate temp3 in charactersList)
-            {
-                if (!(temp3 is Hero))
-                    temp3.Update(gameTime);
+                if(temp is IUpdate)
+                    ((IUpdate)temp).Update(gameTime);
             }
             CheckAllCollisions();
             hero.Update(gameTime);
@@ -123,6 +110,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             spriteBatch.Draw(coinTexture, (hero.Position - new Vector2(400, 180)), null, Color.AliceBlue, 0f, Vector2.Zero, 0.3f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(scoreFont, hero.Lives.ToString(), (hero.Position - new Vector2(370, 202)), Color.White);
             spriteBatch.DrawString(scoreFont, hero.TotalCoins.ToString(), (hero.Position - new Vector2(370, 177)), Color.White);
+            if(hero.Lives == 0)
+                spriteBatch.DrawString(scoreFont, "You died! Click escape to continue ...", (hero.Position - new Vector2(125, 50)), Color.White);
             hero.Draw(spriteBatch);
         }
         public void DrawEndLevelStars(SpriteBatch spriteBatch)
@@ -144,11 +133,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         {
             currentLevel.TilesList.Clear();
             CollisionItemList.Clear();
-            HeroList.Clear();
-            InvisibleObjectCollisionList.Clear();
-            DeathlyObjectsList.Clear();
             charactersList.Clear();
-            MovingObjectsList.Clear();
             currentLevel.CreateLevel(CollisionItemList);
             MakeLists();
             hero.ChangePosition(70, 770);
@@ -189,10 +174,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 if (temp is Enemy)
                 {
                     charactersList.Add((IMoveableObject)temp);
-                }
-                else if (temp is IUpdate && !(temp is Enemy))
-                {
-                    MovingObjectsList.Add(temp);
                 }
                 else if (temp is INextLevelTile)
                 {

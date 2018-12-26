@@ -23,7 +23,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         int currentMenu = (int)Menu.MENU;
         Button playButton, infoButton,controlsButton, creditsButton, exitButton, resumeButton, restartButton, quitButton, backButton, continueButton, checkboxCheatsButton, checkboxFullscreenButton;
 
-        IMenu mainMenuBackground,controlsMenu,infoMenu;
+        IMenu mainMenuBackground,controlsMenu,infoMenu,creditsMenu;
         GamePlayMenu fullGame;
         Texture2D titelTexture;
         Texture2D checkboxOffTexture, checkboxOnTexture;
@@ -73,6 +73,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             mainMenuBackground = new MainMenu(Content);
             controlsMenu = new ControlsMenu(Content);
             infoMenu = new InfoMenu(Content);
+            creditsMenu = new CreditsMenu(Content);
             fullGame = new GamePlayMenu();
             fullGame.Initialize(Content,ScreenHeight,ScreenWidth);
             base.Initialize();
@@ -198,6 +199,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     }     
                     break;
                 case (int)Menu.CREDITS:
+                    creditsMenu.Update(gameTime);
                     if (backButton.CheckClicked(mouseState))
                     {
                         currentMenu = (int)Menu.MENU;
@@ -284,6 +286,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     backButton.Draw(spriteBatch);
                     break;
                 case (int)Menu.CREDITS:
+                    creditsMenu.Draw(spriteBatch, MiddleScreenWidth);
                     backButton.Draw(spriteBatch);
                     break;
                 case (int)Menu.PAUSE:
