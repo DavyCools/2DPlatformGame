@@ -16,6 +16,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     class SpikeGroundTrap : StaticTiles, IDeathly
     {
         public bool IsHit { get; set; }
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X + 6, (int)Position.Y, 60, 39);
         public SpikeGroundTrap(ContentManager content, Vector2 _position, string name) : base(content, _position, name)
         {
             Position = new Vector2(Position.X, Position.Y + 31);

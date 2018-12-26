@@ -152,7 +152,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             currentLevel.CreateLevel(CollisionItemList);
             MakeLists();
             hero.ChangePosition(70, 770);
-            endLevelCoins = hero.TotalCoins;
             hero.TotalCoins = 0;
             hero.Lives = 3;
         }
@@ -167,6 +166,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         private void NextLevel()
         {
+            endLevelCoins = hero.TotalCoins;
             if (!(currentLevel is Level2))
             {
                 currentLevel = new Level2(content);
