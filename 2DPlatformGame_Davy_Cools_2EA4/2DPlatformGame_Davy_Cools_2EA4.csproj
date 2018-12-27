@@ -135,6 +135,7 @@
     <Compile Include="Characters\Enemies\Snake.cs" />
     <Compile Include="Blocks\DeathlyTiles\SpikeTileSteel.cs" />
     <Compile Include="Blocks\DeathlyTiles\SpikeGroundTrap.cs" />
+    <Compile Include="Blocks\NonStaticTiles\SignTileLevel2.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

@@ -76,6 +76,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 b = new SpikeTileSteel(content, position, "SpikeTileSteel");
             else if (id == 25)
                 b = new SpikeGroundTrap(content, position, "SpikeGroundTrap");
+            else if (id == 26)
+                b = new SignTileLevel1(content, position, "SignTileLevel2");
             else if (id == 50)
                 b = new Gremlin(content, position, "GremlinSheet");
             else if (id == 51)
