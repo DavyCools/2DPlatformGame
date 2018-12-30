@@ -20,8 +20,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         }
         public void Draw(SpriteBatch spriteBatch, int MiddleScreenWidth)
         {
-            spriteBatch.Draw(creditsTexture, new Vector2(MiddleScreenWidth - 520, height), null, Color.AliceBlue, 0f, Vector2.Zero, 0.55f, SpriteEffects.None, 0f);
             spriteBatch.Draw(creditsBackgroundTexture, new Vector2(MiddleScreenWidth - 520, 130), null, Color.AliceBlue, 0f, Vector2.Zero, 0.55f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(creditsTexture, new Vector2(MiddleScreenWidth - 520, height), null, Color.AliceBlue, 0f, Vector2.Zero, 0.55f, SpriteEffects.None, 0f);
+            
         }
 
         public void Update(GameTime gameTime)

@@ -111,7 +111,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             spriteBatch.DrawString(scoreFont, hero.Lives.ToString(), (hero.Position - new Vector2(370, 202)), Color.White);
             spriteBatch.DrawString(scoreFont, hero.TotalCoins.ToString(), (hero.Position - new Vector2(370, 177)), Color.White);
             if(hero.Lives == 0)
-                spriteBatch.DrawString(scoreFont, "You died! Click escape to continue ...", (hero.Position - new Vector2(125, 50)), Color.White);
+                spriteBatch.DrawString(scoreFont, "You died! Press escape to continue ...", (hero.Position - new Vector2(125, 50)), Color.White);
             hero.Draw(spriteBatch);
         }
         public void DrawEndLevelStars(SpriteBatch spriteBatch)
