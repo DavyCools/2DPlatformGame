@@ -9,7 +9,11 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class GamePlayMenu
+    /// <summary>
+    /// Deze klasse (GamePlay) is verantwoordelijk voor
+    /// het gedrag van de game zelf
+    /// </summary>
+    class GamePlay
     {
         List<ICollide> CollisionItemList;
         List<IMoveableObject> charactersList;
@@ -29,21 +33,17 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 
         Texture2D noStarsTexture, oneStarTexture, twoStarsTexture, threeStarsTexture, hearthTexture, coinTexture;
         ContentManager content;
-        public GamePlayMenu()
+        public GamePlay()
         {
 
         }
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
+        /// Initialiseert alles voor de game
         /// </summary>
         public void Initialize(ContentManager Content, int screenHeight, int screenWidth)
         {
             content = Content;
-            // TODO: Add your initialization logic here
             ScreenHeight = screenHeight;
             ScreenWidth = screenWidth;
 
@@ -55,17 +55,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             camera = new Camera2d() { Zoom = 1.5f };
             collider = new CollitionChecker();
             currentLevel = new Level1(Content);
-            backGroundLevel = new Background(Content, "BackgroundLevel1");
+            backGroundLevel = new Background(Content, "BackgroundLevel1",ScreenWidth,ScreenHeight);
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        /// Laad alle content voor de game
         /// </summary>
         public void LoadContent(ContentManager Content)
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-
             currentLevel.CreateLevel(CollisionItemList);
             MakeLists();
             scoreFont = Content.Load<SpriteFont>("ScoreFont");
@@ -75,12 +72,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             threeStarsTexture = Content.Load<Texture2D>("LevelCompletedThreeStars");
             hearthTexture = Content.Load<Texture2D>("Hearth");
             coinTexture = Content.Load<Texture2D>("Coin");
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
+        /// Update de game
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public void Update(GameTime gameTime)
@@ -93,14 +88,14 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             }
             CheckAllCollisions();
             hero.Update(gameTime);
-            camera.Follow(hero);
+            camera.Follow(hero,ScreenWidth,ScreenHeight);
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        /// Tekent de game
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             // TODO: Add your drawing code here
             spriteBatch.Begin(transformMatrix: camera.Transform);
@@ -114,6 +109,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 spriteBatch.DrawString(scoreFont, "You died! Press escape to continue ...", (hero.Position - new Vector2(125, 50)), Color.White);
             hero.Draw(spriteBatch);
         }
+        /// <summary>
+        /// Tekent het aantal sterren op het einde van een level
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void DrawEndLevelStars(SpriteBatch spriteBatch)
         {
             if(endLevelCoins < 20)
@@ -125,10 +124,17 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             else
                 spriteBatch.Draw(threeStarsTexture, new Vector2(ScreenWidth/2 - 380, ScreenHeight / 2 - 375), null, Color.AliceBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
         }
+        /// <summary>
+        /// Zet de cheats van de game aan/af
+        /// </summary>
+        /// <param name="teleportCheat"></param>
         public void SetCheats(bool teleportCheat)
         {
             hero._Movement.TeleportCheat = teleportCheat;
         }
+        /// <summary>
+        /// Reset het huidige level
+        /// </summary>
         public void ResetCurrentLevel()
         {
             currentLevel.TilesList.Clear();
@@ -140,6 +146,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             hero.TotalCoins = 0;
             hero.Lives = 3;
         }
+        /// <summary>
+        /// Controleert of je op het einde van het level zit
+        /// </summary>
+        /// <returns></returns>
         public bool CheckEndOfLevel()
         {
             if (hero.CollisionRectangle.Intersects(nextlevelObject.CollisionRectangle))
@@ -149,16 +159,22 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             }
             return false;
         }
+        /// <summary>
+        /// Inladen van het volgende level
+        /// </summary>
         private void NextLevel()
         {
             endLevelCoins = hero.TotalCoins;
             if (!(currentLevel is Level2))
             {
                 currentLevel = new Level2(content);
-                backGroundLevel = new Background(content, "BackgroundLevel2");
+                backGroundLevel = new Background(content, "BackgroundLevel2",ScreenWidth,ScreenHeight);
                 ResetCurrentLevel();
             }
         }
+        /// <summary>
+        /// Controleren van collision
+        /// </summary>
         private void CheckAllCollisions()
         {
             removeObjects = collider.CheckCollition(charactersList, CollisionItemList);
@@ -166,6 +182,9 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             removeObjects = collider.CheckCollition(hero.GetFireBalls(), CollisionItemList);
             currentLevel.RemoveTile(removeObjects);
         }
+        /// <summary>
+        /// Maken van een lijst van beweegbare objecten uit de collisionlijst
+        /// </summary>
         private void MakeLists()
         {
             charactersList.Add(hero);

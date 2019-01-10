@@ -10,6 +10,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// <summary>
     /// Deze klasse (Level1) bepaalt
     /// de layout van het level 1
+    /// Erft over van: Level
     /// </summary>
     class Level1 : Level
     {

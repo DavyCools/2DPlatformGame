@@ -9,7 +9,12 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    class MainMenu : IMenu
+    /// <summary>
+    /// Deze klasse (MenuBackground) is verantwoordelijk voor
+    /// het tonen van de achtergrond van een menu
+    /// Erft over van: IMenuState
+    /// </summary>
+    class MenuBackground
     {
         Texture2D background;
         Texture2D heroMenutexture;
@@ -19,7 +24,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         Texture2D plantTexture;
         Animation plantAnimation;
         Texture2D tKeyTexture;
-        public MainMenu(ContentManager content)
+        public MenuBackground(ContentManager content)
         {
             background = content.Load<Texture2D>("MenuImage");
             heroMenutexture = content.Load<Texture2D>("IceWizard");
@@ -30,14 +35,23 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             plantAnimation = new PlantAnimation();
             tKeyTexture = content.Load<Texture2D>("TKey");
         }
+        /// <summary>
+        /// Update de achtergrond van een menu
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             heroIdleMenuAnimation.Update(gameTime);
             gremlinAnimation.Update(gameTime);
             plantAnimation.Update(gameTime);
         }
+        /// <summary>
+        /// Tekent de achtergrond van een menu
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="MiddleScreenWidth"></param>
         public void Draw(SpriteBatch spriteBatch, int MiddleScreenWidth)
-        {        
+        {
             spriteBatch.Draw(background, new Vector2(0, 0), null, Color.AliceBlue, 0f, Vector2.Zero, 0.667f, SpriteEffects.None, 0f);
             spriteBatch.Draw(heroMenutexture, new Vector2(285, 539), heroIdleMenuAnimation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 0.25f, SpriteEffects.None, 0f);
             spriteBatch.Draw(gremlinTexture, new Vector2(940, 572), gremlinAnimation.CurrentFrame.FrameSelector, Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);

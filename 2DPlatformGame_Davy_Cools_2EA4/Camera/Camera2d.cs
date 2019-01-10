@@ -20,7 +20,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         /// Volgt het meegegeven object zodat deze steeds in het midden van het scherm blijft
         /// </summary>
         /// <param name="Character"></param>
-        public void Follow(IMoveableObject Character)
+        public void Follow(IMoveableObject Character, int screenWidth, int screenHeight)
         {
             Matrix scale = Matrix.CreateScale(Zoom, Zoom, 1);
             var position = Matrix.CreateTranslation(
@@ -28,8 +28,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 -Character.Position.Y - (Character.CollisionRectangle.Height / 2),
                 0);
             var offset = Matrix.CreateTranslation(
-                GameMenuScreen.ScreenWidth/2 / Zoom,
-                GameMenuScreen.ScreenHeight/2 / Zoom,
+                screenWidth / 2 / Zoom,
+                screenHeight / 2 / Zoom,
                 0);
             Transform = position * offset * scale;
         }

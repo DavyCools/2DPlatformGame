@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
-    public interface IMenu
+    /// <summary>
+    /// Deze interface (IMenuState) is verantwoordelijk voor
+    /// de methoden te definieren van een menu
+    /// Erft over van: IMenuState
+    /// </summary>
+    interface IMenuState
     {
-        void Draw(SpriteBatch spriteBatch, int MiddleScreenWidth);
+        void Draw(SpriteBatch spriteBatch);
         void Update(GameTime gameTime);
     }
 }
