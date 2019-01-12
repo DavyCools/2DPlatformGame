@@ -14,7 +14,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// het gedrag van de held
     /// Erft over van: IMoveableObject, IUpdate, IDrawObject, IDeathly
     /// </summary>
-    public class Hero : IMoveableObject, IUpdate, IDrawObject, IDeathly
+    public class Hero : IMoveableObject, IUpdate, IDrawObject, IKillable
     {
         List<IMoveableObject> projectileList;
         Texture2D bulletTexture;

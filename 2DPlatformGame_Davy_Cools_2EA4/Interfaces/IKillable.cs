@@ -12,5 +12,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     interface IKillable
     {
+        bool IsHit { get; set; }
     }
 }

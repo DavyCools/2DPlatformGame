@@ -15,6 +15,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     class Beetle : Enemy, IKillable
     {
+        public bool IsHit { get; set; }
         public Beetle(ContentManager content, Vector2 position, string name) : base(content, position, name)
         {
             animation = new BeetleAnimation() { scale = 0.7f };

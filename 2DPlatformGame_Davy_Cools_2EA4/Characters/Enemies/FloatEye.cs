@@ -16,6 +16,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     class FloatEye : Enemy, IKillable
     {
+        public bool IsHit { get; set; }
         public FloatEye(ContentManager content, Vector2 position, string name) : base(content, position, name)
         {
             animation = new FloatEyeAnimation() {scale = 1f};

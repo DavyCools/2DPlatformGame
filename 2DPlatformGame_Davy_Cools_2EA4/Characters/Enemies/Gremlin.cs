@@ -16,6 +16,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// </summary>
     class Gremlin : Enemy, IKillable
     {
+        public bool IsHit { get; set; }
         public Gremlin(ContentManager content,Vector2 position, string name) : base(content,position, name)
         {
             animation = new GremlinAnimation() {scale = 0.7f};

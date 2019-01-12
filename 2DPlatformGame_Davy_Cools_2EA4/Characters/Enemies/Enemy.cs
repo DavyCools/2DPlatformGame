@@ -24,7 +24,6 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         public bool TouchingRight { get; set; }
         public bool TouchingTop { get; set; }
         public virtual float MovementSpeed => 1.5f;
-        public bool IsHit { get; set; }
         public Enemy(ContentManager content,Vector2 position, String name)
         {
             texture = content.Load<Texture2D>(name);

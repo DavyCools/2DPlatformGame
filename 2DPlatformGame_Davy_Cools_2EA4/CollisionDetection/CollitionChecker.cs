@@ -31,7 +31,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                         if (target is IDeathly)
                         {
                             if(source.CollisionRectangle.Intersects(target.CollisionRectangle))
-                                ((IDeathly)source).IsHit = true;
+                                ((IKillable)source).IsHit = true;
                         }
                         else if (target is Coin)
                         {
@@ -49,10 +49,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                     }
                     else if (source is Enemy)
                     {
-                        if(target is IDeathly)
+                        if(target is IKillable)
                         {
                             if (source.CollisionRectangle.Intersects(target.CollisionRectangle))
-                                ((IDeathly)target).IsHit = true;
+                                ((IKillable)target).IsHit = true;
                         }
                         else if (!(target is Enemy) && !(target is CollectableTiles))
                         {
@@ -65,8 +65,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                         {
                             if (source.CollisionRectangle.Intersects(target.CollisionRectangle))
                             {
-                                ((IDeathly)source).IsHit = true;
-                                ((IDeathly)target).IsHit = true;
+                                ((IKillable)source).IsHit = true;
+                                ((IKillable)target).IsHit = true;
                                 _returnTiles.Add((IDrawObject)target);
                                 CollisionList.Remove(target);
                             }   
@@ -75,7 +75,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                         {
                             if (source.CollisionRectangle.Intersects(target.CollisionRectangle))
                             {
-                                ((IDeathly)source).IsHit = true;
+                                ((IKillable)source).IsHit = true;
                             }   
                         }
                     }

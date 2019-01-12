@@ -8,11 +8,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
 {
     /// <summary>
     /// Deze interface (IDeathly) moet gegeven worden aan 
-    /// alle objecten die kunnen geraakt worden
+    /// alle objecten die dodelijk zijn
     /// Erft over van: ICollide
     /// </summary>
     interface IDeathly : ICollide
     {
-        bool IsHit { get; set; }
     }
 }

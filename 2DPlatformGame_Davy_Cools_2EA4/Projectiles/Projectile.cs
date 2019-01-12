@@ -13,7 +13,7 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
     /// de properties/methodes die nodig zijn voor een Projectiel
     /// Erft over van: IMoveableObject, IDrawObject, IDeathly
     /// </summary>
-    abstract class Projectile : IMoveableObject, IDrawObject, IDeathly
+    abstract class Projectile : IMoveableObject, IDrawObject, IDeathly, IKillable
     {
         private Texture2D texture;
         private Vector2 spawnPosition;
