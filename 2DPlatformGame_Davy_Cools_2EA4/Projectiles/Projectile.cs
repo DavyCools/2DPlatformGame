@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace _2DPlatformGame_Davy_Cools_2EA4
 {
+    /// <summary>
+    /// Deze abstracte klasse (Projectile) definieert 
+    /// de properties/methodes die nodig zijn voor een Projectiel
+    /// Erft over van: IMoveableObject, IDrawObject, IDeathly
+    /// </summary>
     abstract class Projectile : IMoveableObject, IDrawObject, IDeathly
     {
         private Texture2D texture;
@@ -26,6 +31,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             get { return velocity; }
             set { velocity = value; }
         }
+        /// <summary>
+        /// Aanpassen van de velocity
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null)
@@ -39,6 +49,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             get { return position; }
             set { position = value; }
         }
+        /// <summary>
+        /// Aanpassen van de positie
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -72,6 +87,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 ChangePosition(Position.X + 35, Position.Y + 30);
             spawnPosition = _position;     
         }
+        /// <summary>
+        /// Update de positie van het projectiel
+        /// </summary>
+        /// <returns></returns>
         public bool Update()
         {
             if (flipAnimation)
@@ -88,6 +107,10 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             }
             return false;
         }
+        /// <summary>
+        /// Tekent het projectiel
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), 0.6f, flipAnimation ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1f);

@@ -35,6 +35,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
             get { return velocity; }
             set { velocity = value; }
         }
+        /// <summary>
+        /// Past de velocity aan van een beweegbare blok
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null)
@@ -43,6 +48,11 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
                 velocity.Y = (float)y;
         }
         protected Vector2 position;
+        /// <summary>
+        /// Past de positie aan van een beweegbare blok
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)

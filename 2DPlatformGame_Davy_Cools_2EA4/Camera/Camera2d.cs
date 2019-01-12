@@ -20,6 +20,8 @@ namespace _2DPlatformGame_Davy_Cools_2EA4
         /// Volgt het meegegeven object zodat deze steeds in het midden van het scherm blijft
         /// </summary>
         /// <param name="Character"></param>
+        /// <param name="screenWidth"></param>
+        /// <param name="screenHeight"></param>
         public void Follow(IMoveableObject Character, int screenWidth, int screenHeight)
         {
             Matrix scale = Matrix.CreateScale(Zoom, Zoom, 1);
